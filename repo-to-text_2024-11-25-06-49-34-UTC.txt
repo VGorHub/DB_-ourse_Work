@@ -4,35 +4,182 @@ Directory Structure:
 ```
 .
 .
+├── ./.DS_Store
 ├── ./.env
+├── ./.git
+│   ├── ./.git/COMMIT_EDITMSG
+│   ├── ./.git/FETCH_HEAD
+│   ├── ./.git/HEAD
+│   ├── ./.git/ORIG_HEAD
+│   ├── ./.git/config
+│   ├── ./.git/description
+│   ├── ./.git/hooks
+│   │   ├── ./.git/hooks/applypatch-msg.sample
+│   │   ├── ./.git/hooks/commit-msg.sample
+│   │   ├── ./.git/hooks/fsmonitor-watchman.sample
+│   │   ├── ./.git/hooks/post-update.sample
+│   │   ├── ./.git/hooks/pre-applypatch.sample
+│   │   ├── ./.git/hooks/pre-commit.sample
+│   │   ├── ./.git/hooks/pre-merge-commit.sample
+│   │   ├── ./.git/hooks/pre-push.sample
+│   │   ├── ./.git/hooks/pre-rebase.sample
+│   │   ├── ./.git/hooks/pre-receive.sample
+│   │   ├── ./.git/hooks/prepare-commit-msg.sample
+│   │   ├── ./.git/hooks/push-to-checkout.sample
+│   │   ├── ./.git/hooks/sendemail-validate.sample
+│   │   └── ./.git/hooks/update.sample
+│   ├── ./.git/index
+│   ├── ./.git/info
+│   │   └── ./.git/info/exclude
+│   ├── ./.git/logs
+│   │   ├── ./.git/logs/HEAD
+│   │       ├── ./.git/logs/refs/heads
+│   │       │   ├── ./.git/logs/refs/heads/lab2
+│   │       │   ├── ./.git/logs/refs/heads/lab3
+│   │       │   └── ./.git/logs/refs/heads/master
+│   │           └── ./.git/logs/refs/remotes/origin
+│   │               ├── ./.git/logs/refs/remotes/origin/lab2
+│   │               └── ./.git/logs/refs/remotes/origin/master
+│   │   ├── ./.git/objects/00
+│   │   │   └── ./.git/objects/00/483d5ec5c90a7493480d0d4f8fb95b70fd6cb9
+│   │   ├── ./.git/objects/03
+│   │   │   ├── ./.git/objects/03/06c7898674d62df916b948c82cb3ba5136d02f
+│   │   │   └── ./.git/objects/03/c73f84aeb9947f830f86e438c420c1bbf1e355
+│   │   ├── ./.git/objects/07
+│   │   │   └── ./.git/objects/07/803bd682bae71b420f72353954f1dbdc0be9ae
+│   │   ├── ./.git/objects/0b
+│   │   │   └── ./.git/objects/0b/9a9840c0fd1de3606b1dbb9feed84e140a7817
+│   │   ├── ./.git/objects/11
+│   │   │   └── ./.git/objects/11/5ddf850c2903c29e33e7878848f7769c7f4c27
+│   │   ├── ./.git/objects/13
+│   │   │   └── ./.git/objects/13/ac7ea9e2e24154aced08123fc54e350634e9b8
+│   │   ├── ./.git/objects/18
+│   │   │   ├── ./.git/objects/18/37362069a680a8b030b3428c4b0f7defb8b561
+│   │   │   └── ./.git/objects/18/b3ee277e9bdbd1c8928d0ddff4cb8955dadddf
+│   │   ├── ./.git/objects/1e
+│   │   │   └── ./.git/objects/1e/9e9cba1486aafff4ca58774704dcc4f32e3c07
+│   │   ├── ./.git/objects/1f
+│   │   │   └── ./.git/objects/1f/81da72f8824bcba8ccf31b5c5ad95a4fb1a8df
+│   │   ├── ./.git/objects/35
+│   │   │   └── ./.git/objects/35/46dd6d21a68122de2679fd2343bb5824fabdca
+│   │   ├── ./.git/objects/37
+│   │   │   └── ./.git/objects/37/ad245ff76f3319c33a10a6d5d8049b3c4c6ae3
+│   │   ├── ./.git/objects/3c
+│   │   │   └── ./.git/objects/3c/f56642e00c9edb0be84689f948c18f64e63779
+│   │   ├── ./.git/objects/40
+│   │   │   └── ./.git/objects/40/864c324b87c86c9d295b33ecc8869047039cc8
+│   │   ├── ./.git/objects/47
+│   │   │   └── ./.git/objects/47/6940fbc00b410c268a302439a49111b1aaace2
+│   │   ├── ./.git/objects/58
+│   │   │   └── ./.git/objects/58/bf5f3460a5f3320b8d20a9fe0be5fc59762d8c
+│   │   ├── ./.git/objects/5e
+│   │   │   └── ./.git/objects/5e/110b35b0fe7aec9a180087ee93a45017f41e26
+│   │   ├── ./.git/objects/65
+│   │   │   └── ./.git/objects/65/63c10798bbacdfb3b6505ccc78fef7f78fa3a2
+│   │   ├── ./.git/objects/67
+│   │   │   └── ./.git/objects/67/49dbe127ee2e51b4cf74bbf42ed724c75a074e
+│   │   ├── ./.git/objects/69
+│   │   │   └── ./.git/objects/69/4323fa4c8382f9effc636c7062ef168bb62da2
+│   │   ├── ./.git/objects/6d
+│   │   │   └── ./.git/objects/6d/3380a2899f2c1bec86c1cf83b54101fbbd816c
+│   │   ├── ./.git/objects/70
+│   │   │   └── ./.git/objects/70/489a751315c53915643fbf218ee48eb631d988
+│   │   ├── ./.git/objects/72
+│   │   │   └── ./.git/objects/72/1ecd9990b3b9d1ea854889bd7b4c97f0325af2
+│   │   ├── ./.git/objects/7c
+│   │   │   └── ./.git/objects/7c/e503c2dd97ba78597f6ff6e4393132753573f6
+│   │   ├── ./.git/objects/7f
+│   │   │   └── ./.git/objects/7f/185e89fda41a5b0b87d86118e896da88fa9908
+│   │   ├── ./.git/objects/88
+│   │   │   └── ./.git/objects/88/2376e6621817dd93c7980d79c28054ec745b0b
+│   │   ├── ./.git/objects/8c
+│   │   │   └── ./.git/objects/8c/70c63c94ddd31dd3b8aea91e78b2048384a8b6
+│   │   ├── ./.git/objects/8d
+│   │   │   └── ./.git/objects/8d/6a81a8fe657a357bc3b0f9c388a4ec7dc628a3
+│   │   ├── ./.git/objects/92
+│   │   │   ├── ./.git/objects/92/635602aaa35b2f12492d77b9a8e9aebcef7cf9
+│   │   │   └── ./.git/objects/92/bb9a3b2d3b0672cabcfad26835e94407fe1347
+│   │   ├── ./.git/objects/95
+│   │   │   └── ./.git/objects/95/658e04874c53c81ee40724cfb791af3ba6faa2
+│   │   ├── ./.git/objects/9a
+│   │   │   └── ./.git/objects/9a/c8685c11c6367bf93ecf8de86c205f15847c24
+│   │   ├── ./.git/objects/9c
+│   │   │   └── ./.git/objects/9c/6f1e69cc3008aab265982464af294cbfe9322e
+│   │   ├── ./.git/objects/a2
+│   │   │   └── ./.git/objects/a2/424b9496965175a997042641b086aee0488237
+│   │   ├── ./.git/objects/ac
+│   │   │   └── ./.git/objects/ac/6845a8e5a504e9ad187e388e9b65d52369c7fb
+│   │   ├── ./.git/objects/af
+│   │   │   └── ./.git/objects/af/a5742895552f8549c25e8f8e10ceb9535fd52f
+│   │   ├── ./.git/objects/b0
+│   │   │   └── ./.git/objects/b0/d0b1c4a7266b82059580f8900ab18773e13f03
+│   │   ├── ./.git/objects/c1
+│   │   │   └── ./.git/objects/c1/901223c27ebed7f12bd4e3eb6cd4e02477122a
+│   │   ├── ./.git/objects/c6
+│   │   │   ├── ./.git/objects/c6/3e50e2aa260a6dae0172ea1d74a104b121112f
+│   │   │   └── ./.git/objects/c6/88e01f53fb3e419e435a5648c33dcafeae37cd
+│   │   ├── ./.git/objects/c8
+│   │   │   └── ./.git/objects/c8/67ad5cf746a55692ca23171083b18ba9ce4bcb
+│   │   ├── ./.git/objects/cb
+│   │   │   ├── ./.git/objects/cb/37ab6a60e7ebb497859b36b73fc7b4e525a373
+│   │   │   └── ./.git/objects/cb/3d6310e8ccccfc04ba23117679b00bbd6db34e
+│   │   ├── ./.git/objects/d2
+│   │   │   └── ./.git/objects/d2/1a5f88f15602613df88fa1e398e994044b08ac
+│   │   ├── ./.git/objects/db
+│   │   │   └── ./.git/objects/db/42944db97488f56c1faeb3bdb13a3dbdc2d75f
+│   │   ├── ./.git/objects/de
+│   │   │   └── ./.git/objects/de/65bca72ccf6772ed1bf04977d2d913ab55e365
+│   │   ├── ./.git/objects/e6
+│   │   │   └── ./.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+│   │   ├── ./.git/objects/e8
+│   │   │   └── ./.git/objects/e8/0c4a77a961a478959d3ab968d48aa2714be03e
+│   │   ├── ./.git/objects/e9
+│   │   │   └── ./.git/objects/e9/b3d0e1208a8cbf9976f970b84871b023af88fd
+│   │   ├── ./.git/objects/ed
+│   │   │   └── ./.git/objects/ed/327d22f5ad028ff7fae6c967945e1da8438a82
+│   │   ├── ./.git/objects/f1
+│   │   │   └── ./.git/objects/f1/fd6b9909fd99af730d7f3f28da64d83722dc61
+│   │   ├── ./.git/objects/fd
+│   │   │   ├── ./.git/objects/fd/6c8b95ce1b8f6147ac841e98ff66ecb73153e4
+│   │   │   └── ./.git/objects/fd/a01c2d548fcb41da17195f4ddef7b24c0238ad
+│   │   ├── ./.git/objects/ff
+│   │   │   └── ./.git/objects/ff/ffa7dbb005aafbcb08a19373d15d6014c15149
+│       ├── ./.git/refs/heads
+│       │   ├── ./.git/refs/heads/lab2
+│       │   ├── ./.git/refs/heads/lab3
+│       │   └── ./.git/refs/heads/master
+│       │   └── ./.git/refs/remotes/origin
+│       │       ├── ./.git/refs/remotes/origin/lab2
+│       │       └── ./.git/refs/remotes/origin/master
 ├── ./app
-│   ├── .__init__.py
-│   ├── .admin.py
-│   ├── .apps.py
-│   ├── .context_processors.py
-│   ├── .filters.py
-│   ├── .forms.py
-│   ├── .migrations
-│   │   ├── .migrations/0001_initial.py
-│   │   ├── .migrations/0002_alter_appuser_age_alter_employee_age_and_more.py
-│   │   └── .migrations/__init__.py
-│   ├── .models.py
-│   ├── .templates
-│   │   ├── .templates/add_employee.html
-│   │   ├── .templates/add_user.html
-│   │   ├── .templates/base.html
-│   │   ├── .templates/employee_detail.html
-│   │   ├── .templates/employee_list.html
-│   │   ├── .templates/index.html
-│   │   ├── .templates/set_role.html
-│   │   ├── .templates/user_detail.html
-│   │   └── .templates/user_list.html
-│   ├── .templatetags
-│   │   ├── .templatetags/__init__.py
-│   │   └── .templatetags/app_extras.py
-│   ├── .tests.py
-│   ├── .urls.py
-│   └── .views.py
+│   ├── ./app/__init__.py
+│   ├── ./app/admin.py
+│   ├── ./app/apps.py
+│   ├── ./app/context_processors.py
+│   ├── ./app/filters.py
+│   ├── ./app/forms.py
+│   ├── ./app/migrations
+│   │   ├── ./app/migrations/0001_initial.py
+│   │   ├── ./app/migrations/0002_alter_appuser_age_alter_employee_age_and_more.py
+│   │   └── ./app/migrations/__init__.py
+│   ├── ./app/models.py
+│   ├── ./app/serializers.py
+│   ├── ./app/templates
+│   │   ├── ./app/templates/add_employee.html
+│   │   ├── ./app/templates/add_user.html
+│   │   ├── ./app/templates/base.html
+│   │   ├── ./app/templates/employee_detail.html
+│   │   ├── ./app/templates/employee_list.html
+│   │   ├── ./app/templates/index.html
+│   │   ├── ./app/templates/set_role.html
+│   │   ├── ./app/templates/user_detail.html
+│   │   └── ./app/templates/user_list.html
+│   ├── ./app/templatetags
+│   │   ├── ./app/templatetags/__init__.py
+│   │   └── ./app/templatetags/app_extras.py
+│   ├── ./app/tests.py
+│   ├── ./app/urls.py
+│   └── ./app/views.py
 ├── ./manage.py
 │   ├── ./media/answer_images
 │   │   └── ./media/answer_images/4eb2b2b6962f9815f60feb4c27c84cd0.jpg
@@ -42,13 +189,18 @@ Directory Structure:
 │       ├── ./media/question_images/question2.jpg
 │       ├── ./media/question_images/question3.jpg
 │       └── ./media/question_images/question4.jpg
-├── ./myproject
-│   ├── ./myproject/__init__.py
-│   ├── ./myproject/asgi.py
-│   ├── ./myproject/settings.py
-│   ├── ./myproject/urls.py
-│   └── ./myproject/wsgi.py
-└── ./repo-to-text_2024-11-21-17-51-31-UTC.txt
+└── ./myproject
+    ├── ./myproject/__init__.py
+    ├── ./myproject/asgi.py
+    ├── ./myproject/settings.py
+    ├── ./myproject/urls.py
+    └── ./myproject/wsgi.py
+```
+
+Contents of .DS_Store:
+```
+[Could not decode file contents]
+
 ```
 
 Contents of .env:
@@ -139,6 +291,28 @@ class Employee(models.Model):
 
 ```
 
+Contents of app/serializers.py:
+```
+# app/serializers.py
+from rest_framework import serializers
+
+class UserSerializer(serializers.Serializer):
+    ID = serializers.IntegerField()
+    Full_Name = serializers.CharField(max_length=255, source='Full Name')
+    Email = serializers.EmailField()
+    Age = serializers.IntegerField()
+
+class EmployeeSerializer(serializers.Serializer):
+    ID = serializers.IntegerField()
+    Full_Name = serializers.CharField(max_length=255, source='Full Name')
+    Years_of_Experience = serializers.IntegerField(source='Years of Experience')
+    Position = serializers.CharField(max_length=255)
+    Salary = serializers.DecimalField(max_digits=10, decimal_places=2)
+    Age = serializers.IntegerField()
+    Photo = serializers.CharField(allow_null=True, required=False)
+
+```
+
 Contents of app/__init__.py:
 ```
 
@@ -177,6 +351,7 @@ def add_role_and_user_id(request):
     return {
         'role': request.session.get('role', 'user'),
         'user_id': request.session.get('user_id', ''),
+        'employee_id': request.session.get('employee_id', None),
     }
 
 ```
@@ -197,12 +372,13 @@ from django.test import TestCase
 
 Contents of app/urls.py:
 ```
+# app/urls.py
+
 from django.urls import path
-from django.contrib.auth import views as auth_views
 from . import views
 
-
 urlpatterns = [
+    # Web Views
     path('', views.index, name='index'),
     path('set_role/', views.set_role, name='set_role'),
     path('users/', views.user_list, name='user_list'),
@@ -211,6 +387,12 @@ urlpatterns = [
     path('employees/<int:employee_id>/', views.employee_detail, name='employee_detail'),
     path('users/add/', views.add_user, name='add_user'),
     path('employees/add/', views.add_employee, name='add_employee'),
+
+    # API Views
+    path('api/users/', views.UserListAPI.as_view(), name='api_user_list'),
+    path('api/users/<int:user_id>/', views.UserDetailAPI.as_view(), name='api_user_detail'),
+    path('api/employees/', views.EmployeeListAPI.as_view(), name='api_employee_list'),
+    path('api/employees/<int:employee_id>/', views.EmployeeDetailAPI.as_view(), name='api_employee_detail'),
 ]
 
 ```
@@ -225,7 +407,7 @@ import django_filters
 
 Contents of app/views.py:
 ```
-# views.py
+# app/views.py
 
 from django.shortcuts import render, redirect
 from django.db import connection
@@ -233,15 +415,21 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 from .models import AppUser, Employee
+from django.views.decorators.csrf import csrf_exempt
+
+# Добавляем импорты для DRF
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import UserSerializer, EmployeeSerializer
+
 
 def index(request):
-    last_page = request.session.get('last_page')
-    if last_page:
-        return redirect(last_page)
-    else:
         role = request.session.get('role', 'user')
         user_id = request.session.get('user_id')
-        return render(request, 'index.html', {'role': role, 'user_id': user_id})
+        employee_id = request.session.get('employee_id')
+        return render(request, 'index.html', {'role': role, 'user_id': user_id, 'employee_id': employee_id})
+
 
 def set_role(request):
     if request.method == 'POST':
@@ -250,7 +438,22 @@ def set_role(request):
             request.session['role'] = role
             if role == 'user':
                 request.session['user_id'] = 1  # Замените на фактический ID пользователя
+                request.session['employee_id'] = None
             else:
+                # Проверяем, есть ли администратор в базе
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT "ID" FROM "Employee" WHERE "Position" = %s LIMIT 1', ['Administrator'])
+                    row = cursor.fetchone()
+                    if row:
+                        employee_id = row[0]
+                    else:
+                        # Если нет, создаем администратора
+                        cursor.execute('''
+                            INSERT INTO "Employee" ("Full Name", "Years of Experience", "Position", "Salary", "Age")
+                            VALUES (%s, %s, %s, %s, %s) RETURNING "ID"
+                        ''', ['Admin', 0, 'Administrator', 0.00, 30])
+                        employee_id = cursor.fetchone()[0]
+                request.session['employee_id'] = employee_id
                 request.session['user_id'] = None
             messages.success(request, f'Роль установлена: {role}')
         else:
@@ -258,6 +461,9 @@ def set_role(request):
         return redirect('index')
     else:
         return render(request, 'set_role.html')
+
+
+
 
 def user_list(request):
     role = request.session.get('role', 'user')
@@ -285,6 +491,7 @@ def user_list(request):
         'page_number': page_number,
         'total_pages': total_pages
     })
+
 
 def user_detail(request, user_id):
     role = request.session.get('role', 'user')
@@ -341,6 +548,7 @@ def user_detail(request, user_id):
 
     return render(request, 'user_detail.html', {'app_user': app_user, 'role': role})
 
+
 def employee_list(request):
     role = request.session.get('role', 'user')
     if role != 'admin':
@@ -368,10 +576,15 @@ def employee_list(request):
         'total_pages': total_pages
     })
 
+
 def employee_detail(request, employee_id):
     role = request.session.get('role', 'user')
+    session_employee_id = request.session.get('employee_id')
+
+    # Проверяем права доступа
     if role != 'admin':
         return HttpResponse('У вас нет доступа к этой странице', status=403)
+
 
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM "Employee" WHERE "ID" = %s', [employee_id])
@@ -422,7 +635,7 @@ def employee_detail(request, employee_id):
                         WHERE "ID" = %s
                     ''', [full_name, years_of_experience, position, salary, age, employee_id])
 
-            messages.success(request, 'Данные сотрудника обновлены')
+            messages.success(request, 'Данные профиля обновлены')
             return redirect('employee_detail', employee_id=employee_id)
         except ValidationError as e:
             # Передача ошибок в шаблон
@@ -434,6 +647,7 @@ def employee_detail(request, employee_id):
             })
 
     return render(request, 'employee_detail.html', {'employee': employee, 'role': role})
+
 
 def add_user(request):
     role = request.session.get('role', 'user')
@@ -470,6 +684,7 @@ def add_user(request):
             return render(request, 'add_user.html', {'errors': errors})
 
     return render(request, 'add_user.html')
+
 
 def add_employee(request):
     role = request.session.get('role', 'user')
@@ -509,6 +724,56 @@ def add_employee(request):
             return render(request, 'add_employee.html', {'errors': errors})
 
     return render(request, 'add_employee.html')
+
+
+# API Views
+
+class UserListAPI(APIView):
+    def get(self, request):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM "User"')
+            columns = [col[0] for col in cursor.description]
+            app_users = [dict(zip(columns, row)) for row in cursor.fetchall()]
+        serializer = UserSerializer(app_users, many=True)
+        return Response(serializer.data)
+
+
+class UserDetailAPI(APIView):
+    def get(self, request, user_id):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM "User" WHERE "ID" = %s', [user_id])
+            row = cursor.fetchone()
+            if row:
+                columns = [col[0] for col in cursor.description]
+                app_user = dict(zip(columns, row))
+                serializer = UserSerializer(app_user)
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class EmployeeListAPI(APIView):
+    def get(self, request):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM "Employee"')
+            columns = [col[0] for col in cursor.description]
+            employees = [dict(zip(columns, row)) for row in cursor.fetchall()]
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)
+
+
+class EmployeeDetailAPI(APIView):
+    def get(self, request, employee_id):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM "Employee" WHERE "ID" = %s', [employee_id])
+            row = cursor.fetchone()
+            if row:
+                columns = [col[0] for col in cursor.description]
+                employee = dict(zip(columns, row))
+                serializer = EmployeeSerializer(employee)
+                return Response(serializer.data)
+            else:
+                return Response({'error': 'Сотрудник не найден'}, status=status.HTTP_404_NOT_FOUND)
 
 ```
 
@@ -629,7 +894,7 @@ class Migration(migrations.Migration):
 
 Contents of app/templates/add_employee.html:
 ```
-<!-- app/templatesadd_employee.html -->
+<!-- app/templates/add_employee.html -->
 {% extends 'base.html' %}
 {% block content %}
 <h1>Добавить сотрудника</h1>
@@ -760,7 +1025,7 @@ Contents of app/templates/index.html:
 
 Contents of app/templates/base.html:
 ```
-<!-- app/templatesbase.html -->
+<!-- app/templates/base.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -797,12 +1062,18 @@ Contents of app/templates/base.html:
                 {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
+                {% if role == 'admin' %}
+                    <li class="nav-item">
+                        {% if employee_id %}
+                            <a class="nav-link" href="{% url 'employee_detail' employee_id %}">Редактировать профиль</a>
+                        {% else %}
+                            <!-- Если employee_id не установлен -->
+                            <a class="nav-link" href="{% url 'set_role' %}">Установить профиль</a>
+                        {% endif %}
+                    </li>
+                {% endif %}
                 <li class="nav-item">
-                    {% if role == 'user' %}
-                        <a class="nav-link" href="{% url 'user_detail' user_id %}">Роль: {{ role }}</a>
-                    {% else %}
-                        <a class="nav-link" href="{% url 'set_role' %}">Роль: {{ role }}</a>
-                    {% endif %}
+                    <a class="nav-link" href="{% url 'set_role' %}">Сменить роль</a>
                 </li>
             </ul>
         </div>
@@ -830,7 +1101,7 @@ Contents of app/templates/base.html:
 
 Contents of app/templates/user_detail.html:
 ```
-<!-- app/templatesuser_detail.html -->
+<!-- app/templates/user_detail.html -->
 {% extends 'base.html' %}
 {% load app_extras %}
 
@@ -871,7 +1142,7 @@ Contents of app/templates/user_detail.html:
 
 Contents of app/templates/add_user.html:
 ```
-<!-- app/templatesadd_user.html -->
+<!-- app/templates/add_user.html -->
 {% extends 'base.html' %}
 {% block content %}
 <h1>Добавить пользователя</h1>
@@ -910,7 +1181,7 @@ Contents of app/templates/add_user.html:
 
 Contents of app/templates/employee_detail.html:
 ```
-<!-- app/templatesemployee_detail.html -->
+<!-- app/templates/employee_detail.html -->
 {% extends 'base.html' %}
 {% load app_extras %}
 
@@ -1124,6 +1395,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'bootstrap4',
     'app',
     'django_filters',

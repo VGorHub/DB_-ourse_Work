@@ -92,6 +92,7 @@ def user_detail(request, user_id):
     if role != 'admin' and session_user_id != user_id:
         return HttpResponse('У вас нет доступа к этой странице', status=403)
 
+    # Получаем данные пользователя из базы
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM "User" WHERE "ID" = %s', [user_id])
         row = cursor.fetchone()
@@ -102,40 +103,54 @@ def user_detail(request, user_id):
             return HttpResponse('Пользователь не найден', status=404)
 
     if request.method == 'POST':
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        age = int(request.POST.get('age'))
+        full_name = request.POST.get('full_name').strip()
+        email = request.POST.get('email').strip()
+        age_input = request.POST.get('age').strip()
 
-        # Создание экземпляра модели для валидации
-        app_user_instance = AppUser(
-            id=user_id,
-            full_name=full_name,
-            email=email,
-            age=age
-        )
+        errors = {}
 
+        # Валидация данных
+
+        # Проверка полноты данных
+        if not full_name:
+            errors['full_name'] = ['Полное имя обязательно.']
+        if not email:
+            errors['email'] = ['Email обязателен.']
+        if not age_input:
+            errors['age'] = ['Возраст обязателен.']
+
+        # Проверка возраста
         try:
-            # Валидация данных
-            app_user_instance.full_clean()
+            age = int(age_input)
+            if age <= 0:
+                errors['age'] = ['Возраст должен быть положительным числом.']
+        except ValueError:
+            errors['age'] = ['Возраст должен быть числом.']
 
-            # Обновление данных в базе
-            with connection.cursor() as cursor:
-                cursor.execute('''
-                    UPDATE "User"
-                    SET "Full Name" = %s, "Email" = %s, "Age" = %s
-                    WHERE "ID" = %s
-                ''', [full_name, email, age, user_id])
+        # Проверка уникальности email
+        if email:
+            with connection.cursor() as cursor_check:
+                cursor_check.execute('SELECT "ID" FROM "User" WHERE "Email" = %s AND "ID" != %s', [email, user_id])
+                if cursor_check.fetchone():
+                    errors['email'] = ['Пользователь с таким Email уже существует.']
 
-            messages.success(request, 'Данные пользователя обновлены')
-            return redirect('user_detail', user_id=user_id)
-        except ValidationError as e:
-            # Передача ошибок в шаблон
-            errors = e.message_dict
+        if errors:
             return render(request, 'user_detail.html', {
                 'app_user': app_user,
                 'role': role,
                 'errors': errors
             })
+
+        # Обновление данных в базе
+        with connection.cursor() as cursor_update:
+            cursor_update.execute('''
+                UPDATE "User"
+                SET "Full Name" = %s, "Email" = %s, "Age" = %s
+                WHERE "ID" = %s
+            ''', [full_name, email, age, user_id])
+
+        messages.success(request, 'Данные пользователя обновлены')
+        return redirect('user_detail', user_id=user_id)
 
     return render(request, 'user_detail.html', {'app_user': app_user, 'role': role})
 
@@ -175,10 +190,8 @@ def employee_detail(request, employee_id):
     # Проверяем права доступа
     if role != 'admin':
         return HttpResponse('У вас нет доступа к этой странице', status=403)
-    elif session_employee_id != employee_id:
-        # Администратор может редактировать только свой профиль
-        return HttpResponse('У вас нет доступа к этому профилю', status=403)
 
+    # Получаем данные сотрудника из базы
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM "Employee" WHERE "ID" = %s', [employee_id])
         row = cursor.fetchone()
@@ -189,57 +202,94 @@ def employee_detail(request, employee_id):
             return HttpResponse('Сотрудник не найден', status=404)
 
     if request.method == 'POST':
-        full_name = request.POST.get('full_name')
-        years_of_experience = int(request.POST.get('years_of_experience'))
-        position = request.POST.get('position')
-        salary = float(request.POST.get('salary'))
-        age = int(request.POST.get('age'))
-        photo = request.FILES.get('photo')
+        full_name = request.POST.get('full_name').strip()
+        years_of_experience_input = request.POST.get('years_of_experience').strip()
+        position = request.POST.get('position').strip()
+        salary_input = request.POST.get('salary').strip()
+        age_input = request.POST.get('age').strip()
+        photo_file = request.FILES.get('photo')
 
-        # Создание экземпляра модели для валидации
-        employee_instance = Employee(
-            id=employee_id,
-            full_name=full_name,
-            years_of_experience=years_of_experience,
-            position=position,
-            salary=salary,
-            age=age,
-            photo=photo.read() if photo else employee.get('Photo')
-        )
+        errors = {}
+
+        # Валидация данных
+
+        # Проверка полноты данных
+        if not full_name:
+            errors['full_name'] = ['Полное имя обязательно.']
+        if not years_of_experience_input:
+            errors['years_of_experience'] = ['Стаж работы обязателен.']
+        if not position:
+            errors['position'] = ['Должность обязательна.']
+        if not salary_input:
+            errors['salary'] = ['Зарплата обязательна.']
+        if not age_input:
+            errors['age'] = ['Возраст обязателен.']
+
+        # Проверка числовых полей
+        try:
+            years_of_experience = int(years_of_experience_input)
+            if years_of_experience < 0:
+                errors['years_of_experience'] = ['Стаж работы не может быть отрицательным.']
+        except ValueError:
+            errors['years_of_experience'] = ['Стаж работы должен быть числом.']
 
         try:
-            # Валидация данных
-            employee_instance.full_clean()
+            salary = float(salary_input)
+            if salary < 0:
+                errors['salary'] = ['Зарплата не может быть отрицательной.']
+        except ValueError:
+            errors['salary'] = ['Зарплата должна быть числом.']
 
-            # Обновление данных в базе
-            with connection.cursor() as cursor:
-                if photo:
-                    cursor.execute('''
-                        UPDATE "Employee"
-                        SET "Full Name" = %s, "Years of Experience" = %s, "Position" = %s,
-                            "Salary" = %s, "Age" = %s, "Photo" = %s
-                        WHERE "ID" = %s
-                    ''', [full_name, years_of_experience, position, salary, age, employee_instance.photo, employee_id])
-                else:
-                    cursor.execute('''
-                        UPDATE "Employee"
-                        SET "Full Name" = %s, "Years of Experience" = %s, "Position" = %s,
-                            "Salary" = %s, "Age" = %s
-                        WHERE "ID" = %s
-                    ''', [full_name, years_of_experience, position, salary, age, employee_id])
+        try:
+            age = int(age_input)
+            if age <= 0:
+                errors['age'] = ['Возраст должен быть положительным числом.']
+        except ValueError:
+            errors['age'] = ['Возраст должен быть числом.']
 
-            messages.success(request, 'Данные профиля обновлены')
-            return redirect('employee_detail', employee_id=employee_id)
-        except ValidationError as e:
-            # Передача ошибок в шаблон
-            errors = e.message_dict
+        # Логическая проверка: стаж не может превышать возраст
+        if 'years_of_experience' not in errors and 'age' not in errors:
+            if years_of_experience > age:
+                errors['years_of_experience'] = ['Стаж работы не может превышать возраст.']
+
+        # Обработка фотографии
+        if photo_file:
+            try:
+                photo = photo_file.read()
+            except Exception as e:
+                errors['photo'] = ['Не удалось загрузить фотографию.']
+        else:
+            photo = employee.get('Photo')  # Оставляем старую фотографию
+
+        if errors:
             return render(request, 'employee_detail.html', {
                 'employee': employee,
                 'role': role,
                 'errors': errors
             })
 
+        # Обновление данных в базе
+        with connection.cursor() as cursor_update:
+            if photo_file:
+                cursor_update.execute('''
+                    UPDATE "Employee"
+                    SET "Full Name" = %s, "Years of Experience" = %s, "Position" = %s,
+                        "Salary" = %s, "Age" = %s, "Photo" = %s
+                    WHERE "ID" = %s
+                ''', [full_name, years_of_experience, position, salary, age, photo, employee_id])
+            else:
+                cursor_update.execute('''
+                    UPDATE "Employee"
+                    SET "Full Name" = %s, "Years of Experience" = %s, "Position" = %s,
+                        "Salary" = %s, "Age" = %s
+                    WHERE "ID" = %s
+                ''', [full_name, years_of_experience, position, salary, age, employee_id])
+
+        messages.success(request, 'Данные профиля обновлены')
+        return redirect('employee_detail', employee_id=employee_id)
+
     return render(request, 'employee_detail.html', {'employee': employee, 'role': role})
+
 
 
 def add_user(request):
