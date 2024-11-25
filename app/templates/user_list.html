@@ -1,0 +1,59 @@
+<!-- app/templates/user_list.html -->
+{% extends 'base.html' %}
+{% load app_extras %}
+
+{% block content %}
+<h1>Список пользователей</h1>
+{% if role == 'admin' %}
+    <a href="{% url 'add_user' %}" class="btn btn-primary mb-3">Добавить пользователя</a>
+{% endif %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" title="ID пользователя">ID</th>
+            <th scope="col" title="Полное имя пользователя">ФИО</th>
+            <th scope="col" title="Email пользователя">Email</th>
+            <th scope="col" title="Возраст пользователя">Возраст</th>
+            <th scope="col">Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for app_user in app_users %}
+        <tr>
+            <td>{{ app_user.ID }}</td>
+            <td>{{ app_user|get_item:"Full Name" }}</td>
+            <td>{{ app_user.Email }}</td>
+            <td>{{ app_user.Age }}</td>
+            <td>
+                <a href="{% url 'user_detail' app_user.ID %}" class="btn btn-sm btn-info">Просмотр/Редактирование</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination">
+        {% if page_number > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number|add:'-1' }}" aria-label="Предыдущая">
+                    <span aria-hidden="true">&laquo; Предыдущая</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for p in 1|to:total_pages %}
+            <li class="page-item {% if p == page_number %}active{% endif %}">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+        {% if page_number < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number|add:'1' }}" aria-label="Следующая">
+                    <span aria-hidden="true">Следующая &raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

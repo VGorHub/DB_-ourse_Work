@@ -1,0 +1,17 @@
+<!-- app/templates/set_role.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Установить роль</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="role">Выберите роль:</label>
+        <select class="form-control" id="role" name="role">
+            <option value="user" {% if role == 'user' %}selected{% endif %}>Пользователь</option>
+            <option value="admin" {% if role == 'admin' %}selected{% endif %}>Администратор</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Установить роль</button>
+</form>
+{% endblock %}

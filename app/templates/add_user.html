@@ -1,0 +1,34 @@
+<!-- app/templates/add_user.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h1>Добавить пользователя</h1>
+
+{% if errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, error_list in errors.items %}
+                {% for error in error_list %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="full_name">Полное имя</label>
+        <input type="text" class="form-control" id="full_name" name="full_name" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Электронная почта</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="age">Возраст</label>
+        <input type="number" class="form-control" id="age" name="age" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+</form>
+{% endblock %}
