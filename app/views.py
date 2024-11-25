@@ -18,7 +18,8 @@ from .serializers import UserSerializer, EmployeeSerializer
 def index(request):
         role = request.session.get('role', 'user')
         user_id = request.session.get('user_id')
-        return render(request, 'index.html', {'role': role, 'user_id': user_id})
+        employee_id = request.session.get('employee_id')
+        return render(request, 'index.html', {'role': role, 'user_id': user_id, 'employee_id': employee_id})
 
 
 def set_role(request):
@@ -28,7 +29,22 @@ def set_role(request):
             request.session['role'] = role
             if role == 'user':
                 request.session['user_id'] = 1  # Замените на фактический ID пользователя
+                request.session['employee_id'] = None
             else:
+                # Проверяем, есть ли администратор в базе
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT "ID" FROM "Employee" WHERE "Position" = %s LIMIT 1', ['Administrator'])
+                    row = cursor.fetchone()
+                    if row:
+                        employee_id = row[0]
+                    else:
+                        # Если нет, создаем администратора
+                        cursor.execute('''
+                            INSERT INTO "Employee" ("Full Name", "Years of Experience", "Position", "Salary", "Age")
+                            VALUES (%s, %s, %s, %s, %s) RETURNING "ID"
+                        ''', ['Admin', 0, 'Administrator', 0.00, 30])
+                        employee_id = cursor.fetchone()[0]
+                request.session['employee_id'] = employee_id
                 request.session['user_id'] = None
             messages.success(request, f'Роль установлена: {role}')
         else:
@@ -36,6 +52,8 @@ def set_role(request):
         return redirect('index')
     else:
         return render(request, 'set_role.html')
+
+
 
 
 def user_list(request):
@@ -152,8 +170,14 @@ def employee_list(request):
 
 def employee_detail(request, employee_id):
     role = request.session.get('role', 'user')
+    session_employee_id = request.session.get('employee_id')
+
+    # Проверяем права доступа
     if role != 'admin':
         return HttpResponse('У вас нет доступа к этой странице', status=403)
+    elif session_employee_id != employee_id:
+        # Администратор может редактировать только свой профиль
+        return HttpResponse('У вас нет доступа к этому профилю', status=403)
 
     with connection.cursor() as cursor:
         cursor.execute('SELECT * FROM "Employee" WHERE "ID" = %s', [employee_id])
@@ -204,7 +228,7 @@ def employee_detail(request, employee_id):
                         WHERE "ID" = %s
                     ''', [full_name, years_of_experience, position, salary, age, employee_id])
 
-            messages.success(request, 'Данные сотрудника обновлены')
+            messages.success(request, 'Данные профиля обновлены')
             return redirect('employee_detail', employee_id=employee_id)
         except ValidationError as e:
             # Передача ошибок в шаблон
