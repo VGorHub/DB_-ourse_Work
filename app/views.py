@@ -16,10 +16,10 @@ from .serializers import UserSerializer, EmployeeSerializer
 
 
 def index(request):
-        role = request.session.get('role', 'user')
-        user_id = request.session.get('user_id')
-        employee_id = request.session.get('employee_id')
-        return render(request, 'index.html', {'role': role, 'user_id': user_id, 'employee_id': employee_id})
+    role = request.session.get('role', 'user')
+    user_id = request.session.get('user_id')
+    employee_id = request.session.get('employee_id')
+    return render(request, 'index.html', {'role': role, 'user_id': user_id, 'employee_id': employee_id})
 
 
 def set_role(request):
@@ -52,8 +52,6 @@ def set_role(request):
         return redirect('index')
     else:
         return render(request, 'set_role.html')
-
-
 
 
 def user_list(request):
@@ -291,7 +289,6 @@ def employee_detail(request, employee_id):
     return render(request, 'employee_detail.html', {'employee': employee, 'role': role})
 
 
-
 def add_user(request):
     role = request.session.get('role', 'user')
     if role != 'admin':
@@ -367,6 +364,44 @@ def add_employee(request):
             return render(request, 'add_employee.html', {'errors': errors})
 
     return render(request, 'add_employee.html')
+
+
+def delete_user(request, user_id):
+    role = request.session.get('role', 'user')
+    if role != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    # Проверяем, существует ли пользователь
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM "User" WHERE "ID" = %s', [user_id])
+        if not cursor.fetchone():
+            return HttpResponse('Пользователь не найден', status=404)
+
+    # Удаление пользователя
+    with connection.cursor() as cursor:
+        cursor.execute('DELETE FROM "User" WHERE "ID" = %s', [user_id])
+
+    messages.success(request, 'Пользователь удалён')
+    return redirect('user_list')
+
+
+def delete_employee(request, employee_id):
+    role = request.session.get('role', 'user')
+    if role != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    # Проверяем, существует ли сотрудник
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM "Employee" WHERE "ID" = %s', [employee_id])
+        if not cursor.fetchone():
+            return HttpResponse('Сотрудник не найден', status=404)
+
+    # Удаление сотрудника
+    with connection.cursor() as cursor:
+        cursor.execute('DELETE FROM "Employee" WHERE "ID" = %s', [employee_id])
+
+    messages.success(request, 'Сотрудник удалён')
+    return redirect('employee_list')
 
 
 # API Views

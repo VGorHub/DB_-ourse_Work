@@ -30,6 +30,9 @@
             <td>{{ employee.Age }}</td>
             <td>
                 <a href="{% url 'employee_detail' employee.ID %}" class="btn btn-sm btn-info">Просмотр/Редактирование</a>
+                {% if role == 'admin' %}
+                    <a href="{% url 'delete_employee' employee.ID %}" class="btn btn-sm btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этого сотрудника?');">Удалить</a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}
