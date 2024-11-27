@@ -1,36 +1,13 @@
 <!-- app/templates/user_detail.html -->
 {% extends 'base.html' %}
-{% load app_extras %}
+{% load static %}
 
 {% block content %}
 <h1>Детали пользователя</h1>
 
-{% if errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field, error_list in errors.items %}
-                {% for error in error_list %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-
 <form method="post">
     {% csrf_token %}
-    <div class="form-group">
-        <label for="full_name" title="Введите полное имя">Полное имя</label>
-        <input type="text" class="form-control" id="full_name" name="full_name" value="{{ app_user|get_item:'Full Name' }}">
-    </div>
-    <div class="form-group">
-        <label for="email" title="Введите email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ app_user.Email }}">
-    </div>
-    <div class="form-group">
-        <label for="age" title="Введите возраст">Возраст</label>
-        <input type="number" class="form-control" id="age" name="age" value="{{ app_user.Age }}">
-    </div>
+    {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
 {% endblock %}

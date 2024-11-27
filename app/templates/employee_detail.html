@@ -1,51 +1,16 @@
 <!-- app/templates/employee_detail.html -->
 {% extends 'base.html' %}
-{% load app_extras %}
+{% load static %}
 
 {% block content %}
 <h1>Детали сотрудника</h1>
 
-{% if errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field, error_list in errors.items %}
-                {% for error in error_list %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="form-group">
-        <label for="full_name" title="Введите полное имя">Полное имя</label>
-        <input type="text" class="form-control" id="full_name" name="full_name" value="{{ employee|get_item:'Full Name' }}">
-    </div>
-    <div class="form-group">
-        <label for="years_of_experience" title="Введите стаж работы">Стаж работы</label>
-        <input type="number" class="form-control" id="years_of_experience" name="years_of_experience" value="{{ employee|get_item:'Years of Experience' }}">
-    </div>
-    <div class="form-group">
-        <label for="position" title="Введите должность">Должность</label>
-        <input type="text" class="form-control" id="position" name="position" value="{{ employee.Position }}">
-    </div>
-    <div class="form-group">
-        <label for="salary" title="Введите зарплату">Зарплата</label>
-        <input type="number" class="form-control" id="salary" name="salary" value="{{ employee.Salary }}">
-    </div>
-    <div class="form-group">
-        <label for="age" title="Введите возраст">Возраст</label>
-        <input type="number" class="form-control" id="age" name="age" value="{{ employee.Age }}">
-    </div>
-    <div class="form-group">
-        <label for="photo" title="Загрузите фотографию">Фотография</label>
-        {% if employee.Photo %}
-            <img src="data:image/png;base64,{{ employee.Photo|b64encode }}" alt="Фотография сотрудника" class="img-thumbnail" style="max-width: 200px;">
-        {% endif %}
-        <input type="file" class="form-control-file" id="photo" name="photo">
-    </div>
+    {{ form.as_p }}
+    {% if employee.photo %}
+        <img src="{{ employee.photo.url }}" alt="Фотография сотрудника" class="img-thumbnail" style="max-width: 200px;">
+    {% endif %}
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
 {% endblock %}
