@@ -1,16 +1,24 @@
 <!-- app/templates/employee_detail.html -->
 {% extends 'base.html' %}
-{% load static %}
+
+{% block title %}Детали сотрудника{% endblock %}
 
 {% block content %}
-<h1>Детали сотрудника</h1>
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h1 class="card-title">Детали сотрудника</h1>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if employee.photo %}
-        <img src="{{ employee.photo.url }}" alt="Фотография сотрудника" class="img-thumbnail" style="max-width: 200px;">
-    {% endif %}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-</form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if employee.photo %}
+                <div class="mb-3">
+                    <img src="{{ employee.photo.url }}" alt="Фотография сотрудника" class="img-thumbnail" style="max-width: 200px;">
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+        </form>
+    </div>
+</div>
 {% endblock %}

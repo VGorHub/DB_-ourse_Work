@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     # Web Views
     path('', views.index, name='index'),
-    path('set_role/', views.set_role, name='set_role'),
+    path('set_user/', views.set_user, name='set_user'),
     path('users/', views.user_list, name='user_list'),
     path('users/<int:user_id>/', views.user_detail, name='user_detail'),
     path('users/delete/<int:user_id>/', views.delete_user, name='delete_user'),  # Добавлено

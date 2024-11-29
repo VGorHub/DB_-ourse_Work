@@ -5,77 +5,58 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
 from .models import AppUser, Employee, Role
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
-from .forms import AppUserForm, EmployeeForm, RoleSelectionForm
-from django.utils.decorators import method_decorator
+from .forms import AppUserForm, EmployeeForm, UserSelectionForm
 
-# Добавляем импорты для DRF
+# DRF импорты
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer, EmployeeSerializer
 
-def index(request):
+def get_current_user(request):
     user_id = request.session.get('user_id')
     if not user_id:
-        return redirect('set_role')
+        return None, None
     try:
         app_user = AppUser.objects.get(id=user_id)
-        role_name = app_user.role.name
+        role_name = app_user.role.name if app_user.role else None
+        return app_user, role_name
     except AppUser.DoesNotExist:
-        role_name = 'user'
-    return render(request, 'index.html', {'role': role_name, 'user_id': user_id})
+        return None, None
 
-def set_role(request):
+def login_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        app_user, role_name = get_current_user(request)
+        if not app_user:
+            return redirect('set_user')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+def index(request):
+    app_user, role_name = get_current_user(request)
+    if not app_user:
+        return redirect('set_user')
+    return render(request, 'index.html', {'role': role_name, 'user_id': app_user.id, 'app_user': app_user})
+
+def set_user(request):
     if request.method == 'POST':
-        form = RoleSelectionForm(request.POST)
+        form = UserSelectionForm(request.POST)
         if form.is_valid():
-            role_name = form.cleaned_data['role']
-            try:
-                role = Role.objects.get(name=role_name)
-            except Role.DoesNotExist:
-                messages.error(request, 'Неверная роль')
-                return redirect('set_role')
-
-            app_user = AppUser.objects.filter(role=role).first()
-            if not app_user:
-                messages.error(request, f'Нет пользователя с ролью {role_name}')
-                return redirect('set_role')
-
+            app_user = form.cleaned_data['user']
             request.session['user_id'] = app_user.id
-            messages.success(request, f'Вы вошли как {role_name}')
+            messages.success(request, f'Вы вошли как {app_user.full_name}')
             return redirect('index')
     else:
-        form = RoleSelectionForm()
-    return render(request, 'set_role.html', {'form': form})
+        form = UserSelectionForm()
+    return render(request, 'set_user.html', {'form': form})
 
-def get_user_role(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return None, None
-    try:
-        app_user = AppUser.objects.get(id=user_id)
-        return app_user, app_user.role.name
-    except AppUser.DoesNotExist:
-        return None, None
-
-def require_role(role_name):
-    def decorator(view_func):
-        def _wrapped_view(request, *args, **kwargs):
-            app_user, user_role = get_user_role(request)
-            if not app_user:
-                return redirect('set_role')
-            if user_role != role_name:
-                return HttpResponse('У вас нет доступа к этой странице', status=403)
-            return view_func(request, *args, **kwargs)
-        return _wrapped_view
-    return decorator
-
-@require_role('admin')
+@login_required
 def user_list(request):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
     search_query = request.GET.get('search', '')
     sort_by = request.GET.get('sort', 'id')
     order = request.GET.get('order', 'asc')
@@ -96,12 +77,11 @@ def user_list(request):
         'role': role_name
     })
 
-
-
+@login_required
 def user_detail(request, user_id):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
     if not app_user:
-        return redirect('set_role')
+        return redirect('set_user')
 
     target_user = get_object_or_404(AppUser, id=user_id)
 
@@ -123,14 +103,24 @@ def user_detail(request, user_id):
         'role': role_name
     })
 
-@require_role('admin')
+@login_required
 def employee_list(request):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['admin', 'employee']:
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
     search_query = request.GET.get('search', '')
     sort_by = request.GET.get('sort', 'id')
     order = request.GET.get('order', 'asc')
 
-    employee_list = Employee.objects.filter(full_name__icontains=search_query)
+    if role_name == 'admin':
+        employee_list = Employee.objects.filter(full_name__icontains=search_query)
+    elif role_name == 'employee':
+        # Сотрудник видит только себя
+        employee_list = Employee.objects.filter(id=app_user.id)
+    else:
+        employee_list = Employee.objects.none()
+
     if order == 'desc':
         sort_by = '-' + sort_by
     employee_list = employee_list.order_by(sort_by)
@@ -144,11 +134,22 @@ def employee_list(request):
         'role': role_name
     })
 
-@require_role('admin')
+@login_required
 def employee_detail(request, employee_id):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
 
     employee = get_object_or_404(Employee, id=employee_id)
+
+    # Проверка доступа
+    if role_name == 'admin':
+        # Администратор имеет доступ ко всем данным
+        pass
+    elif role_name == 'employee':
+        # Сотрудник может просматривать и редактировать только свой профиль
+        if employee.id != app_user.id:
+            return HttpResponse('У вас нет доступа к этой странице', status=403)
+    else:
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     if request.method == 'POST':
         form = EmployeeForm(request.POST, request.FILES, instance=employee)
@@ -165,9 +166,11 @@ def employee_detail(request, employee_id):
         'role': role_name
     })
 
-@require_role('admin')
+@login_required
 def add_user(request):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     if request.method == 'POST':
         form = AppUserForm(request.POST)
@@ -183,9 +186,11 @@ def add_user(request):
 
     return render(request, 'add_user.html', {'form': form})
 
-@require_role('admin')
+@login_required
 def add_employee(request):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     if request.method == 'POST':
         form = EmployeeForm(request.POST, request.FILES)
@@ -198,18 +203,22 @@ def add_employee(request):
 
     return render(request, 'add_employee.html', {'form': form})
 
-@require_role('admin')
+@login_required
 def delete_user(request, user_id):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     target_user = get_object_or_404(AppUser, id=user_id)
     target_user.delete()
     messages.success(request, 'Пользователь удалён')
     return redirect('user_list')
 
-@require_role('admin')
+@login_required
 def delete_employee(request, employee_id):
-    app_user, role_name = get_user_role(request)
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     employee = get_object_or_404(Employee, id=employee_id)
     employee.delete()

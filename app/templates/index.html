@@ -1,7 +1,17 @@
 <!-- app/templates/index.html -->
 {% extends 'base.html' %}
 
+{% block title %}Главная{% endblock %}
+
 {% block content %}
-<h1>Добро пожаловать в приложение</h1>
-<p>Вы вошли как <strong>{{ role }}</strong>.</p>
+<div class="jumbotron">
+    <h1 class="display-4">Добро пожаловать, {{ app_user.full_name }}</h1>
+    <p class="lead">Вы вошли как {{ app_user.full_name }}.</p>
+    <hr class="my-4">
+    {% if role == 'admin' %}
+        <p>Используйте меню навигации для управления пользователями и сотрудниками.</p>
+    {% else %}
+        <p>Вы можете просмотреть и изменить свой профиль.</p>
+    {% endif %}
+</div>
 {% endblock %}
