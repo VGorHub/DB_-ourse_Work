@@ -7,22 +7,15 @@
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <h1 class="card-title">Добавить пользователя</h1>
-        {% if errors %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field, error_list in errors.items %}
-                        {% for error in error_list %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
 
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            {% endif %}
         </form>
     </div>
 </div>

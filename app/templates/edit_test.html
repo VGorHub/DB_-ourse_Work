@@ -1,0 +1,34 @@
+<!-- app/templates/edit_test.html -->
+{% extends 'base.html' %}
+{% block title %}Редактирование теста{% endblock %}
+{% block content %}
+<h1>Редактирование теста: {{ test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+<h2>Вопросы</h2>
+<a href="{% url 'add_question' test.id %}" class="btn btn-success mb-3">Добавить вопрос</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Текст вопроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for q in questions %}
+        <tr>
+            <td>{{ q.question_text }}</td>
+            <td>
+                <a href="{% url 'edit_question' q.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Нет вопросов</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,48 +1,41 @@
-<!-- app/templates/employee_list.html -->
+<!-- app/templates/test_list.html -->
 {% extends 'base.html' %}
 
-{% block title %}Список сотрудников{% endblock %}
+{% block title %}Список тестов{% endblock %}
 
 {% block content %}
-<h1>Список сотрудников</h1>
-{% if role == 'admin' %}
-    <a href="{% url 'add_employee' %}" class="btn btn-success mb-3">Добавить сотрудника</a>
-{% endif %}
+<h1>Список тестов</h1>
 
 <!-- Форма фильтрации -->
 <form method="get" class="form-inline mb-3">
     <div class="form-group mr-2">
-        <input type="text" name="search" class="form-control" placeholder="Поиск по имени или email" value="{{ request.GET.search }}">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию или описанию" value="{{ request.GET.search }}">
     </div>
     <button type="submit" class="btn btn-outline-primary">Поиск</button>
 </form>
 
-<table class="table table-hover" id="employee-table">
+<table class="table table-hover" id="test-table">
     <thead class="thead-light">
         <tr>
             <th>ID</th>
-            <th>ФИО</th>
-            <th>Email</th>
-            <th>Должность</th>
-            {% if role == 'admin' %}
-                <th>Зарплата</th>
-            {% endif %}
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Проходной балл</th>
+            <th>Время на прохождение (мин)</th>
         </tr>
     </thead>
     <tbody>
-        {% for employee in page_obj.object_list %}
-        <tr data-employee-id="{{ employee.id }}">
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.user.full_name }}</td>
-            <td>{{ employee.user.email }}</td>
-            <td>{{ employee.position }}</td>
-            {% if role == 'admin' %}
-                <td>{{ employee.salary }}</td>
-            {% endif %}
+        {% for test in page_obj.object_list %}
+        <tr data-test-id="{{ test.id }}">
+            <td>{{ test.id }}</td>
+            <td>{{ test.title }}</td>
+            <td>{{ test.description }}</td>
+            <td>{{ test.passing_score }}</td>
+            <td>{{ test.time_to_complete }}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="5">Нет сотрудников</td>
+            <td colspan="5">Нет тестов</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -88,10 +81,9 @@
 <!-- Контекстное меню -->
 <div id="context-menu" class="context-menu">
     <ul>
-        <li data-action="view">Просмотреть</li>
-        <li data-action="edit">Редактировать</li>
-        {% if role == 'admin' %}
-            <li data-action="delete">Удалить</li>
+        <li data-action="start">Начать тест</li>
+        {% if role == 'employee' %}
+            <li data-action="request_delete">Запросить удаление</li>
         {% endif %}
     </ul>
 </div>
@@ -128,15 +120,15 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const table = document.getElementById('employee-table');
+    const table = document.getElementById('test-table');
     const contextMenu = document.getElementById('context-menu');
-    let selectedEmployeeId = null;
+    let selectedTestId = null;
 
     table.addEventListener('contextmenu', function(e) {
         e.preventDefault();
-        const targetRow = e.target.closest('tr[data-employee-id]');
+        const targetRow = e.target.closest('tr[data-test-id]');
         if (targetRow) {
-            selectedEmployeeId = targetRow.getAttribute('data-employee-id');
+            selectedTestId = targetRow.getAttribute('data-test-id');
             contextMenu.style.top = e.pageY + 'px';
             contextMenu.style.left = e.pageX + 'px';
             contextMenu.style.display = 'block';
@@ -149,19 +141,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Добавьте новый case в обработчике событий
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
-        if (action && selectedEmployeeId) {
-            if (action === 'view' || action === 'edit') {
-                window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
-            } else if (action === 'delete') {
-                if (confirm('Вы уверены, что хотите удалить этого сотрудника?')) {
-                    window.location.href = '{% url "delete_employee" 0 %}'.replace('0', selectedEmployeeId);
-                }
+        if (action && selectedTestId) {
+            if (action === 'start') {
+                window.location.href = '{% url "start_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'request_delete') {
+                window.location.href = '{% url "request_test_deletion" 0 %}'.replace('0', selectedTestId);
             }
             contextMenu.style.display = 'none';
         }
     });
+
 });
 </script>
 {% endblock %}

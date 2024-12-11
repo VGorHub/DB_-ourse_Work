@@ -1,0 +1,15 @@
+<!-- app/templates/test_result_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Результат теста{% endblock %}
+
+{% block content %}
+<h1>Результат теста: {{ test_result.test.title }}</h1>
+<p>Дата прохождения: {{ test_result.test_date }}</p>
+<p>Результат: {{ test_result.score_achieved }} из {{ test_result.test.question_set.count }} вопросов</p>
+<p>Статус: {{ test_result.status }}</p>
+<p>Попытка номер: {{ test_result.attempt_number }}</p>
+
+<a href="{% url 'test_list' %}" class="btn btn-secondary">Назад к списку тестов</a>
+<a href="{% url 'test_results' %}" class="btn btn-primary">Мои результаты</a>
+{% endblock %}

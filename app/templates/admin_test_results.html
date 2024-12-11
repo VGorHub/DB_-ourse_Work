@@ -1,0 +1,86 @@
+<!-- app/templates/admin_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Все результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Все результаты тестов</h1>
+
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по тесту или ФИО пользователя" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата прохождения</th>
+            <th>Результат</th>
+            <th>Статус</th>
+            <th>Попытка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in page_obj.object_list %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>
+            {% if result.test %}
+                {{ result.test.title }}
+            {% else %}
+                Тест удален
+            {% endif %}
+            </td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}{% if result.test %} / {{ result.test.passing_score }}{% endif %}</td>
+            <td>{{ result.status }}</td>
+            <td>{{ result.attempt_number }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Нет результатов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

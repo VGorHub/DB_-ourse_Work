@@ -41,6 +41,9 @@ Directory Structure:
 │   │               └── ./.git/logs/refs/remotes/origin/master
 │   │   ├── ./.git/objects/00
 │   │   │   └── ./.git/objects/00/483d5ec5c90a7493480d0d4f8fb95b70fd6cb9
+│   │   ├── ./.git/objects/02
+│   │   │   ├── ./.git/objects/02/030923421a9c30a98b465c71447bbeb98df089
+│   │   │   └── ./.git/objects/02/3b37cf4179162c7f316addc2b1c012a47555ab
 │   │   ├── ./.git/objects/03
 │   │   │   ├── ./.git/objects/03/06c7898674d62df916b948c82cb3ba5136d02f
 │   │   │   ├── ./.git/objects/03/b7d655eb9f62e00d6cb333f9f14883d06591a9
@@ -61,15 +64,26 @@ Directory Structure:
 │   │   │   └── ./.git/objects/13/ac7ea9e2e24154aced08123fc54e350634e9b8
 │   │   ├── ./.git/objects/18
 │   │   │   ├── ./.git/objects/18/37362069a680a8b030b3428c4b0f7defb8b561
-│   │   │   └── ./.git/objects/18/b3ee277e9bdbd1c8928d0ddff4cb8955dadddf
+│   │   │   ├── ./.git/objects/18/b3ee277e9bdbd1c8928d0ddff4cb8955dadddf
+│   │   │   └── ./.git/objects/18/f6759f307c627dc4f34536c45f13496f3333e2
+│   │   ├── ./.git/objects/1c
+│   │   │   └── ./.git/objects/1c/f5354535ca4d133a3ab692e1cfcdf5a043ee23
 │   │   ├── ./.git/objects/1e
 │   │   │   └── ./.git/objects/1e/9e9cba1486aafff4ca58774704dcc4f32e3c07
 │   │   ├── ./.git/objects/1f
 │   │   │   └── ./.git/objects/1f/81da72f8824bcba8ccf31b5c5ad95a4fb1a8df
 │   │   ├── ./.git/objects/20
 │   │   │   └── ./.git/objects/20/fba34f5b4f83462d01c9d8e0df5a2804d18323
+│   │   ├── ./.git/objects/24
+│   │   │   └── ./.git/objects/24/21ff57a50803b78448e0d20942ce8397190174
 │   │   ├── ./.git/objects/25
 │   │   │   └── ./.git/objects/25/c7571a4e91b599be95b5a0273cba9fc34e2cbd
+│   │   ├── ./.git/objects/2e
+│   │   │   └── ./.git/objects/2e/f4b139d0296a9fe9e47907d508485889d9ef42
+│   │   ├── ./.git/objects/30
+│   │   │   └── ./.git/objects/30/5cb587807c7818299e60ab05f865b7caab7121
+│   │   ├── ./.git/objects/34
+│   │   │   └── ./.git/objects/34/18c171127cad54d317f565057d7855d3623ecf
 │   │   ├── ./.git/objects/35
 │   │   │   ├── ./.git/objects/35/3d4324fd33b252e00019943d8b5b8febe904fd
 │   │   │   └── ./.git/objects/35/46dd6d21a68122de2679fd2343bb5824fabdca
@@ -85,6 +99,8 @@ Directory Structure:
 │   │   │   └── ./.git/objects/45/0a883291ce767bf07cc4fa9e4665cac23d5e3d
 │   │   ├── ./.git/objects/47
 │   │   │   └── ./.git/objects/47/6940fbc00b410c268a302439a49111b1aaace2
+│   │   ├── ./.git/objects/4b
+│   │   │   └── ./.git/objects/4b/1e61824a8591b225e31d6054a324f32b75274d
 │   │   ├── ./.git/objects/53
 │   │   │   └── ./.git/objects/53/e203c42b8a7dfa12e1aa3a8c5fd8b51e4fbb47
 │   │   ├── ./.git/objects/58
@@ -97,7 +113,8 @@ Directory Structure:
 │   │   ├── ./.git/objects/65
 │   │   │   └── ./.git/objects/65/63c10798bbacdfb3b6505ccc78fef7f78fa3a2
 │   │   ├── ./.git/objects/67
-│   │   │   └── ./.git/objects/67/49dbe127ee2e51b4cf74bbf42ed724c75a074e
+│   │   │   ├── ./.git/objects/67/49dbe127ee2e51b4cf74bbf42ed724c75a074e
+│   │   │   └── ./.git/objects/67/739841246c89fa5dd0db40a3e46fcf6de12902
 │   │   ├── ./.git/objects/69
 │   │   │   └── ./.git/objects/69/4323fa4c8382f9effc636c7062ef168bb62da2
 │   │   ├── ./.git/objects/6d
@@ -119,13 +136,16 @@ Directory Structure:
 │   │   ├── ./.git/objects/88
 │   │   │   └── ./.git/objects/88/2376e6621817dd93c7980d79c28054ec745b0b
 │   │   ├── ./.git/objects/8b
-│   │   │   └── ./.git/objects/8b/9ff878e2e77ea25d220c826a9496ce7da5ad3b
+│   │   │   ├── ./.git/objects/8b/9ff878e2e77ea25d220c826a9496ce7da5ad3b
+│   │   │   └── ./.git/objects/8b/c7c941d90af2ca4d2f6804fe0669b913a06e05
 │   │   ├── ./.git/objects/8c
 │   │   │   └── ./.git/objects/8c/70c63c94ddd31dd3b8aea91e78b2048384a8b6
 │   │   ├── ./.git/objects/8d
 │   │   │   └── ./.git/objects/8d/6a81a8fe657a357bc3b0f9c388a4ec7dc628a3
 │   │   ├── ./.git/objects/8f
 │   │   │   └── ./.git/objects/8f/c5481817a8bcb5009fb6040d9751a70e5f6d8b
+│   │   ├── ./.git/objects/90
+│   │   │   └── ./.git/objects/90/d0e58632495e5c1a6ff1756bfef13270d4b351
 │   │   ├── ./.git/objects/92
 │   │   │   ├── ./.git/objects/92/635602aaa35b2f12492d77b9a8e9aebcef7cf9
 │   │   │   └── ./.git/objects/92/bb9a3b2d3b0672cabcfad26835e94407fe1347
@@ -136,10 +156,14 @@ Directory Structure:
 │   │   │   └── ./.git/objects/9a/f972babaac2e59a7720f9028c43a3810a3bb1f
 │   │   ├── ./.git/objects/9c
 │   │   │   └── ./.git/objects/9c/6f1e69cc3008aab265982464af294cbfe9322e
+│   │   ├── ./.git/objects/9e
+│   │   │   └── ./.git/objects/9e/54b1d7025115bfe255337e1f0d79a325d590ec
 │   │   ├── ./.git/objects/a2
 │   │   │   └── ./.git/objects/a2/424b9496965175a997042641b086aee0488237
 │   │   ├── ./.git/objects/a6
 │   │   │   └── ./.git/objects/a6/6a15412f3da07497663303ab188a4347508f23
+│   │   ├── ./.git/objects/a8
+│   │   │   └── ./.git/objects/a8/428da53df1850edf26b9e13035622ebad217cd
 │   │   ├── ./.git/objects/a9
 │   │   │   └── ./.git/objects/a9/e2557248eaa3b601a3562b41e4dd86e0ba905d
 │   │   ├── ./.git/objects/ac
@@ -148,16 +172,22 @@ Directory Structure:
 │   │   │   └── ./.git/objects/af/a5742895552f8549c25e8f8e10ceb9535fd52f
 │   │   ├── ./.git/objects/b0
 │   │   │   └── ./.git/objects/b0/d0b1c4a7266b82059580f8900ab18773e13f03
+│   │   ├── ./.git/objects/b3
+│   │   │   └── ./.git/objects/b3/95d1b786a9acfa850a0d258917888fd3a422d0
 │   │   ├── ./.git/objects/b6
 │   │   │   └── ./.git/objects/b6/30cfb3e899a28c6288e3fe491dcc6d440f7a69
 │   │   ├── ./.git/objects/b8
 │   │   │   └── ./.git/objects/b8/763f4b4e9e87f726d9c2d4fef6053a8bac93a8
+│   │   ├── ./.git/objects/b9
+│   │   │   └── ./.git/objects/b9/99d3ac39ec877772e0931dd644829bc81cdfee
 │   │   ├── ./.git/objects/ba
 │   │   │   └── ./.git/objects/ba/069b66a91cba14f1c882c982c1d46b130994cf
 │   │   ├── ./.git/objects/be
 │   │   │   └── ./.git/objects/be/ba959846992d606cb500e7ee46d1dbba2f18a5
 │   │   ├── ./.git/objects/c1
 │   │   │   └── ./.git/objects/c1/901223c27ebed7f12bd4e3eb6cd4e02477122a
+│   │   ├── ./.git/objects/c3
+│   │   │   └── ./.git/objects/c3/b4306d3bf0fac3a8b7622a51114a83c4a8d50b
 │   │   ├── ./.git/objects/c6
 │   │   │   ├── ./.git/objects/c6/3e50e2aa260a6dae0172ea1d74a104b121112f
 │   │   │   ├── ./.git/objects/c6/507a12afb6116b5b17adbf60b39e4d493e7d40
@@ -182,15 +212,26 @@ Directory Structure:
 │   │   │   └── ./.git/objects/de/65bca72ccf6772ed1bf04977d2d913ab55e365
 │   │   ├── ./.git/objects/df
 │   │   │   └── ./.git/objects/df/e73170153b7f479db31c70c663648df6a9eb5d
+│   │   ├── ./.git/objects/e0
+│   │   │   └── ./.git/objects/e0/c6a456c6d664dae7d1805186096d71f4433c51
 │   │   ├── ./.git/objects/e6
 │   │   │   └── ./.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+│   │   ├── ./.git/objects/e7
+│   │   │   └── ./.git/objects/e7/4998bec91c0de5b1f157a9acf59090d2de4252
 │   │   ├── ./.git/objects/e8
 │   │   │   ├── ./.git/objects/e8/0c4a77a961a478959d3ab968d48aa2714be03e
-│   │   │   └── ./.git/objects/e8/3603f2ead938894eb18b34cfab0e21a399a25e
+│   │   │   ├── ./.git/objects/e8/3603f2ead938894eb18b34cfab0e21a399a25e
+│   │   │   ├── ./.git/objects/e8/9acb14f7a1d98517c9cd6b783572cf7cf4ea18
+│   │   │   └── ./.git/objects/e8/b6c75593377c0ee0dd39b0eea68b11dd9e0159
 │   │   ├── ./.git/objects/e9
 │   │   │   └── ./.git/objects/e9/b3d0e1208a8cbf9976f970b84871b023af88fd
+│   │   ├── ./.git/objects/ea
+│   │   │   └── ./.git/objects/ea/6fbf4314006e71d350a93b84f2e0c38d8b1408
 │   │   ├── ./.git/objects/ed
-│   │   │   └── ./.git/objects/ed/327d22f5ad028ff7fae6c967945e1da8438a82
+│   │   │   ├── ./.git/objects/ed/327d22f5ad028ff7fae6c967945e1da8438a82
+│   │   │   └── ./.git/objects/ed/ddf20468ccbec4db14d5f8ba9cf88c8f07a93a
+│   │   ├── ./.git/objects/f0
+│   │   │   └── ./.git/objects/f0/fb4f4cdf1f1b8618957491c28e3e51040276ac
 │   │   ├── ./.git/objects/f1
 │   │   │   └── ./.git/objects/f1/fd6b9909fd99af730d7f3f28da64d83722dc61
 │   │   ├── ./.git/objects/f6
@@ -222,17 +263,32 @@ Directory Structure:
 │   │   ├── ./app/migrations/0001_initial.py
 │   │   ├── ./app/migrations/0002_appuser_is_active_employee_is_active.py
 │   │   ├── ./app/migrations/0003_auto_20241127_0421.py
+│   │   ├── ./app/migrations/0004_remove_appuser_is_active_remove_employee_is_active_and_more.py
+│   │   ├── ./app/migrations/0005_remove_employee_age_remove_employee_full_name_and_more.py
+│   │   ├── ./app/migrations/0006_alter_testresult_employee.py
+│   │   ├── ./app/migrations/0007_testresult_approved_testdeletionrequest.py
 │   │   └── ./app/migrations/__init__.py
 │   ├── ./app/models.py
 │   ├── ./app/serializers.py
 │   ├── ./app/templates
 │   │   ├── ./app/templates/add_employee.html
 │   │   ├── ./app/templates/add_user.html
+│   │   ├── ./app/templates/approve_test_deletion.html
+│   │   ├── ./app/templates/approve_test_result.html
 │   │   ├── ./app/templates/base.html
 │   │   ├── ./app/templates/employee_detail.html
 │   │   ├── ./app/templates/employee_list.html
 │   │   ├── ./app/templates/index.html
+│   │   ├── ./app/templates/messages.html
+│   │   ├── ./app/templates/navbar.html
+│   │   ├── ./app/templates/pending_test_results.html
+│   │   ├── ./app/templates/request_test_deletion.html
 │   │   ├── ./app/templates/set_user.html
+│   │   ├── ./app/templates/start_test.html
+│   │   ├── ./app/templates/test_deletion_requests.html
+│   │   ├── ./app/templates/test_list.html
+│   │   ├── ./app/templates/test_result_detail.html
+│   │   ├── ./app/templates/test_results.html
 │   │   ├── ./app/templates/user_detail.html
 │   │   └── ./app/templates/user_list.html
 │   ├── ./app/templatetags
@@ -1070,25 +1126,18 @@ Contents of app/models.py:
 from django.db import models
 from django.core.exceptions import ValidationError
 
-class Role(models.Model):
-    id = models.AutoField(primary_key=True, db_column='ID')
-    name = models.CharField(max_length=20, unique=True, db_column='Name')
-
-    class Meta:
-        db_table = 'Role'
-        verbose_name = 'Роль'
-        verbose_name_plural = 'Роли'
-
-    def __str__(self):
-        return self.name
-
 class AppUser(models.Model):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('user', 'User'),
+        ('employee', 'Employee'),
+    ]
+
     id = models.AutoField(primary_key=True, db_column='ID')
-    is_active = models.BooleanField(default=True, db_column='Is Active')
     full_name = models.CharField(max_length=255, db_column='Full Name')
     email = models.EmailField(max_length=254, unique=True, db_column='Email')
     age = models.PositiveIntegerField(db_column='Age')
-    role = models.ForeignKey('Role', on_delete=models.CASCADE, db_column='Role_ID')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user', db_column='Role')
 
     class Meta:
         db_table = 'User'
@@ -1099,14 +1148,14 @@ class AppUser(models.Model):
         if self.age <= 0:
             raise ValidationError({'age': 'Возраст должен быть положительным числом.'})
 
+    def __str__(self):
+        return self.full_name
+
 class Employee(models.Model):
-    id = models.AutoField(primary_key=True, db_column='ID')
-    is_active = models.BooleanField(default=True, db_column='Is Active')
-    full_name = models.CharField(max_length=255, db_column='Full Name')
+    user = models.OneToOneField(AppUser, on_delete=models.CASCADE, db_column='User ID')
     years_of_experience = models.PositiveIntegerField(db_column='Years of Experience')
     position = models.CharField(max_length=255, db_column='Position')
     salary = models.DecimalField(max_digits=10, decimal_places=2, db_column='Salary')
-    age = models.PositiveIntegerField(db_column='Age')
     photo = models.ImageField(null=True, blank=True, upload_to='employee_photos/', db_column='Photo')
 
     class Meta:
@@ -1116,16 +1165,19 @@ class Employee(models.Model):
 
     def clean(self):
         errors = {}
-        if self.age <= 0:
-            errors['age'] = 'Возраст должен быть положительным числом.'
         if self.years_of_experience < 0:
             errors['years_of_experience'] = 'Стаж работы не может быть отрицательным.'
         if self.salary < 0:
             errors['salary'] = 'Зарплата не может быть отрицательной.'
-        if self.years_of_experience > self.age:
+        if self.years_of_experience > self.user.age:
             errors['years_of_experience'] = 'Стаж работы не может превышать возраст.'
         if errors:
             raise ValidationError(errors)
+
+    def __str__(self):
+        return self.user.full_name
+
+# Остальные модели остаются без изменений
 
 class Test(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
@@ -1175,11 +1227,13 @@ class TestResult(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
     user = models.ForeignKey('AppUser', on_delete=models.CASCADE, db_column='User ID')
     test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID')
-    employee = models.ForeignKey('Employee', on_delete=models.CASCADE, db_column='Employee ID')
+    employee = models.ForeignKey('Employee', null=True, blank=True, on_delete=models.CASCADE, db_column='Employee ID')
     test_date = models.DateField(db_column='Test Date')
     score_achieved = models.PositiveIntegerField(db_column='Score Achieved')
     status = models.CharField(max_length=20, db_column='Status')
     attempt_number = models.PositiveIntegerField(db_column='Attempt Number')
+    approved = models.BooleanField(null=True, db_column='Approved')
+
 
     class Meta:
         db_table = 'TestResult'
@@ -1199,6 +1253,21 @@ class TestResult(models.Model):
         if errors:
             raise ValidationError(errors)
 
+
+class TestDeletionRequest(models.Model):
+    id = models.AutoField(primary_key=True, db_column='ID')
+    test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID')
+    requested_by = models.ForeignKey('AppUser', on_delete=models.CASCADE, db_column='Requested By')
+    requested_at = models.DateTimeField(auto_now_add=True, db_column='Requested At')
+    approved = models.BooleanField(null=True, db_column='Approved')
+
+    class Meta:
+        db_table = 'TestDeletionRequest'
+        verbose_name = 'Запрос на удаление теста'
+        verbose_name_plural = 'Запросы на удаление тестов'
+
+    def __str__(self):
+        return f"Запрос на удаление теста {self.test.title} от {self.requested_by.full_name}"
 ```
 
 Contents of app/serializers.py:
@@ -1208,17 +1277,19 @@ from rest_framework import serializers
 
 class UserSerializer(serializers.Serializer):
     ID = serializers.IntegerField()
-    Full_Name = serializers.CharField(max_length=255, source='Full Name')
-    Email = serializers.EmailField()
-    Age = serializers.IntegerField()
+    Full_Name = serializers.CharField(max_length=255, source='full_name')
+    Email = serializers.EmailField(source='email')
+    Age = serializers.IntegerField(source='age')
 
 class EmployeeSerializer(serializers.Serializer):
     ID = serializers.IntegerField()
-    Full_Name = serializers.CharField(max_length=255, source='Full Name')
-    Years_of_Experience = serializers.IntegerField(source='Years of Experience')
+    User_ID = serializers.IntegerField(source='user.id')
+    Full_Name = serializers.CharField(source='user.full_name')
+    Email = serializers.EmailField(source='user.email')
+    Age = serializers.IntegerField(source='user.age')
+    Years_of_Experience = serializers.IntegerField(source='years_of_experience')
     Position = serializers.CharField(max_length=255)
     Salary = serializers.DecimalField(max_digits=10, decimal_places=2)
-    Age = serializers.IntegerField()
     Photo = serializers.CharField(allow_null=True, required=False)
 
 ```
@@ -1243,7 +1314,8 @@ Contents of app/forms.py:
 ```
 # app/forms.py
 from django import forms
-from .models import AppUser, Employee
+from .models import AppUser, Employee, TestDeletionRequest
+
 
 class UserSelectionForm(forms.Form):
     user = forms.ModelChoiceField(
@@ -1252,45 +1324,176 @@ class UserSelectionForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-class EmployeeForm(forms.ModelForm):
-    class Meta:
-        model = Employee
-        fields = ['full_name', 'years_of_experience', 'position', 'salary', 'age', 'photo', 'is_active']
-        widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'years_of_experience': forms.NumberInput(attrs={'class': 'form-control'}),
-            'position': forms.TextInput(attrs={'class': 'form-control'}),
-            'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
-            'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
 class AppUserForm(forms.ModelForm):
     class Meta:
         model = AppUser
-        fields = ['full_name', 'email', 'age', 'is_active']
+        fields = ['full_name', 'email', 'age']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+class AppUserAdminForm(forms.ModelForm):
+    class Meta:
+        model = AppUser
+        fields = ['full_name', 'email', 'age', 'role']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class EmployeeForm(forms.ModelForm):
+    # Поля из модели AppUser
+    full_name = forms.CharField(
+        max_length=255,
+        label='Полное имя',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        label='Электронная почта',
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+    age = forms.IntegerField(
+        label='Возраст',
+        widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Employee
+        fields = ['full_name', 'email', 'age', 'photo']
+        widgets = {
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EmployeeForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            # Инициализация полей AppUser
+            self.fields['full_name'].initial = self.instance.user.full_name
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['age'].initial = self.instance.user.age
+
+    def save(self, commit=True):
+        # Сохранение данных модели Employee
+        employee = super(EmployeeForm, self).save(commit=False)
+
+        # Сохранение данных модели AppUser
+        user = employee.user
+        user.full_name = self.cleaned_data['full_name']
+        user.email = self.cleaned_data['email']
+        user.age = self.cleaned_data['age']
+
+        if commit:
+            user.save()
+            employee.save()
+
+        return employee
+
+
+# app/forms.py
+from django import forms
+from .models import AppUser, Employee, TestDeletionRequest
+
+
+class EmployeeAdminForm(forms.ModelForm):
+    # Поля из модели AppUser
+    full_name = forms.CharField(
+        max_length=255,
+        label='Полное имя',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    email = forms.EmailField(
+        label='Электронная почта',
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+    age = forms.IntegerField(
+        label='Возраст',
+        widget=forms.NumberInput(attrs={'class': 'form-control'})
+    )
+    role = forms.ChoiceField(
+        label='Роль',
+        choices=AppUser.ROLE_CHOICES,  # Предполагается, что ROLE_CHOICES определены в модели AppUser
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Employee
+        fields = [
+            'full_name',
+            'email',
+            'age',
+            'role',
+            'years_of_experience',
+            'position',
+            'salary',
+            'photo'
+        ]
+        widgets = {
+            'years_of_experience': forms.NumberInput(attrs={'class': 'form-control'}),
+            'position': forms.TextInput(attrs={'class': 'form-control'}),
+            'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EmployeeAdminForm, self).__init__(*args, **kwargs)
+        if self.instance and self.instance.user:
+            # Инициализация полей AppUser
+            self.fields['full_name'].initial = self.instance.user.full_name
+            self.fields['email'].initial = self.instance.user.email
+            self.fields['age'].initial = self.instance.user.age
+            self.fields['role'].initial = self.instance.user.role
+
+    def save(self, commit=True):
+        # Сохранение данных модели Employee
+        employee = super(EmployeeAdminForm, self).save(commit=False)
+
+        # Сохранение данных модели AppUser
+        user = employee.user
+        user.full_name = self.cleaned_data['full_name']
+        user.email = self.cleaned_data['email']
+        user.age = self.cleaned_data['age']
+        user.role = self.cleaned_data['role']
+
+        if commit:
+            user.save()
+            employee.save()
+
+        return employee
+
+
+class TestDeletionRequestForm(forms.ModelForm):
+    class Meta:
+        model = TestDeletionRequest
+        fields = []
 
 ```
 
 Contents of app/context_processors.py:
 ```
 # app/context_processors.py
-
+from .models import Employee
 from .views import get_current_user
 
 def add_role_and_user_id(request):
     app_user, role_name = get_current_user(request)
-    return {
+    context = {
         'role': role_name,
         'user_id': app_user.id if app_user else None,
     }
+    if app_user.role in ['admin', 'employee']:
+        try:
+            employee = Employee.objects.get(user=app_user)
+            context['employee_id'] = employee.id
+        except Employee.DoesNotExist:
+            context['employee_id'] = None
+    else:
+        context['employee_id'] = None
+    return context
 
 ```
 
@@ -1328,6 +1531,20 @@ urlpatterns = [
     path('users/add/', views.add_user, name='add_user'),
     path('employees/add/', views.add_employee, name='add_employee'),
 
+    path('tests/', views.test_list, name='test_list'),
+    path('tests/start/<int:test_id>/', views.start_test, name='start_test'),
+    path('tests/result/<int:result_id>/', views.test_result_detail, name='test_result_detail'),
+    path('tests/results/', views.test_results, name='test_results'),
+
+
+    path('tests/request_delete/<int:test_id>/', views.request_test_deletion, name='request_test_deletion'),
+
+
+    path('admin1/test_deletion_requests/', views.test_deletion_requests, name='test_deletion_requests'),
+    path('admin1/approve_test_deletion/<int:request_id>/', views.approve_test_deletion, name='approve_test_deletion'),
+
+    path('employee/pending_test_results/', views.pending_test_results, name='pending_test_results'),
+    path('employee/approve_test_result/<int:result_id>/', views.approve_test_result, name='approve_test_result'),
     # API Views
     path('api/users/', views.UserListAPI.as_view(), name='api_user_list'),
     path('api/users/<int:user_id>/', views.UserDetailAPI.as_view(), name='api_user_detail'),
@@ -1353,9 +1570,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
-from .models import AppUser, Employee, Role
+from .models import AppUser, Employee, Question, Test, Answer, TestResult, TestDeletionRequest
 from django.core.paginator import Paginator
-from .forms import AppUserForm, EmployeeForm, UserSelectionForm
+from .forms import AppUserForm, EmployeeForm, UserSelectionForm, EmployeeAdminForm, AppUserAdminForm, \
+    TestDeletionRequestForm
 
 # DRF импорты
 from rest_framework.views import APIView
@@ -1369,7 +1587,7 @@ def get_current_user(request):
         return None, None
     try:
         app_user = AppUser.objects.get(id=user_id)
-        role_name = app_user.role.name if app_user.role else None
+        role_name = app_user.role
         return app_user, role_name
     except AppUser.DoesNotExist:
         return None, None
@@ -1400,19 +1618,22 @@ def set_user(request):
         form = UserSelectionForm()
     return render(request, 'set_user.html', {'form': form})
 
+from django.db.models import Q
+
 @login_required
 def user_list(request):
     app_user, role_name = get_current_user(request)
     if role_name != 'admin':
         return HttpResponse('У вас нет доступа к этой странице', status=403)
 
-    search_query = request.GET.get('search', '')
+    search_query = request.GET.get('search', '').strip()
     sort_by = request.GET.get('sort', 'id')
     order = request.GET.get('order', 'asc')
 
     user_list = AppUser.objects.filter(
-        models.Q(full_name__icontains=search_query) | models.Q(email__icontains=search_query)
+        Q(full_name__icontains=search_query) | Q(email__icontains=search_query)
     )
+
     if order == 'desc':
         sort_by = '-' + sort_by
     user_list = user_list.order_by(sort_by)
@@ -1426,11 +1647,10 @@ def user_list(request):
         'role': role_name
     })
 
+
 @login_required
 def user_detail(request, user_id):
     app_user, role_name = get_current_user(request)
-    if not app_user:
-        return redirect('set_user')
 
     target_user = get_object_or_404(AppUser, id=user_id)
 
@@ -1438,13 +1658,19 @@ def user_detail(request, user_id):
         return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     if request.method == 'POST':
-        form = AppUserForm(request.POST, instance=target_user)
+        if role_name == 'admin':
+            form = AppUserAdminForm(request.POST, instance=target_user)
+        else:
+            form = AppUserForm(request.POST, instance=target_user)
         if form.is_valid():
             form.save()
             messages.success(request, 'Данные пользователя обновлены')
             return redirect('user_detail', user_id=user_id)
     else:
-        form = AppUserForm(instance=target_user)
+        if role_name == 'admin':
+            form = AppUserAdminForm(instance=target_user)
+        else:
+            form = AppUserForm(instance=target_user)
 
     return render(request, 'user_detail.html', {
         'form': form,
@@ -1458,21 +1684,26 @@ def employee_list(request):
     if role_name not in ['admin', 'employee']:
         return HttpResponse('У вас нет доступа к этой странице', status=403)
 
-    search_query = request.GET.get('search', '')
+    search_query = request.GET.get('search', '').strip()
     sort_by = request.GET.get('sort', 'id')
     order = request.GET.get('order', 'asc')
 
-    if role_name == 'admin':
-        employee_list = Employee.objects.filter(full_name__icontains=search_query)
-    elif role_name == 'employee':
-        # Сотрудник видит только себя
-        employee_list = Employee.objects.filter(id=app_user.id)
-    else:
-        employee_list = Employee.objects.none()
+    ALLOWED_SORT_FIELDS = ['id', 'user__full_name', 'user__email', 'position', 'salary']
+
+    if sort_by not in ALLOWED_SORT_FIELDS:
+        sort_by = 'id'
 
     if order == 'desc':
         sort_by = '-' + sort_by
-    employee_list = employee_list.order_by(sort_by)
+
+    if role_name == 'admin':
+        employee_list = Employee.objects.filter(
+            Q(user__full_name__icontains=search_query) | Q(user__email__icontains=search_query)
+        ).select_related('user').order_by(sort_by)
+    elif role_name == 'employee':
+        employee_list = Employee.objects.filter(user=app_user).select_related('user').order_by(sort_by)
+    else:
+        employee_list = Employee.objects.none()
 
     paginator = Paginator(employee_list, 10)
     page_number = request.GET.get('page')
@@ -1483,6 +1714,7 @@ def employee_list(request):
         'role': role_name
     })
 
+
 @login_required
 def employee_detail(request, employee_id):
     app_user, role_name = get_current_user(request)
@@ -1490,24 +1722,30 @@ def employee_detail(request, employee_id):
     employee = get_object_or_404(Employee, id=employee_id)
 
     # Проверка доступа
-    if role_name == 'admin':
-        # Администратор имеет доступ ко всем данным
-        pass
-    elif role_name == 'employee':
+    if role_name == 'employee':
         # Сотрудник может просматривать и редактировать только свой профиль
-        if employee.id != app_user.id:
+        if employee.user.id != app_user.id:
             return HttpResponse('У вас нет доступа к этой странице', status=403)
+        if request.method == 'POST':
+            form = EmployeeForm(request.POST, request.FILES, instance=employee)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Данные сотрудника обновлены')
+                return redirect('employee_detail', employee_id=employee_id)
+        else:
+            form = EmployeeForm(instance=employee)
+    elif role_name == 'admin':
+        # Админ может просматривать и редактировать профиль сотрудника
+        if request.method == 'POST':
+            form = EmployeeAdminForm(request.POST, request.FILES, instance=employee)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Данные сотрудника обновлены')
+                return redirect('employee_detail', employee_id=employee_id)
+        else:
+            form = EmployeeAdminForm(instance=employee)
     else:
         return HttpResponse('У вас нет доступа к этой странице', status=403)
-
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES, instance=employee)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Данные сотрудника обновлены')
-            return redirect('employee_detail', employee_id=employee_id)
-    else:
-        form = EmployeeForm(instance=employee)
 
     return render(request, 'employee_detail.html', {
         'form': form,
@@ -1525,8 +1763,7 @@ def add_user(request):
         form = AppUserForm(request.POST)
         if form.is_valid():
             new_user = form.save(commit=False)
-            role_user = Role.objects.get(name='user')
-            new_user.role = role_user
+            new_user.role = 'user'
             new_user.save()
             messages.success(request, 'Новый пользователь добавлен')
             return redirect('user_list')
@@ -1542,13 +1779,13 @@ def add_employee(request):
         return HttpResponse('У вас нет доступа к этой странице', status=403)
 
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, request.FILES)
+        form = EmployeeAdminForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Новый сотрудник добавлен')
             return redirect('employee_list')
     else:
-        form = EmployeeForm()
+        form = EmployeeAdminForm()
 
     return render(request, 'add_employee.html', {'form': form})
 
@@ -1573,6 +1810,218 @@ def delete_employee(request, employee_id):
     employee.delete()
     messages.success(request, 'Сотрудник удалён')
     return redirect('employee_list')
+
+
+from django.db.models import Q
+
+
+@login_required
+def test_list(request):
+    app_user, role_name = get_current_user(request)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'title')
+    order = request.GET.get('order', 'asc')
+
+    test_list = Test.objects.filter(
+        Q(title__icontains=search_query) | Q(description__icontains=search_query)
+    )
+
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    test_list = test_list.order_by(sort_by)
+
+    paginator = Paginator(test_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'test_list.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+from django.utils import timezone
+
+
+@login_required
+def start_test(request, test_id):
+    app_user, role_name = get_current_user(request)
+
+    test = get_object_or_404(Test, id=test_id)
+    questions = Question.objects.filter(test=test).prefetch_related('answer_set')
+
+    if request.method == 'POST':
+        # Обработка ответов пользователя
+        selected_answers = request.POST.getlist('answers')
+        correct_answers = Answer.objects.filter(question__test=test, is_correct=True).values_list('id', flat=True)
+        score = 0
+        for answer_id in selected_answers:
+            if int(answer_id) in correct_answers:
+                score += 1
+        status = 'passed' if score >= test.passing_score else 'failed'
+
+        # Получение или создание сотрудника, если есть
+        employee = Employee.objects.filter(user=app_user).first()
+
+        # Создание результата теста
+        attempt_number = TestResult.objects.filter(user=app_user, test=test).count() + 1
+        test_result = TestResult.objects.create(
+            user=app_user,
+            test=test,
+            employee=employee,
+            test_date=timezone.now(),
+            score_achieved=score,
+            status=status,
+            attempt_number=attempt_number,
+            approved=False,
+        )
+
+        messages.success(request, 'Ваш результат отправлен на проверку.')
+        return redirect('test_result_detail', result_id=test_result.id)
+    else:
+        return render(request, 'start_test.html', {
+            'test': test,
+            'questions': questions,
+        })
+
+@login_required
+def test_result_detail(request, result_id):
+    app_user, role_name = get_current_user(request)
+    test_result = get_object_or_404(TestResult, id=result_id, user=app_user)
+    return render(request, 'test_result_detail.html', {
+        'test_result': test_result,
+    })
+
+
+@login_required
+def test_results(request):
+    app_user, role_name = get_current_user(request)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'test_date')
+    order = request.GET.get('order', 'desc')
+
+    test_results = TestResult.objects.filter(user=app_user).select_related('test').filter(
+        Q(test__title__icontains=search_query)
+    )
+
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    test_results = test_results.filter(approved=True)
+
+    paginator = Paginator(test_results, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'test_results.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+# app/views.py
+
+@login_required
+def request_test_deletion(request, test_id):
+    app_user, role_name = get_current_user(request)
+    test = get_object_or_404(Test, id=test_id)
+
+    if request.method == 'POST':
+        TestDeletionRequest.objects.create(
+            test=test,
+            requested_by=app_user
+        )
+        messages.success(request, 'Запрос на удаление теста отправлен администратору.')
+        return redirect('test_list')
+    else:
+        form = TestDeletionRequestForm()
+
+    return render(request, 'request_test_deletion.html', {
+        'form': form,
+        'test': test,
+        'role': role_name
+    })
+
+
+# app/views.py
+
+@login_required
+def test_deletion_requests(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    deletion_requests = TestDeletionRequest.objects.filter(approved__isnull=True).select_related('test', 'requested_by')
+
+    return render(request, 'test_deletion_requests.html', {
+        'deletion_requests': deletion_requests,
+        'role': role_name
+    })
+
+@login_required
+def approve_test_deletion(request, request_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    deletion_request = get_object_or_404(TestDeletionRequest, id=request_id)
+    test = deletion_request.test
+
+    if request.method == 'POST':
+        if 'approve' in request.POST:
+            test.delete()
+            deletion_request.approved = True
+            messages.success(request, f'Тест "{test.title}" был удалён.')
+        elif 'decline' in request.POST:
+            deletion_request.approved = False
+            messages.info(request, f'Удаление теста "{test.title}" отклонено.')
+        deletion_request.save()
+        return redirect('test_deletion_requests')
+
+    return render(request, 'approve_test_deletion.html', {
+        'deletion_request': deletion_request,
+        'test': test,
+        'role': role_name
+    })
+
+# app/views.py
+
+@login_required
+def pending_test_results(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'employee':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    test_results = TestResult.objects.filter(approved=False).select_related('test', 'user')
+
+    return render(request, 'pending_test_results.html', {
+        'test_results': test_results,
+        'role': role_name
+    })
+
+@login_required
+def approve_test_result(request, result_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'employee':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    test_result = get_object_or_404(TestResult, id=result_id)
+
+    if request.method == 'POST':
+        if 'approve' in request.POST:
+            test_result.approved = True
+            test_result.save()
+            messages.success(request, 'Результат теста одобрен.')
+        elif 'decline' in request.POST:
+            test_result.delete()
+            messages.info(request, 'Результат теста отклонён и удалён.')
+        return redirect('pending_test_results')
+
+    return render(request, 'approve_test_result.html', {
+        'test_result': test_result,
+        'role': role_name
+    })
 
 # API Views
 
@@ -1635,8 +2084,105 @@ def get_item(dictionary, key):
 
 ```
 
+Contents of app/migrations/0006_alter_testresult_employee.py:
+```
+# Generated by Django 4.2.16 on 2024-11-29 05:23
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0005_remove_employee_age_remove_employee_full_name_and_more'),
+    ]
+
+    operations = [
+        migrations.AlterField(
+            model_name='testresult',
+            name='employee',
+            field=models.ForeignKey(blank=True, db_column='Employee ID', null=True, on_delete=django.db.models.deletion.CASCADE, to='app.employee'),
+        ),
+    ]
+
+```
+
 Contents of app/migrations/__init__.py:
 ```
+
+```
+
+Contents of app/migrations/0004_remove_appuser_is_active_remove_employee_is_active_and_more.py:
+```
+# Generated by Django 4.2.16 on 2024-11-29 04:28
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0003_auto_20241127_0421'),
+    ]
+
+    operations = [
+        migrations.RemoveField(
+            model_name='appuser',
+            name='is_active',
+        ),
+        migrations.RemoveField(
+            model_name='employee',
+            name='is_active',
+        ),
+        migrations.AlterField(
+            model_name='appuser',
+            name='role',
+            field=models.CharField(choices=[('admin', 'Admin'), ('user', 'User'), ('employee', 'Employee')], db_column='Role', default='user', max_length=10),
+        ),
+        migrations.DeleteModel(
+            name='Role',
+        ),
+    ]
+
+```
+
+Contents of app/migrations/0007_testresult_approved_testdeletionrequest.py:
+```
+# Generated by Django 4.2.16 on 2024-11-29 05:37
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0006_alter_testresult_employee'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='testresult',
+            name='approved',
+            field=models.BooleanField(db_column='Approved', null=True),
+        ),
+        migrations.CreateModel(
+            name='TestDeletionRequest',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('requested_at', models.DateTimeField(auto_now_add=True, db_column='Requested At')),
+                ('approved', models.BooleanField(db_column='Approved', null=True)),
+                ('requested_by', models.ForeignKey(db_column='Requested By', on_delete=django.db.models.deletion.CASCADE, to='app.appuser')),
+                ('test', models.ForeignKey(db_column='Test ID', on_delete=django.db.models.deletion.CASCADE, to='app.test')),
+            ],
+            options={
+                'verbose_name': 'Запрос на удаление теста',
+                'verbose_name_plural': 'Запросы на удаление тестов',
+                'db_table': 'TestDeletionRequest',
+            },
+        ),
+    ]
 
 ```
 
@@ -1821,6 +2367,150 @@ class Migration(migrations.Migration):
 
 ```
 
+Contents of app/migrations/0005_remove_employee_age_remove_employee_full_name_and_more.py:
+```
+# Generated by Django 4.2.16 on 2024-11-29 04:43
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0004_remove_appuser_is_active_remove_employee_is_active_and_more'),
+    ]
+
+    operations = [
+        migrations.RemoveField(
+            model_name='employee',
+            name='age',
+        ),
+        migrations.RemoveField(
+            model_name='employee',
+            name='full_name',
+        ),
+        migrations.AddField(
+            model_name='employee',
+            name='user',
+            field=models.OneToOneField(db_column='User ID', default=1, on_delete=django.db.models.deletion.CASCADE, to='app.appuser'),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name='employee',
+            name='id',
+            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
+        ),
+    ]
+
+```
+
+Contents of app/templates/test_result_detail.html:
+```
+<!-- app/templates/test_result_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Результат теста{% endblock %}
+
+{% block content %}
+<h1>Результат теста: {{ test_result.test.title }}</h1>
+<p>Дата прохождения: {{ test_result.test_date }}</p>
+<p>Результат: {{ test_result.score_achieved }} из {{ test_result.test.question_set.count }} вопросов</p>
+<p>Статус: {{ test_result.status }}</p>
+<p>Попытка номер: {{ test_result.attempt_number }}</p>
+
+<a href="{% url 'test_list' %}" class="btn btn-secondary">Назад к списку тестов</a>
+<a href="{% url 'test_results' %}" class="btn btn-primary">Мои результаты</a>
+{% endblock %}
+
+```
+
+Contents of app/templates/test_results.html:
+```
+<!-- app/templates/test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Мои результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Мои результаты тестов</h1>
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию теста" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="test-results-table">
+    <thead class="thead-light">
+        <tr>
+            <th>Тест</th>
+            <th>Дата прохождения</th>
+            <th>Результат</th>
+            <th>Статус</th>
+            <th>Попытка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in page_obj.object_list %}
+        <tr>
+            <td>{{ result.test.title }}</td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }} / {{ result.test.passing_score }}</td>
+            <td>{{ result.status }}</td>
+            <td>{{ result.attempt_number }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">У вас нет результатов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}
+
+```
+
 Contents of app/templates/add_employee.html:
 ```
 <!-- app/templates/add_employee.html -->
@@ -1833,26 +2523,77 @@ Contents of app/templates/add_employee.html:
     <div class="card-body">
         <h1 class="card-title">Добавить сотрудника</h1>
 
-        {% if errors %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field, error_list in errors.items %}
-                        {% for error in error_list %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Добавить сотрудника</button>
+            <!-- Условное отображение кнопки "Назад к списку сотрудников" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+            {% endif %}
         </form>
     </div>
 </div>
 {% endblock %}
+
+```
+
+Contents of app/templates/navbar.html:
+```
+<!-- app/templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'index' %}">Мое приложение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"     aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'index' %}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_list' %}">Тесты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_results' %}">Мои результаты</a>
+            </li>
+            {% if user_id %}
+                <li class="nav-item">
+                    {% if role == 'employee' or role == 'admin' %}
+                        {% if employee_id %}
+                            <a class="nav-link" href="{% url 'employee_detail' employee_id %}">Мой профиль</a>
+                        {% else %}
+                            <a class="nav-link disabled" href="#">Профиль недоступен</a>
+                        {% endif %}
+                    {% elif role == 'user' %}
+                        <a class="nav-link" href="{% url 'user_detail' user_id %}">Мой профиль</a>
+                    {% endif %}
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'employee_list' %}">Сотрудники</a>
+                </li>
+            {% endif %}
+            {% if role == 'employee' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pending_test_results' %}">Одобрение результатов</a>
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'test_deletion_requests' %}">Одобрение удаления тестов</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'set_user' %}">Сменить пользователя</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 ```
 
@@ -1872,7 +2613,7 @@ Contents of app/templates/employee_list.html:
 <!-- Форма фильтрации -->
 <form method="get" class="form-inline mb-3">
     <div class="form-group mr-2">
-        <input type="text" name="search" class="form-control" placeholder="Поиск по имени" value="{{ request.GET.search }}">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по имени или email" value="{{ request.GET.search }}">
     </div>
     <button type="submit" class="btn btn-outline-primary">Поиск</button>
 </form>
@@ -1880,23 +2621,81 @@ Contents of app/templates/employee_list.html:
 <table class="table table-hover" id="employee-table">
     <thead class="thead-light">
         <tr>
-            <!-- Остальной код остаётся без изменений -->
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Должность</th>
+            {% if role == 'admin' %}
+                <th>Зарплата</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
-        <!-- Остальной код остаётся без изменений -->
+        {% for employee in page_obj.object_list %}
+        <tr data-employee-id="{{ employee.id }}">
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.user.full_name }}</td>
+            <td>{{ employee.user.email }}</td>
+            <td>{{ employee.position }}</td>
+            {% if role == 'admin' %}
+                <td>{{ employee.salary }}</td>
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет сотрудников</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 
 <!-- Пагинация -->
 <nav aria-label="Навигация по страницам">
     <ul class="pagination justify-content-center">
-        <!-- Остальной код остаётся без изменений -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
     </ul>
 </nav>
 
 <!-- Контекстное меню -->
-<!-- Остальной код остаётся без изменений -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="view">Просмотреть</li>
+        <li data-action="edit">Редактировать</li>
+        {% if role == 'admin' %}
+            <li data-action="delete">Удалить</li>
+        {% endif %}
+    </ul>
+</div>
 
 {% endblock %}
 
@@ -1954,9 +2753,7 @@ document.addEventListener('DOMContentLoaded', function() {
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
         if (action && selectedEmployeeId) {
-            if (action === 'view') {
-                window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
-            } else if (action === 'edit') {
+            if (action === 'view' || action === 'edit') {
                 window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
             } else if (action === 'delete') {
                 if (confirm('Вы уверены, что хотите удалить этого сотрудника?')) {
@@ -1968,6 +2765,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+{% endblock %}
+
+```
+
+Contents of app/templates/pending_test_results.html:
+```
+<!-- app/templates/pending_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Ожидающие результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Ожидающие результаты тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата</th>
+            <th>Результат</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in test_results %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>{{ result.test.title }}</td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}</td>
+            <td>
+                <a href="{% url 'approve_test_result' result.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет результатов для одобрения.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 
 ```
@@ -2009,49 +2848,11 @@ Contents of app/templates/base.html:
 </head>
 <body>
     <!-- Навигационная панель -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'index' %}">Мое приложение</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"     aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
-                </li>
-                {% if role == 'admin' %}
-                    <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
-                    </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'employee_list' %}">Сотрудники</a>
-                    </li>
-                {% elif role == 'user' %}
-                    {% if user_id %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user_detail' user_id %}">Мой профиль</a>
-                        </li>
-                    {% endif %}
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'set_user' %}">Сменить пользователя</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    {% include 'navbar.html' %}
 
     <!-- Основное содержимое -->
     <div class="container mt-4">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
-        {% endif %}
+        {% include 'messages.html' %}
         {% block content %}
         {% endblock %}
     </div>
@@ -2064,12 +2865,52 @@ Contents of app/templates/base.html:
     </footer>
 
     <!-- Bootstrap JS и зависимости (jQuery и Popper.js) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-Df...+" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-...+" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-...+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
+
+```
+
+Contents of app/templates/test_deletion_requests.html:
+```
+<!-- app/templates/test_deletion_requests.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запросы на удаление тестов{% endblock %}
+
+{% block content %}
+<h1>Запросы на удаление тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Тест</th>
+            <th>Запрошен пользователем</th>
+            <th>Дата запроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in deletion_requests %}
+        <tr>
+            <td>{{ req.test.title }}</td>
+            <td>{{ req.requested_by.full_name }}</td>
+            <td>{{ req.requested_at }}</td>
+            <td>
+                <a href="{% url 'approve_test_deletion' req.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет запросов на удаление.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
 
 ```
 
@@ -2098,6 +2939,31 @@ Contents of app/templates/set_user.html:
 
 ```
 
+Contents of app/templates/approve_test_result.html:
+```
+<!-- app/templates/approve_test_result.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение результата теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение результата теста</h1>
+
+<p><strong>Пользователь:</strong> {{ test_result.user.full_name }}</p>
+<p><strong>Тест:</strong> {{ test_result.test.title }}</p>
+<p><strong>Дата:</strong> {{ test_result.test_date }}</p>
+<p><strong>Результат:</strong> {{ test_result.score_achieved }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-success">Одобрить</button>
+    <button type="submit" name="decline" class="btn btn-danger">Отклонить и удалить</button>
+    <a href="{% url 'pending_test_results' %}" class="btn btn-link">Назад к списку</a>
+</form>
+{% endblock %}
+
+```
+
 Contents of app/templates/user_detail.html:
 ```
 <!-- app/templates/user_detail.html -->
@@ -2112,12 +2978,84 @@ Contents of app/templates/user_detail.html:
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
             <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            {% endif %}
         </form>
     </div>
 </div>
+{% endblock %}
+
+```
+
+Contents of app/templates/start_test.html:
+```
+<!-- app/templates/start_test.html -->
+{% extends 'base.html' %}
+
+{% block title %}Прохождение теста{% endblock %}
+
+{% block content %}
+<h1>{{ test.title }}</h1>
+<p>{{ test.description }}</p>
+<form method="post">
+    {% csrf_token %}
+    {% for question in questions %}
+        <div class="card mb-3">
+            <div class="card-header">
+                Вопрос {{ forloop.counter }}: {{ question.question_text }}
+            </div>
+            <div class="card-body">
+                {% for answer in question.answer_set.all %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="answers" value="{{ answer.id }}" id="answer{{ answer.id }}">
+                        <label class="form-check-label" for="answer{{ answer.id }}">
+                            {{ answer.answer_text }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Завершить тест</button>
+</form>
+{% endblock %}
+
+```
+
+Contents of app/templates/approve_test_deletion.html:
+```
+<!-- app/templates/approve_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение удаления теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение удаления теста</h1>
+
+<p><strong>Тест:</strong> {{ test.title }}</p>
+<p><strong>Запрошен пользователем:</strong> {{ deletion_request.requested_by.full_name }}</p>
+<p><strong>Дата запроса:</strong> {{ deletion_request.requested_at }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-danger">Одобрить и удалить тест</button>
+    <button type="submit" name="decline" class="btn btn-secondary">Отклонить запрос</button>
+    <a href="{% url 'test_deletion_requests' %}" class="btn btn-link">Назад к списку запросов</a>
+</form>
 {% endblock %}
 
 ```
@@ -2133,26 +3071,35 @@ Contents of app/templates/add_user.html:
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <h1 class="card-title">Добавить пользователя</h1>
-        {% if errors %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field, error_list in errors.items %}
-                        {% for error in error_list %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
 
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            {% endif %}
         </form>
     </div>
 </div>
 {% endblock %}
+
+```
+
+Contents of app/templates/messages.html:
+```
+<!-- app/templates/messages.html -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
 
 ```
 
@@ -2167,7 +3114,6 @@ Contents of app/templates/employee_detail.html:
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
         <h1 class="card-title">Детали сотрудника</h1>
-
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
@@ -2177,10 +3123,197 @@ Contents of app/templates/employee_detail.html:
                 </div>
             {% endif %}
             <button type="submit" class="btn btn-primary">Сохранить</button>
-            <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+            <!-- Условное отображение кнопки "Назад к списку сотрудников" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+            {% endif %}
         </form>
     </div>
 </div>
+{% endblock %}
+
+```
+
+Contents of app/templates/test_list.html:
+```
+<!-- app/templates/test_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Список тестов{% endblock %}
+
+{% block content %}
+<h1>Список тестов</h1>
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию или описанию" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="test-table">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Проходной балл</th>
+            <th>Время на прохождение (мин)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for test in page_obj.object_list %}
+        <tr data-test-id="{{ test.id }}">
+            <td>{{ test.id }}</td>
+            <td>{{ test.title }}</td>
+            <td>{{ test.description }}</td>
+            <td>{{ test.passing_score }}</td>
+            <td>{{ test.time_to_complete }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет тестов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- Контекстное меню -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="start">Начать тест</li>
+        {% if role == 'employee' %}
+            <li data-action="request_delete">Запросить удаление</li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.context-menu ul {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.context-menu ul li {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #eee;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.getElementById('test-table');
+    const contextMenu = document.getElementById('context-menu');
+    let selectedTestId = null;
+
+    table.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr[data-test-id]');
+        if (targetRow) {
+            selectedTestId = targetRow.getAttribute('data-test-id');
+            contextMenu.style.top = e.pageY + 'px';
+            contextMenu.style.left = e.pageX + 'px';
+            contextMenu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#context-menu')) {
+            contextMenu.style.display = 'none';
+        }
+    });
+
+    // Добавьте новый case в обработчике событий
+    contextMenu.addEventListener('click', function(e) {
+        const action = e.target.getAttribute('data-action');
+        if (action && selectedTestId) {
+            if (action === 'start') {
+                window.location.href = '{% url "start_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'request_delete') {
+                window.location.href = '{% url "request_test_deletion" 0 %}'.replace('0', selectedTestId);
+            }
+            contextMenu.style.display = 'none';
+        }
+    });
+
+});
+</script>
+{% endblock %}
+
+```
+
+Contents of app/templates/request_test_deletion.html:
+```
+<!-- app/templates/request_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запрос на удаление теста{% endblock %}
+
+{% block content %}
+<h1>Запрос на удаление теста: {{ test.title }}</h1>
+<p>Вы уверены, что хотите отправить запрос на удаление этого теста?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Отправить запрос</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
 {% endblock %}
 
 ```
@@ -2209,23 +3342,75 @@ Contents of app/templates/user_list.html:
 <table class="table table-hover" id="user-table">
     <thead class="thead-light">
         <tr>
-            <!-- Остальной код остаётся без изменений -->
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Возраст</th>
+            <th>Роль</th>
         </tr>
     </thead>
     <tbody>
-        <!-- Остальной код остаётся без изменений -->
+        {% for user in page_obj.object_list %}
+        <tr data-user-id="{{ user.id }}">
+            <td>{{ user.id }}</td>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.get_role_display }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет пользователей</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 
 <!-- Пагинация -->
 <nav aria-label="Навигация по страницам">
     <ul class="pagination justify-content-center">
-        <!-- Остальной код остаётся без изменений -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
     </ul>
 </nav>
 
 <!-- Контекстное меню -->
-<!-- Остальной код остаётся без изменений -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="view">Просмотреть</li>
+        <li data-action="edit">Редактировать</li>
+        <li data-action="delete">Удалить</li>
+    </ul>
+</div>
 
 {% endblock %}
 
@@ -2283,9 +3468,7 @@ document.addEventListener('DOMContentLoaded', function() {
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
         if (action && selectedUserId) {
-            if (action === 'view') {
-                window.location.href = '{% url "user_detail" 0 %}'.replace('0', selectedUserId);
-            } else if (action === 'edit') {
+            if (action === 'view' || action === 'edit') {
                 window.location.href = '{% url "user_detail" 0 %}'.replace('0', selectedUserId);
             } else if (action === 'delete') {
                 if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {

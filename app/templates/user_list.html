@@ -20,23 +20,75 @@
 <table class="table table-hover" id="user-table">
     <thead class="thead-light">
         <tr>
-            <!-- Остальной код остаётся без изменений -->
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Возраст</th>
+            <th>Роль</th>
         </tr>
     </thead>
     <tbody>
-        <!-- Остальной код остаётся без изменений -->
+        {% for user in page_obj.object_list %}
+        <tr data-user-id="{{ user.id }}">
+            <td>{{ user.id }}</td>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.get_role_display }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет пользователей</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 
 <!-- Пагинация -->
 <nav aria-label="Навигация по страницам">
     <ul class="pagination justify-content-center">
-        <!-- Остальной код остаётся без изменений -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
     </ul>
 </nav>
 
 <!-- Контекстное меню -->
-<!-- Остальной код остаётся без изменений -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="view">Просмотреть</li>
+        <li data-action="edit">Редактировать</li>
+        <li data-action="delete">Удалить</li>
+    </ul>
+</div>
 
 {% endblock %}
 
@@ -94,9 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
         if (action && selectedUserId) {
-            if (action === 'view') {
-                window.location.href = '{% url "user_detail" 0 %}'.replace('0', selectedUserId);
-            } else if (action === 'edit') {
+            if (action === 'view' || action === 'edit') {
                 window.location.href = '{% url "user_detail" 0 %}'.replace('0', selectedUserId);
             } else if (action === 'delete') {
                 if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {

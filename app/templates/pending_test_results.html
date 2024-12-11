@@ -1,0 +1,37 @@
+<!-- app/templates/pending_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Ожидающие результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Ожидающие результаты тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата</th>
+            <th>Результат</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in test_results %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>{{ result.test.title }}</td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}</td>
+            <td>
+                <a href="{% url 'approve_test_result' result.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет результатов для одобрения.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

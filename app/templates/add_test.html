@@ -1,0 +1,14 @@
+<!-- app/templates/add_test.html -->
+{% extends 'base.html' %}
+
+{% block title %}Добавить тест{% endblock %}
+
+{% block content %}
+<h1>Добавить тест</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

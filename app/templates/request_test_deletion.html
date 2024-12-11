@@ -1,0 +1,15 @@
+<!-- app/templates/request_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запрос на удаление теста{% endblock %}
+
+{% block content %}
+<h1>Запрос на удаление теста: {{ test.title }}</h1>
+<p>Вы уверены, что хотите отправить запрос на удаление этого теста?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Отправить запрос</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

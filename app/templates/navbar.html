@@ -1,0 +1,57 @@
+<!-- app/templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'index' %}">Мое приложение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"     aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'index' %}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_list' %}">Тесты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_results' %}">Мои результаты</a>
+            </li>
+            {% if user_id %}
+                <li class="nav-item">
+                    {% if role == 'employee' or role == 'admin' %}
+                        {% if employee_id %}
+                            <a class="nav-link" href="{% url 'employee_detail' employee_id %}">Мой профиль</a>
+                        {% else %}
+                            <a class="nav-link disabled" href="#">Профиль недоступен</a>
+                        {% endif %}
+                    {% elif role == 'user' %}
+                        <a class="nav-link" href="{% url 'user_detail' user_id %}">Мой профиль</a>
+                    {% endif %}
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'employee_list' %}">Сотрудники</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_test_results' %}">Все результаты</a>
+                </li>
+            {% endif %}
+            {% if role == 'employee' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pending_test_results' %}">Одобрение результатов</a>
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'test_deletion_requests' %}">Одобрение удаления тестов</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'set_user' %}">Сменить пользователя</a>
+            </li>
+        </ul>
+    </div>
+</nav>

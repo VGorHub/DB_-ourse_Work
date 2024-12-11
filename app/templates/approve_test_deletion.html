@@ -1,0 +1,19 @@
+<!-- app/templates/approve_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение удаления теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение удаления теста</h1>
+
+<p><strong>Тест:</strong> {{ test.title }}</p>
+<p><strong>Запрошен пользователем:</strong> {{ deletion_request.requested_by.full_name }}</p>
+<p><strong>Дата запроса:</strong> {{ deletion_request.requested_at }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-danger">Одобрить и удалить тест</button>
+    <button type="submit" name="decline" class="btn btn-secondary">Отклонить запрос</button>
+    <a href="{% url 'test_deletion_requests' %}" class="btn btn-link">Назад к списку запросов</a>
+</form>
+{% endblock %}

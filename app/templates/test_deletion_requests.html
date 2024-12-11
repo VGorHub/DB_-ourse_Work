@@ -1,0 +1,35 @@
+<!-- app/templates/test_deletion_requests.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запросы на удаление тестов{% endblock %}
+
+{% block content %}
+<h1>Запросы на удаление тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Тест</th>
+            <th>Запрошен пользователем</th>
+            <th>Дата запроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in deletion_requests %}
+        <tr>
+            <td>{{ req.test.title }}</td>
+            <td>{{ req.requested_by.full_name }}</td>
+            <td>{{ req.requested_at }}</td>
+            <td>
+                <a href="{% url 'approve_test_deletion' req.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет запросов на удаление.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

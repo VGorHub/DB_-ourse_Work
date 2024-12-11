@@ -1,0 +1,20 @@
+<!-- app/templates/approve_test_result.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение результата теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение результата теста</h1>
+
+<p><strong>Пользователь:</strong> {{ test_result.user.full_name }}</p>
+<p><strong>Тест:</strong> {{ test_result.test.title }}</p>
+<p><strong>Дата:</strong> {{ test_result.test_date }}</p>
+<p><strong>Результат:</strong> {{ test_result.score_achieved }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-success">Одобрить</button>
+    <button type="submit" name="decline" class="btn btn-danger">Отклонить и удалить</button>
+    <a href="{% url 'pending_test_results' %}" class="btn btn-link">Назад к списку</a>
+</form>
+{% endblock %}
