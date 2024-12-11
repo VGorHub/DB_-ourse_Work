@@ -43,20 +43,26 @@ Directory Structure:
 │   │   │   └── ./.git/objects/00/483d5ec5c90a7493480d0d4f8fb95b70fd6cb9
 │   │   ├── ./.git/objects/02
 │   │   │   ├── ./.git/objects/02/030923421a9c30a98b465c71447bbeb98df089
-│   │   │   └── ./.git/objects/02/3b37cf4179162c7f316addc2b1c012a47555ab
+│   │   │   ├── ./.git/objects/02/3b37cf4179162c7f316addc2b1c012a47555ab
+│   │   │   └── ./.git/objects/02/bab50eea9cb346492dcdc1169cd82023e4a5ec
 │   │   ├── ./.git/objects/03
 │   │   │   ├── ./.git/objects/03/06c7898674d62df916b948c82cb3ba5136d02f
+│   │   │   ├── ./.git/objects/03/9a73af72f1f375c5cb04f6ccfdb38eb44f122a
 │   │   │   ├── ./.git/objects/03/b7d655eb9f62e00d6cb333f9f14883d06591a9
 │   │   │   └── ./.git/objects/03/c73f84aeb9947f830f86e438c420c1bbf1e355
 │   │   ├── ./.git/objects/05
 │   │   │   └── ./.git/objects/05/28cea3ede405341796a8388d58209d03a228a7
 │   │   ├── ./.git/objects/07
 │   │   │   └── ./.git/objects/07/803bd682bae71b420f72353954f1dbdc0be9ae
+│   │   ├── ./.git/objects/08
+│   │   │   └── ./.git/objects/08/e03fbc163b1333516af92f1cc61a34c129041a
 │   │   ├── ./.git/objects/0a
 │   │   │   └── ./.git/objects/0a/e4917369bfa7a954fae614c04c1ecdfec82f60
 │   │   ├── ./.git/objects/0b
-│   │   │   └── ./.git/objects/0b/9a9840c0fd1de3606b1dbb9feed84e140a7817
+│   │   │   ├── ./.git/objects/0b/9a9840c0fd1de3606b1dbb9feed84e140a7817
+│   │   │   └── ./.git/objects/0b/c2ea48cef619799edc8914ecc8c4460009ff51
 │   │   ├── ./.git/objects/11
+│   │   │   ├── ./.git/objects/11/107811d786ff728373876331c149ae6c5910f8
 │   │   │   └── ./.git/objects/11/5ddf850c2903c29e33e7878848f7769c7f4c27
 │   │   ├── ./.git/objects/12
 │   │   │   └── ./.git/objects/12/455fab691d301ee1aea95ef9a99566a049dc5c
@@ -78,19 +84,27 @@ Directory Structure:
 │   │   │   └── ./.git/objects/24/21ff57a50803b78448e0d20942ce8397190174
 │   │   ├── ./.git/objects/25
 │   │   │   └── ./.git/objects/25/c7571a4e91b599be95b5a0273cba9fc34e2cbd
+│   │   ├── ./.git/objects/28
+│   │   │   └── ./.git/objects/28/8d117be16290bdf4016bdb8bfd5ee2b0334139
 │   │   ├── ./.git/objects/2e
 │   │   │   └── ./.git/objects/2e/f4b139d0296a9fe9e47907d508485889d9ef42
 │   │   ├── ./.git/objects/30
 │   │   │   └── ./.git/objects/30/5cb587807c7818299e60ab05f865b7caab7121
+│   │   ├── ./.git/objects/33
+│   │   │   └── ./.git/objects/33/617d2d23a5f1e7d358cc1d018eed1395d985a3
 │   │   ├── ./.git/objects/34
 │   │   │   └── ./.git/objects/34/18c171127cad54d317f565057d7855d3623ecf
 │   │   ├── ./.git/objects/35
 │   │   │   ├── ./.git/objects/35/3d4324fd33b252e00019943d8b5b8febe904fd
 │   │   │   └── ./.git/objects/35/46dd6d21a68122de2679fd2343bb5824fabdca
+│   │   ├── ./.git/objects/36
+│   │   │   └── ./.git/objects/36/70745e888e1b2b5366b58398f97d265c7346b3
 │   │   ├── ./.git/objects/37
 │   │   │   └── ./.git/objects/37/ad245ff76f3319c33a10a6d5d8049b3c4c6ae3
 │   │   ├── ./.git/objects/39
 │   │   │   └── ./.git/objects/39/98072631ff25ead14b2f3c68de36154071b712
+│   │   ├── ./.git/objects/3a
+│   │   │   └── ./.git/objects/3a/abe82da6d27118666ad95d7054e4cea50e3c12
 │   │   ├── ./.git/objects/3c
 │   │   │   └── ./.git/objects/3c/f56642e00c9edb0be84689f948c18f64e63779
 │   │   ├── ./.git/objects/40
@@ -101,22 +115,34 @@ Directory Structure:
 │   │   │   └── ./.git/objects/47/6940fbc00b410c268a302439a49111b1aaace2
 │   │   ├── ./.git/objects/4b
 │   │   │   └── ./.git/objects/4b/1e61824a8591b225e31d6054a324f32b75274d
+│   │   ├── ./.git/objects/4f
+│   │   │   ├── ./.git/objects/4f/45d00b721ab48d6513e75e935a7f318968fde8
+│   │   │   └── ./.git/objects/4f/6422e73d100df04c56c5f03332ab1a0fb0b72c
 │   │   ├── ./.git/objects/53
 │   │   │   └── ./.git/objects/53/e203c42b8a7dfa12e1aa3a8c5fd8b51e4fbb47
+│   │   ├── ./.git/objects/55
+│   │   │   └── ./.git/objects/55/182ba53835f159d9909b5e9a957c99744f90e4
 │   │   ├── ./.git/objects/58
 │   │   │   └── ./.git/objects/58/bf5f3460a5f3320b8d20a9fe0be5fc59762d8c
 │   │   ├── ./.git/objects/5a
 │   │   │   └── ./.git/objects/5a/081d7b5ee10dbb911a5713e39a4298925d04d9
 │   │   ├── ./.git/objects/5e
 │   │   │   ├── ./.git/objects/5e/110b35b0fe7aec9a180087ee93a45017f41e26
+│   │   │   ├── ./.git/objects/5e/69b1213f0f16e3d6120d09f3f987a219537187
 │   │   │   └── ./.git/objects/5e/be97318ea17fa051255af187321683aec73e36
 │   │   ├── ./.git/objects/65
-│   │   │   └── ./.git/objects/65/63c10798bbacdfb3b6505ccc78fef7f78fa3a2
+│   │   │   ├── ./.git/objects/65/63c10798bbacdfb3b6505ccc78fef7f78fa3a2
+│   │   │   └── ./.git/objects/65/f974d96d964ca44423ba93f28fc749cc9f1768
 │   │   ├── ./.git/objects/67
+│   │   │   ├── ./.git/objects/67/3774bdacfb9ae578e22686f9acadee4f40c2c8
 │   │   │   ├── ./.git/objects/67/49dbe127ee2e51b4cf74bbf42ed724c75a074e
 │   │   │   └── ./.git/objects/67/739841246c89fa5dd0db40a3e46fcf6de12902
+│   │   ├── ./.git/objects/68
+│   │   │   └── ./.git/objects/68/2b96856aea5eb38e796e34a7b77cc21de2c471
 │   │   ├── ./.git/objects/69
 │   │   │   └── ./.git/objects/69/4323fa4c8382f9effc636c7062ef168bb62da2
+│   │   ├── ./.git/objects/6b
+│   │   │   └── ./.git/objects/6b/1bf418a87a016b291ce4379616080498f199fb
 │   │   ├── ./.git/objects/6d
 │   │   │   └── ./.git/objects/6d/3380a2899f2c1bec86c1cf83b54101fbbd816c
 │   │   ├── ./.git/objects/70
@@ -124,17 +150,29 @@ Directory Structure:
 │   │   ├── ./.git/objects/72
 │   │   │   ├── ./.git/objects/72/1ecd9990b3b9d1ea854889bd7b4c97f0325af2
 │   │   │   └── ./.git/objects/72/e08c75a44bfe98d8c1eeadf620521e91b1bfca
+│   │   ├── ./.git/objects/73
+│   │   │   └── ./.git/objects/73/0437a5d6b2e08b8ed6d006ce14562d993830f6
 │   │   ├── ./.git/objects/74
 │   │   │   ├── ./.git/objects/74/85f344efb8af5bcd4dda85b7f6688de690e939
 │   │   │   └── ./.git/objects/74/db6230ee79a3b98782ee131ae5eb0b7ef5865a
+│   │   ├── ./.git/objects/77
+│   │   │   └── ./.git/objects/77/2f1e4e9ba8f26e110af90ab56d8155e6048822
+│   │   ├── ./.git/objects/79
+│   │   │   └── ./.git/objects/79/a5d9e1b2ad79c7a8c1a87e8bf18b5f06e87a55
 │   │   ├── ./.git/objects/7c
 │   │   │   └── ./.git/objects/7c/e503c2dd97ba78597f6ff6e4393132753573f6
+│   │   ├── ./.git/objects/7e
+│   │   │   └── ./.git/objects/7e/fb726d64ff091183ff1362c5c3ede640b4fd46
 │   │   ├── ./.git/objects/7f
 │   │   │   └── ./.git/objects/7f/185e89fda41a5b0b87d86118e896da88fa9908
+│   │   ├── ./.git/objects/80
+│   │   │   └── ./.git/objects/80/4e255893e5feeab29fcb0369742c6a3b68d48d
 │   │   ├── ./.git/objects/81
 │   │   │   └── ./.git/objects/81/6fcb89298b3914b38250d37dc58bfc3a5127ee
 │   │   ├── ./.git/objects/88
 │   │   │   └── ./.git/objects/88/2376e6621817dd93c7980d79c28054ec745b0b
+│   │   ├── ./.git/objects/8a
+│   │   │   └── ./.git/objects/8a/95bce71d4e227f3df062dff27c96d3dc76c0cc
 │   │   ├── ./.git/objects/8b
 │   │   │   ├── ./.git/objects/8b/9ff878e2e77ea25d220c826a9496ce7da5ad3b
 │   │   │   └── ./.git/objects/8b/c7c941d90af2ca4d2f6804fe0669b913a06e05
@@ -152,12 +190,16 @@ Directory Structure:
 │   │   ├── ./.git/objects/95
 │   │   │   └── ./.git/objects/95/658e04874c53c81ee40724cfb791af3ba6faa2
 │   │   ├── ./.git/objects/9a
+│   │   │   ├── ./.git/objects/9a/9e2b94e140b3077ee862e492581021f2120299
 │   │   │   ├── ./.git/objects/9a/c8685c11c6367bf93ecf8de86c205f15847c24
 │   │   │   └── ./.git/objects/9a/f972babaac2e59a7720f9028c43a3810a3bb1f
 │   │   ├── ./.git/objects/9c
 │   │   │   └── ./.git/objects/9c/6f1e69cc3008aab265982464af294cbfe9322e
 │   │   ├── ./.git/objects/9e
+│   │   │   ├── ./.git/objects/9e/2288026a0f7a6ea1763c170cae2611bccfc28e
 │   │   │   └── ./.git/objects/9e/54b1d7025115bfe255337e1f0d79a325d590ec
+│   │   ├── ./.git/objects/a0
+│   │   │   └── ./.git/objects/a0/3d8e3197d0811a9bcfd4dbe0d6c9ad985fc332
 │   │   ├── ./.git/objects/a2
 │   │   │   └── ./.git/objects/a2/424b9496965175a997042641b086aee0488237
 │   │   ├── ./.git/objects/a6
@@ -166,6 +208,8 @@ Directory Structure:
 │   │   │   └── ./.git/objects/a8/428da53df1850edf26b9e13035622ebad217cd
 │   │   ├── ./.git/objects/a9
 │   │   │   └── ./.git/objects/a9/e2557248eaa3b601a3562b41e4dd86e0ba905d
+│   │   ├── ./.git/objects/ab
+│   │   │   └── ./.git/objects/ab/0de02c747801c0227714500ae76cfb112b7e22
 │   │   ├── ./.git/objects/ac
 │   │   │   └── ./.git/objects/ac/6845a8e5a504e9ad187e388e9b65d52369c7fb
 │   │   ├── ./.git/objects/af
@@ -175,19 +219,25 @@ Directory Structure:
 │   │   ├── ./.git/objects/b3
 │   │   │   └── ./.git/objects/b3/95d1b786a9acfa850a0d258917888fd3a422d0
 │   │   ├── ./.git/objects/b6
-│   │   │   └── ./.git/objects/b6/30cfb3e899a28c6288e3fe491dcc6d440f7a69
+│   │   │   ├── ./.git/objects/b6/30cfb3e899a28c6288e3fe491dcc6d440f7a69
+│   │   │   ├── ./.git/objects/b6/75cd2137a67d53ae2f883f4638d6f78b39cf11
+│   │   │   └── ./.git/objects/b6/ac0e13430dfcfddb8e5516cbda3ae2d7288fc3
 │   │   ├── ./.git/objects/b8
 │   │   │   └── ./.git/objects/b8/763f4b4e9e87f726d9c2d4fef6053a8bac93a8
 │   │   ├── ./.git/objects/b9
 │   │   │   └── ./.git/objects/b9/99d3ac39ec877772e0931dd644829bc81cdfee
 │   │   ├── ./.git/objects/ba
 │   │   │   └── ./.git/objects/ba/069b66a91cba14f1c882c982c1d46b130994cf
+│   │   ├── ./.git/objects/bc
+│   │   │   ├── ./.git/objects/bc/33129ff2ab7c7eff892f5351aceb750aa3dbe9
+│   │   │   └── ./.git/objects/bc/9253550c5e1a1d3e812b8b865ef1ff23faec08
 │   │   ├── ./.git/objects/be
 │   │   │   └── ./.git/objects/be/ba959846992d606cb500e7ee46d1dbba2f18a5
 │   │   ├── ./.git/objects/c1
 │   │   │   └── ./.git/objects/c1/901223c27ebed7f12bd4e3eb6cd4e02477122a
 │   │   ├── ./.git/objects/c3
-│   │   │   └── ./.git/objects/c3/b4306d3bf0fac3a8b7622a51114a83c4a8d50b
+│   │   │   ├── ./.git/objects/c3/b4306d3bf0fac3a8b7622a51114a83c4a8d50b
+│   │   │   └── ./.git/objects/c3/d9629c21890a3b74b61f4564de3017d4b94933
 │   │   ├── ./.git/objects/c6
 │   │   │   ├── ./.git/objects/c6/3e50e2aa260a6dae0172ea1d74a104b121112f
 │   │   │   ├── ./.git/objects/c6/507a12afb6116b5b17adbf60b39e4d493e7d40
@@ -197,23 +247,35 @@ Directory Structure:
 │   │   ├── ./.git/objects/c8
 │   │   │   └── ./.git/objects/c8/67ad5cf746a55692ca23171083b18ba9ce4bcb
 │   │   ├── ./.git/objects/ca
+│   │   │   ├── ./.git/objects/ca/75762ef2d2e46029cc25e8923b9b9eef42a7aa
 │   │   │   └── ./.git/objects/ca/d85b44c8ddfef4c7a456dcdebc4874e9380ca2
 │   │   ├── ./.git/objects/cb
 │   │   │   ├── ./.git/objects/cb/37ab6a60e7ebb497859b36b73fc7b4e525a373
 │   │   │   └── ./.git/objects/cb/3d6310e8ccccfc04ba23117679b00bbd6db34e
+│   │   ├── ./.git/objects/cc
+│   │   │   └── ./.git/objects/cc/ebeb8b7e7493ab9f8b18e4af3b2fa70f59d472
+│   │   ├── ./.git/objects/cd
+│   │   │   └── ./.git/objects/cd/44bea0b9737efff61bc93765dacc780ab51f4a
 │   │   ├── ./.git/objects/d2
-│   │   │   └── ./.git/objects/d2/1a5f88f15602613df88fa1e398e994044b08ac
+│   │   │   ├── ./.git/objects/d2/1a5f88f15602613df88fa1e398e994044b08ac
+│   │   │   └── ./.git/objects/d2/888c470a2f20404f843fa21aefe583ba1b45cd
 │   │   ├── ./.git/objects/d8
 │   │   │   └── ./.git/objects/d8/5539118610c5a91a3b371763157a4fe220aa94
 │   │   ├── ./.git/objects/db
 │   │   │   ├── ./.git/objects/db/42944db97488f56c1faeb3bdb13a3dbdc2d75f
 │   │   │   └── ./.git/objects/db/c5353ce3f74af2505a151431f28c21b56a781b
+│   │   ├── ./.git/objects/dc
+│   │   │   └── ./.git/objects/dc/91d3b7a6bb79210569ece2c67aef1f3735a44b
 │   │   ├── ./.git/objects/de
-│   │   │   └── ./.git/objects/de/65bca72ccf6772ed1bf04977d2d913ab55e365
+│   │   │   ├── ./.git/objects/de/65bca72ccf6772ed1bf04977d2d913ab55e365
+│   │   │   └── ./.git/objects/de/85a85c16c6d4c5bc49b3801b809b45e3f5299e
 │   │   ├── ./.git/objects/df
-│   │   │   └── ./.git/objects/df/e73170153b7f479db31c70c663648df6a9eb5d
+│   │   │   ├── ./.git/objects/df/e73170153b7f479db31c70c663648df6a9eb5d
+│   │   │   └── ./.git/objects/df/f3aa55e8f76cb8f48271d5eb9a1c9740389eae
 │   │   ├── ./.git/objects/e0
 │   │   │   └── ./.git/objects/e0/c6a456c6d664dae7d1805186096d71f4433c51
+│   │   ├── ./.git/objects/e4
+│   │   │   └── ./.git/objects/e4/fbe16bdb4f44e19e3a7a531b753b8d0c2480aa
 │   │   ├── ./.git/objects/e6
 │   │   │   └── ./.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
 │   │   ├── ./.git/objects/e7
@@ -222,8 +284,10 @@ Directory Structure:
 │   │   │   ├── ./.git/objects/e8/0c4a77a961a478959d3ab968d48aa2714be03e
 │   │   │   ├── ./.git/objects/e8/3603f2ead938894eb18b34cfab0e21a399a25e
 │   │   │   ├── ./.git/objects/e8/9acb14f7a1d98517c9cd6b783572cf7cf4ea18
-│   │   │   └── ./.git/objects/e8/b6c75593377c0ee0dd39b0eea68b11dd9e0159
+│   │   │   ├── ./.git/objects/e8/b6c75593377c0ee0dd39b0eea68b11dd9e0159
+│   │   │   └── ./.git/objects/e8/d9391796b2cd1559da67742ea273db8dcacd6e
 │   │   ├── ./.git/objects/e9
+│   │   │   ├── ./.git/objects/e9/57dc452d3f819a76789dee1d99c66d669e9da3
 │   │   │   └── ./.git/objects/e9/b3d0e1208a8cbf9976f970b84871b023af88fd
 │   │   ├── ./.git/objects/ea
 │   │   │   └── ./.git/objects/ea/6fbf4314006e71d350a93b84f2e0c38d8b1408
@@ -234,6 +298,8 @@ Directory Structure:
 │   │   │   └── ./.git/objects/f0/fb4f4cdf1f1b8618957491c28e3e51040276ac
 │   │   ├── ./.git/objects/f1
 │   │   │   └── ./.git/objects/f1/fd6b9909fd99af730d7f3f28da64d83722dc61
+│   │   ├── ./.git/objects/f4
+│   │   │   └── ./.git/objects/f4/5dd328e556170f3a94ae301228337e21db4d29
 │   │   ├── ./.git/objects/f6
 │   │   │   └── ./.git/objects/f6/26d5d0ec70a28f8ba5739afab4642213641b71
 │   │   ├── ./.git/objects/fc
@@ -267,15 +333,24 @@ Directory Structure:
 │   │   ├── ./app/migrations/0005_remove_employee_age_remove_employee_full_name_and_more.py
 │   │   ├── ./app/migrations/0006_alter_testresult_employee.py
 │   │   ├── ./app/migrations/0007_testresult_approved_testdeletionrequest.py
+│   │   ├── ./app/migrations/0008_employee_is_fired_alter_testresult_test.py
+│   │   ├── ./app/migrations/0009_alter_answer_image_alter_question_image.py
 │   │   └── ./app/migrations/__init__.py
 │   ├── ./app/models.py
 │   ├── ./app/serializers.py
 │   ├── ./app/templates
+│   │   ├── ./app/templates/add_answer.html
 │   │   ├── ./app/templates/add_employee.html
+│   │   ├── ./app/templates/add_question.html
+│   │   ├── ./app/templates/add_test.html
 │   │   ├── ./app/templates/add_user.html
+│   │   ├── ./app/templates/admin_test_results.html
 │   │   ├── ./app/templates/approve_test_deletion.html
 │   │   ├── ./app/templates/approve_test_result.html
 │   │   ├── ./app/templates/base.html
+│   │   ├── ./app/templates/edit_answer.html
+│   │   ├── ./app/templates/edit_question.html
+│   │   ├── ./app/templates/edit_test.html
 │   │   ├── ./app/templates/employee_detail.html
 │   │   ├── ./app/templates/employee_list.html
 │   │   ├── ./app/templates/index.html
@@ -1157,6 +1232,7 @@ class Employee(models.Model):
     position = models.CharField(max_length=255, db_column='Position')
     salary = models.DecimalField(max_digits=10, decimal_places=2, db_column='Salary')
     photo = models.ImageField(null=True, blank=True, upload_to='employee_photos/', db_column='Photo')
+    is_fired = models.BooleanField(default=False, db_column='Is Fired')  # новое поле
 
     class Meta:
         db_table = 'Employee'
@@ -1176,8 +1252,6 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.user.full_name
-
-# Остальные модели остаются без изменений
 
 class Test(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
@@ -1204,7 +1278,7 @@ class Question(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
     test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID')
     question_text = models.TextField(db_column='Question Text')
-    image = models.BinaryField(null=True, blank=True, db_column='Image for the Question')
+    image = models.ImageField(null=True, blank=True, upload_to='question_images/', db_column='Image for the Question')  # ImageField вместо BinaryField
 
     class Meta:
         db_table = 'Question'
@@ -1216,24 +1290,25 @@ class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE, db_column='Question ID')
     answer_text = models.TextField(db_column='Answer Text')
     is_correct = models.BooleanField(db_column='Correct Answer')
-    image = models.BinaryField(null=True, blank=True, db_column='Image for the Answer')
+    image = models.ImageField(null=True, blank=True, upload_to='answer_images/', db_column='Image for the Answer')  # ImageField вместо BinaryField
 
     class Meta:
         db_table = 'Answer'
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
 
+
 class TestResult(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
     user = models.ForeignKey('AppUser', on_delete=models.CASCADE, db_column='User ID')
-    test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID')
+    # Изменено: при удалении теста результаты не удаляются, test становится NULL
+    test = models.ForeignKey('Test', on_delete=models.SET_NULL, null=True, blank=True, db_column='Test ID')
     employee = models.ForeignKey('Employee', null=True, blank=True, on_delete=models.CASCADE, db_column='Employee ID')
     test_date = models.DateField(db_column='Test Date')
     score_achieved = models.PositiveIntegerField(db_column='Score Achieved')
     status = models.CharField(max_length=20, db_column='Status')
     attempt_number = models.PositiveIntegerField(db_column='Attempt Number')
     approved = models.BooleanField(null=True, db_column='Approved')
-
 
     class Meta:
         db_table = 'TestResult'
@@ -1244,8 +1319,7 @@ class TestResult(models.Model):
         errors = {}
         if self.status not in ['passed', 'failed', 'in_progress']:
             errors['status'] = 'Недопустимое значение статуса.'
-        # Проверка, что набранный балл не превышает количество вопросов в тесте
-        num_questions = Question.objects.filter(test=self.test).count()
+        num_questions = Question.objects.filter(test=self.test).count() if self.test else 0
         if self.score_achieved > num_questions:
             errors['score_achieved'] = 'Набранный балл не может превышать количество вопросов в тесте.'
         if self.attempt_number <= 0:
@@ -1268,6 +1342,7 @@ class TestDeletionRequest(models.Model):
 
     def __str__(self):
         return f"Запрос на удаление теста {self.test.title} от {self.requested_by.full_name}"
+
 ```
 
 Contents of app/serializers.py:
@@ -1314,8 +1389,7 @@ Contents of app/forms.py:
 ```
 # app/forms.py
 from django import forms
-from .models import AppUser, Employee, TestDeletionRequest
-
+from .models import AppUser, Employee, TestDeletionRequest, Test, Question, Answer
 
 class UserSelectionForm(forms.Form):
     user = forms.ModelChoiceField(
@@ -1345,9 +1419,8 @@ class AppUserAdminForm(forms.ModelForm):
             'role': forms.Select(attrs={'class': 'form-control'}),
         }
 
-
 class EmployeeForm(forms.ModelForm):
-    # Поля из модели AppUser
+    # Добавляем поля, которые недоступны для редактирования сотрудником, но нужны для корректной валидации
     full_name = forms.CharField(
         max_length=255,
         label='Полное имя',
@@ -1361,46 +1434,40 @@ class EmployeeForm(forms.ModelForm):
         label='Возраст',
         widget=forms.NumberInput(attrs={'class': 'form-control'})
     )
+    years_of_experience = forms.IntegerField(label='Стаж работы', required=False, disabled=True)
+    position = forms.CharField(label='Должность', required=False, disabled=True)
+    salary = forms.DecimalField(label='Зарплата', max_digits=10, decimal_places=2, required=False, disabled=True)
 
     class Meta:
         model = Employee
-        fields = ['full_name', 'email', 'age', 'photo']
+        fields = ['full_name', 'email', 'age', 'years_of_experience', 'position', 'salary', 'photo']
         widgets = {
             'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.user:
-            # Инициализация полей AppUser
+        if self.instance and self.instance.pk and self.instance.user_id:
             self.fields['full_name'].initial = self.instance.user.full_name
             self.fields['email'].initial = self.instance.user.email
             self.fields['age'].initial = self.instance.user.age
+            self.fields['years_of_experience'].initial = self.instance.years_of_experience
+            self.fields['position'].initial = self.instance.position
+            self.fields['salary'].initial = self.instance.salary
 
     def save(self, commit=True):
-        # Сохранение данных модели Employee
         employee = super(EmployeeForm, self).save(commit=False)
-
-        # Сохранение данных модели AppUser
         user = employee.user
         user.full_name = self.cleaned_data['full_name']
         user.email = self.cleaned_data['email']
         user.age = self.cleaned_data['age']
-
         if commit:
             user.save()
             employee.save()
-
         return employee
 
 
-# app/forms.py
-from django import forms
-from .models import AppUser, Employee, TestDeletionRequest
-
-
 class EmployeeAdminForm(forms.ModelForm):
-    # Поля из модели AppUser
     full_name = forms.CharField(
         max_length=255,
         label='Полное имя',
@@ -1416,7 +1483,7 @@ class EmployeeAdminForm(forms.ModelForm):
     )
     role = forms.ChoiceField(
         label='Роль',
-        choices=AppUser.ROLE_CHOICES,  # Предполагается, что ROLE_CHOICES определены в модели AppUser
+        choices=AppUser.ROLE_CHOICES,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
@@ -1441,28 +1508,23 @@ class EmployeeAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeAdminForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.user:
-            # Инициализация полей AppUser
+        # Проверяем, есть ли instance и user
+        if self.instance and self.instance.pk and self.instance.user_id:
             self.fields['full_name'].initial = self.instance.user.full_name
             self.fields['email'].initial = self.instance.user.email
             self.fields['age'].initial = self.instance.user.age
             self.fields['role'].initial = self.instance.user.role
 
     def save(self, commit=True):
-        # Сохранение данных модели Employee
         employee = super(EmployeeAdminForm, self).save(commit=False)
-
-        # Сохранение данных модели AppUser
         user = employee.user
         user.full_name = self.cleaned_data['full_name']
         user.email = self.cleaned_data['email']
         user.age = self.cleaned_data['age']
         user.role = self.cleaned_data['role']
-
         if commit:
             user.save()
             employee.save()
-
         return employee
 
 
@@ -1470,6 +1532,36 @@ class TestDeletionRequestForm(forms.ModelForm):
     class Meta:
         model = TestDeletionRequest
         fields = []
+
+
+class AddTestForm(forms.ModelForm):
+    class Meta:
+        model = Test
+        fields = ['title', 'passing_score', 'description', 'time_to_complete']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'passing_score': forms.NumberInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'time_to_complete': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+# Форма для вопросов
+# app/forms.py
+from django import forms
+from .models import AppUser, Employee, TestDeletionRequest, Test, Question, Answer
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        # Убираем image
+        fields = ['question_text']
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        # Убираем image
+        fields = ['answer_text', 'is_correct']
+
 
 ```
 
@@ -1519,15 +1611,19 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # Web Views
     path('', views.index, name='index'),
     path('set_user/', views.set_user, name='set_user'),
     path('users/', views.user_list, name='user_list'),
     path('users/<int:user_id>/', views.user_detail, name='user_detail'),
-    path('users/delete/<int:user_id>/', views.delete_user, name='delete_user'),  # Добавлено
+    path('users/delete/<int:user_id>/', views.delete_user, name='delete_user'),
     path('employees/', views.employee_list, name='employee_list'),
     path('employees/<int:employee_id>/', views.employee_detail, name='employee_detail'),
-    path('employees/delete/<int:employee_id>/', views.delete_employee, name='delete_employee'),  # Добавлено
+    path('employees/delete/<int:employee_id>/', views.delete_employee, name='delete_employee'),
+
+    # Новые маршруты для увольнения и полного удаления сотрудника
+    path('employees/fire/<int:employee_id>/', views.fire_employee, name='fire_employee'),
+    path('employees/delete_from_db/<int:employee_id>/', views.delete_fired_employee, name='delete_fired_employee'),
+
     path('users/add/', views.add_user, name='add_user'),
     path('employees/add/', views.add_employee, name='add_employee'),
 
@@ -1535,21 +1631,31 @@ urlpatterns = [
     path('tests/start/<int:test_id>/', views.start_test, name='start_test'),
     path('tests/result/<int:result_id>/', views.test_result_detail, name='test_result_detail'),
     path('tests/results/', views.test_results, name='test_results'),
-
-
     path('tests/request_delete/<int:test_id>/', views.request_test_deletion, name='request_test_deletion'),
 
+    # Новый маршрут для добавления теста сотрудником/админом
+    path('tests/add/', views.add_test, name='add_test'),
+
+    # Новый маршрут для просмотра результатов тестов админом
+    path('admin1/test_results/', views.admin_test_results, name='admin_test_results'),
 
     path('admin1/test_deletion_requests/', views.test_deletion_requests, name='test_deletion_requests'),
     path('admin1/approve_test_deletion/<int:request_id>/', views.approve_test_deletion, name='approve_test_deletion'),
 
     path('employee/pending_test_results/', views.pending_test_results, name='pending_test_results'),
     path('employee/approve_test_result/<int:result_id>/', views.approve_test_result, name='approve_test_result'),
-    # API Views
+
+    # API
     path('api/users/', views.UserListAPI.as_view(), name='api_user_list'),
     path('api/users/<int:user_id>/', views.UserDetailAPI.as_view(), name='api_user_detail'),
     path('api/employees/', views.EmployeeListAPI.as_view(), name='api_employee_list'),
     path('api/employees/<int:employee_id>/', views.EmployeeDetailAPI.as_view(), name='api_employee_detail'),
+    # Редактирование тестов (только для employee/admin)
+    path('tests/edit/<int:test_id>/', views.edit_test, name='edit_test'),
+    path('tests/<int:test_id>/add_question/', views.add_question, name='add_question'),
+    path('question/edit/<int:question_id>/', views.edit_question, name='edit_question'),
+    path('question/<int:question_id>/add_answer/', views.add_answer, name='add_answer'),
+    path('answer/edit/<int:answer_id>/', views.edit_answer, name='edit_answer'),
 ]
 
 ```
@@ -1570,10 +1676,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
-from .models import AppUser, Employee, Question, Test, Answer, TestResult, TestDeletionRequest
+from django.db.models import Q
 from django.core.paginator import Paginator
+from django.utils import timezone
+
+from .models import AppUser, Employee, Question, Test, Answer, TestResult, TestDeletionRequest
 from .forms import AppUserForm, EmployeeForm, UserSelectionForm, EmployeeAdminForm, AppUserAdminForm, \
-    TestDeletionRequestForm
+    TestDeletionRequestForm, AddTestForm, AnswerForm, QuestionForm
 
 # DRF импорты
 from rest_framework.views import APIView
@@ -1618,8 +1727,6 @@ def set_user(request):
         form = UserSelectionForm()
     return render(request, 'set_user.html', {'form': form})
 
-from django.db.models import Q
-
 @login_required
 def user_list(request):
     app_user, role_name = get_current_user(request)
@@ -1646,7 +1753,6 @@ def user_list(request):
         'page_obj': page_obj,
         'role': role_name
     })
-
 
 @login_required
 def user_detail(request, user_id):
@@ -1714,16 +1820,13 @@ def employee_list(request):
         'role': role_name
     })
 
-
 @login_required
 def employee_detail(request, employee_id):
     app_user, role_name = get_current_user(request)
 
     employee = get_object_or_404(Employee, id=employee_id)
 
-    # Проверка доступа
     if role_name == 'employee':
-        # Сотрудник может просматривать и редактировать только свой профиль
         if employee.user.id != app_user.id:
             return HttpResponse('У вас нет доступа к этой странице', status=403)
         if request.method == 'POST':
@@ -1735,7 +1838,6 @@ def employee_detail(request, employee_id):
         else:
             form = EmployeeForm(instance=employee)
     elif role_name == 'admin':
-        # Админ может просматривать и редактировать профиль сотрудника
         if request.method == 'POST':
             form = EmployeeAdminForm(request.POST, request.FILES, instance=employee)
             if form.is_valid():
@@ -1770,7 +1872,7 @@ def add_user(request):
     else:
         form = AppUserForm()
 
-    return render(request, 'add_user.html', {'form': form})
+    return render(request, 'add_user.html', {'form': form, 'role': role_name})
 
 @login_required
 def add_employee(request):
@@ -1781,13 +1883,28 @@ def add_employee(request):
     if request.method == 'POST':
         form = EmployeeAdminForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # Создаём AppUser сначала
+            new_user = AppUser(
+                full_name=form.cleaned_data['full_name'],
+                email=form.cleaned_data['email'],
+                age=form.cleaned_data['age'],
+                role=form.cleaned_data['role']
+            )
+            new_user.save()
+            new_employee = Employee(
+                user=new_user,
+                years_of_experience=form.cleaned_data['years_of_experience'],
+                position=form.cleaned_data['position'],
+                salary=form.cleaned_data['salary'],
+                photo=form.cleaned_data['photo']
+            )
+            new_employee.save()
             messages.success(request, 'Новый сотрудник добавлен')
             return redirect('employee_list')
     else:
         form = EmployeeAdminForm()
 
-    return render(request, 'add_employee.html', {'form': form})
+    return render(request, 'add_employee.html', {'form': form, 'role': role_name})
 
 @login_required
 def delete_user(request, user_id):
@@ -1802,6 +1919,7 @@ def delete_user(request, user_id):
 
 @login_required
 def delete_employee(request, employee_id):
+    # Удаление сотрудника сейчас не обязательно изменять, но оставим как есть
     app_user, role_name = get_current_user(request)
     if role_name != 'admin':
         return HttpResponse('У вас нет доступа к этой странице', status=403)
@@ -1812,7 +1930,37 @@ def delete_employee(request, employee_id):
     return redirect('employee_list')
 
 
-from django.db.models import Q
+@login_required
+def fire_employee(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    employee = get_object_or_404(Employee, id=employee_id)
+    if not employee.is_fired:
+        employee.is_fired = True
+        employee.save()
+        messages.success(request, 'Сотрудник уволен. Теперь его можно полностью удалить из БД.')
+    else:
+        messages.warning(request, 'Сотрудник уже уволен.')
+    return redirect('employee_list')
+
+@login_required
+def delete_fired_employee(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    employee = get_object_or_404(Employee, id=employee_id)
+    if employee.is_fired:
+        # Сначала удаляем связанного пользователя
+        user = employee.user
+        employee.delete()
+        user.delete()
+        messages.success(request, 'Сотрудник и его пользовательские данные полностью удалены из БД.')
+    else:
+        messages.warning(request, 'Невозможно удалить: сотрудник не помечен как уволенный.')
+    return redirect('employee_list')
 
 
 @login_required
@@ -1840,10 +1988,6 @@ def test_list(request):
         'role': role_name
     })
 
-
-from django.utils import timezone
-
-
 @login_required
 def start_test(request, test_id):
     app_user, role_name = get_current_user(request)
@@ -1852,19 +1996,11 @@ def start_test(request, test_id):
     questions = Question.objects.filter(test=test).prefetch_related('answer_set')
 
     if request.method == 'POST':
-        # Обработка ответов пользователя
         selected_answers = request.POST.getlist('answers')
         correct_answers = Answer.objects.filter(question__test=test, is_correct=True).values_list('id', flat=True)
-        score = 0
-        for answer_id in selected_answers:
-            if int(answer_id) in correct_answers:
-                score += 1
+        score = sum(1 for ans_id in selected_answers if int(ans_id) in correct_answers)
         status = 'passed' if score >= test.passing_score else 'failed'
-
-        # Получение или создание сотрудника, если есть
         employee = Employee.objects.filter(user=app_user).first()
-
-        # Создание результата теста
         attempt_number = TestResult.objects.filter(user=app_user, test=test).count() + 1
         test_result = TestResult.objects.create(
             user=app_user,
@@ -1902,13 +2038,13 @@ def test_results(request):
     sort_by = request.GET.get('sort', 'test_date')
     order = request.GET.get('order', 'desc')
 
-    test_results = TestResult.objects.filter(user=app_user).select_related('test').filter(
+    test_results = TestResult.objects.filter(user=app_user, approved=True).select_related('test').filter(
         Q(test__title__icontains=search_query)
     )
 
     if order == 'desc':
         sort_by = '-' + sort_by
-    test_results = test_results.filter(approved=True)
+    test_results = test_results.order_by(sort_by)
 
     paginator = Paginator(test_results, 10)
     page_number = request.GET.get('page')
@@ -1918,9 +2054,6 @@ def test_results(request):
         'page_obj': page_obj,
         'role': role_name
     })
-
-
-# app/views.py
 
 @login_required
 def request_test_deletion(request, test_id):
@@ -1942,9 +2075,6 @@ def request_test_deletion(request, test_id):
         'test': test,
         'role': role_name
     })
-
-
-# app/views.py
 
 @login_required
 def test_deletion_requests(request):
@@ -1985,8 +2115,6 @@ def approve_test_deletion(request, request_id):
         'role': role_name
     })
 
-# app/views.py
-
 @login_required
 def pending_test_results(request):
     app_user, role_name = get_current_user(request)
@@ -2023,8 +2151,142 @@ def approve_test_result(request, result_id):
         'role': role_name
     })
 
-# API Views
+# Новый view для добавления теста
+@login_required
+def add_test(request):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('У вас нет доступа', status=403)
 
+    if request.method == 'POST':
+        form = AddTestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Тест успешно добавлен')
+            return redirect('test_list')
+    else:
+        form = AddTestForm()
+
+    return render(request, 'add_test.html', {'form': form, 'role': role_name})
+
+# Новый view для просмотра результатов всех пользователей админом
+@login_required
+def admin_test_results(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'test_date')
+    order = request.GET.get('order', 'desc')
+
+    test_results = TestResult.objects.select_related('test', 'user').filter(
+        Q(test__title__icontains=search_query) |
+        Q(user__full_name__icontains=search_query)
+    )
+
+    if order == 'desc':
+        sort_by = '-' + sort_by
+
+    test_results = test_results.order_by(sort_by)
+
+    paginator = Paginator(test_results, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'admin_test_results.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+# app/views.py (дополнительно к существующему коду)
+
+@login_required
+def edit_test(request, test_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+    test = get_object_or_404(Test, id=test_id)
+    if request.method == 'POST':
+        form = AddTestForm(request.POST, instance=test)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Тест обновлен')
+            return redirect('edit_test', test_id=test_id)
+    else:
+        form = AddTestForm(instance=test)
+    questions = Question.objects.filter(test=test)
+    return render(request, 'edit_test.html', {'form': form, 'test': test, 'questions': questions})
+
+@login_required
+def add_question(request, test_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+    test = get_object_or_404(Test, id=test_id)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, request.FILES)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.test = test
+            question.save()
+            messages.success(request, 'Вопрос добавлен')
+            return redirect('edit_test', test_id=test_id)
+    else:
+        form = QuestionForm()
+    return render(request, 'add_question.html', {'form': form, 'test': test})
+
+@login_required
+def edit_question(request, question_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, request.FILES, instance=question)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вопрос обновлен')
+            return redirect('edit_test', test_id=question.test.id)
+    else:
+        form = QuestionForm(instance=question)
+    answers = Answer.objects.filter(question=question)
+    return render(request, 'edit_question.html', {'form': form, 'question': question, 'answers': answers})
+
+@login_required
+def add_answer(request, question_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.question = question
+            answer.save()
+            messages.success(request, 'Ответ добавлен')
+            return redirect('edit_question', question_id=question_id)
+    else:
+        form = AnswerForm()
+    return render(request, 'add_answer.html', {'form': form, 'question': question})
+
+@login_required
+def edit_answer(request, answer_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+    answer = get_object_or_404(Answer, id=answer_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES, instance=answer)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ответ обновлен')
+            return redirect('edit_question', question_id=answer.question.id)
+    else:
+        form = AnswerForm(instance=answer)
+    return render(request, 'edit_answer.html', {'form': form, 'answer': answer})
+
+# API Views
 class UserListAPI(APIView):
     def get(self, request):
         app_users = AppUser.objects.all()
@@ -2081,6 +2343,35 @@ def to(value, arg):
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+```
+
+Contents of app/migrations/0008_employee_is_fired_alter_testresult_test.py:
+```
+# Generated by Django 4.2.16 on 2024-12-11 02:45
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0007_testresult_approved_testdeletionrequest'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='employee',
+            name='is_fired',
+            field=models.BooleanField(db_column='Is Fired', default=False),
+        ),
+        migrations.AlterField(
+            model_name='testresult',
+            name='test',
+            field=models.ForeignKey(blank=True, db_column='Test ID', null=True, on_delete=django.db.models.deletion.SET_NULL, to='app.test'),
+        ),
+    ]
 
 ```
 
@@ -2142,6 +2433,34 @@ class Migration(migrations.Migration):
         ),
         migrations.DeleteModel(
             name='Role',
+        ),
+    ]
+
+```
+
+Contents of app/migrations/0009_alter_answer_image_alter_question_image.py:
+```
+# Generated by Django 4.2.16 on 2024-12-11 03:14
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0008_employee_is_fired_alter_testresult_test'),
+    ]
+
+    operations = [
+        migrations.AlterField(
+            model_name='answer',
+            name='image',
+            field=models.ImageField(blank=True, db_column='Image for the Answer', null=True, upload_to='answer_images/'),
+        ),
+        migrations.AlterField(
+            model_name='question',
+            name='image',
+            field=models.ImageField(blank=True, db_column='Image for the Question', null=True, upload_to='question_images/'),
         ),
     ]
 
@@ -2538,6 +2857,97 @@ Contents of app/templates/add_employee.html:
 
 ```
 
+Contents of app/templates/admin_test_results.html:
+```
+<!-- app/templates/admin_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Все результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Все результаты тестов</h1>
+
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по тесту или ФИО пользователя" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата прохождения</th>
+            <th>Результат</th>
+            <th>Статус</th>
+            <th>Попытка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in page_obj.object_list %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>
+            {% if result.test %}
+                {{ result.test.title }}
+            {% else %}
+                Тест удален
+            {% endif %}
+            </td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}{% if result.test %} / {{ result.test.passing_score }}{% endif %}</td>
+            <td>{{ result.status }}</td>
+            <td>{{ result.attempt_number }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Нет результатов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
+
+```
+
 Contents of app/templates/navbar.html:
 ```
 <!-- app/templates/navbar.html -->
@@ -2577,6 +2987,9 @@ Contents of app/templates/navbar.html:
                 <li class="nav-item {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'employee_list' %}">Сотрудники</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_test_results' %}">Все результаты</a>
+                </li>
             {% endif %}
             {% if role == 'employee' %}
                 <li class="nav-item">
@@ -2599,7 +3012,6 @@ Contents of app/templates/navbar.html:
 
 Contents of app/templates/employee_list.html:
 ```
-<!-- app/templates/employee_list.html -->
 {% extends 'base.html' %}
 
 {% block title %}Список сотрудников{% endblock %}
@@ -2632,7 +3044,7 @@ Contents of app/templates/employee_list.html:
     </thead>
     <tbody>
         {% for employee in page_obj.object_list %}
-        <tr data-employee-id="{{ employee.id }}">
+        <tr data-employee-id="{{ employee.id }}" data-is-fired="{{ employee.is_fired|yesno:'true,false' }}">
             <td>{{ employee.id }}</td>
             <td>{{ employee.user.full_name }}</td>
             <td>{{ employee.user.email }}</td>
@@ -2692,7 +3104,10 @@ Contents of app/templates/employee_list.html:
         <li data-action="view">Просмотреть</li>
         <li data-action="edit">Редактировать</li>
         {% if role == 'admin' %}
-            <li data-action="delete">Удалить</li>
+            <!-- Для неуволенного сотрудника -->
+            <li data-action="fire" class="context-action-fire">Уволить</li>
+            <!-- Для уволенного сотрудника -->
+            <li data-action="delete_db" class="context-action-delete-db">Удалить из БД</li>
         {% endif %}
     </ul>
 </div>
@@ -2732,12 +3147,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('employee-table');
     const contextMenu = document.getElementById('context-menu');
     let selectedEmployeeId = null;
+    let selectedEmployeeFired = false;
+
+    const fireItem = contextMenu.querySelector('.context-action-fire');
+    const deleteDbItem = contextMenu.querySelector('.context-action-delete-db');
 
     table.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         const targetRow = e.target.closest('tr[data-employee-id]');
         if (targetRow) {
             selectedEmployeeId = targetRow.getAttribute('data-employee-id');
+            selectedEmployeeFired = targetRow.getAttribute('data-is-fired') === 'true';
+            // Показываем/скрываем пункты меню в зависимости от статуса
+            if (selectedEmployeeFired) {
+                fireItem.style.display = 'none';
+                deleteDbItem.style.display = 'block';
+            } else {
+                fireItem.style.display = 'block';
+                deleteDbItem.style.display = 'none';
+            }
+
             contextMenu.style.top = e.pageY + 'px';
             contextMenu.style.left = e.pageX + 'px';
             contextMenu.style.display = 'block';
@@ -2755,9 +3184,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (action && selectedEmployeeId) {
             if (action === 'view' || action === 'edit') {
                 window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
-            } else if (action === 'delete') {
-                if (confirm('Вы уверены, что хотите удалить этого сотрудника?')) {
-                    window.location.href = '{% url "delete_employee" 0 %}'.replace('0', selectedEmployeeId);
+            } else if (action === 'fire') {
+                if (confirm('Вы уверены, что хотите уволить этого сотрудника?')) {
+                    window.location.href = '{% url "fire_employee" 0 %}'.replace('0', selectedEmployeeId);
+                }
+            } else if (action === 'delete_db') {
+                if (confirm('Вы уверены, что хотите полностью удалить уволенного сотрудника из БД?')) {
+                    window.location.href = '{% url "delete_fired_employee" 0 %}'.replace('0', selectedEmployeeId);
                 }
             }
             contextMenu.style.display = 'none';
@@ -2807,6 +3240,22 @@ Contents of app/templates/pending_test_results.html:
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}
+
+```
+
+Contents of app/templates/add_answer.html:
+```
+{% extends 'base.html' %}
+{% block title %}Добавить ответ{% endblock %}
+{% block content %}
+<h1>Добавить ответ к вопросу: {{ question.question_text }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'edit_question' question.id %}" class="btn btn-secondary">Назад</a>
+</form>
 {% endblock %}
 
 ```
@@ -2964,6 +3413,41 @@ Contents of app/templates/approve_test_result.html:
 
 ```
 
+Contents of app/templates/add_test.html:
+```
+<!-- app/templates/add_test.html -->
+{% extends 'base.html' %}
+
+{% block title %}Добавить тест{% endblock %}
+
+{% block content %}
+<h1>Добавить тест</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of app/templates/add_question.html:
+```
+{% extends 'base.html' %}
+{% block title %}Добавить вопрос{% endblock %}
+{% block content %}
+<h1>Добавить вопрос к тесту: {{ test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'edit_test' test.id %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}
+
+```
+
 Contents of app/templates/user_detail.html:
 ```
 <!-- app/templates/user_detail.html -->
@@ -3032,6 +3516,86 @@ Contents of app/templates/start_test.html:
     {% endfor %}
     <button type="submit" class="btn btn-primary">Завершить тест</button>
 </form>
+{% endblock %}
+
+```
+
+Contents of app/templates/edit_question.html:
+```
+{% extends 'base.html' %}
+{% block title %}Редактирование вопроса{% endblock %}
+{% block content %}
+<h1>Редактирование вопроса теста: {{ question.test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'edit_test' question.test.id %}" class="btn btn-secondary">Назад</a>
+</form>
+
+<h2>Ответы на вопрос</h2>
+<a href="{% url 'add_answer' question.id %}" class="btn btn-success mb-3">Добавить ответ</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Текст ответа</th>
+            <th>Правильный?</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ans in answers %}
+        <tr>
+            <td>{{ ans.answer_text }}</td>
+            <td>{{ ans.is_correct|yesno:"Да,Нет" }}</td>
+            <td>
+                <a href="{% url 'edit_answer' ans.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Нет ответов</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+```
+
+Contents of app/templates/edit_test.html:
+```
+<!-- app/templates/edit_test.html -->
+{% extends 'base.html' %}
+{% block title %}Редактирование теста{% endblock %}
+{% block content %}
+<h1>Редактирование теста: {{ test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+<h2>Вопросы</h2>
+<a href="{% url 'add_question' test.id %}" class="btn btn-success mb-3">Добавить вопрос</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Текст вопроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for q in questions %}
+        <tr>
+            <td>{{ q.question_text }}</td>
+            <td>
+                <a href="{% url 'edit_question' q.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Нет вопросов</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 
 ```
@@ -3136,7 +3700,6 @@ Contents of app/templates/employee_detail.html:
 
 Contents of app/templates/test_list.html:
 ```
-<!-- app/templates/test_list.html -->
 {% extends 'base.html' %}
 
 {% block title %}Список тестов{% endblock %}
@@ -3149,6 +3712,8 @@ Contents of app/templates/test_list.html:
     <div class="form-group mr-2">
         <input type="text" name="search" class="form-control" placeholder="Поиск по названию или описанию" value="{{ request.GET.search }}">
     </div>
+    <!-- Кнопка для добавления теста -->
+    <a class="btn btn-success mr-2" href="{% url 'add_test' %}" role="button">Добавить тест</a>
     <button type="submit" class="btn btn-outline-primary">Поиск</button>
 </form>
 
@@ -3220,6 +3785,9 @@ Contents of app/templates/test_list.html:
 <div id="context-menu" class="context-menu">
     <ul>
         <li data-action="start">Начать тест</li>
+        {% if role == 'employee' or role == 'admin' %}
+            <li data-action="test_edit">Редактировать тест</li>
+        {% endif %}
         {% if role == 'employee' %}
             <li data-action="request_delete">Запросить удаление</li>
         {% endif %}
@@ -3279,21 +3847,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Добавьте новый case в обработчике событий
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
         if (action && selectedTestId) {
             if (action === 'start') {
                 window.location.href = '{% url "start_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'test_edit') {
+                window.location.href = '{% url "edit_test" 0 %}'.replace('0', selectedTestId);
             } else if (action === 'request_delete') {
                 window.location.href = '{% url "request_test_deletion" 0 %}'.replace('0', selectedTestId);
             }
+
             contextMenu.style.display = 'none';
         }
     });
 
 });
 </script>
+{% endblock %}
+
+```
+
+Contents of app/templates/edit_answer.html:
+```
+{% extends 'base.html' %}
+{% block title %}Редактирование ответа{% endblock %}
+{% block content %}
+<h1>Редактирование ответа к вопросу: {{ answer.question.question_text }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'edit_question' answer.question.id %}" class="btn btn-secondary">Назад</a>
+</form>
 {% endblock %}
 
 ```

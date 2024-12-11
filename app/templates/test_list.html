@@ -1,4 +1,3 @@
-<!-- app/templates/test_list.html -->
 {% extends 'base.html' %}
 
 {% block title %}Список тестов{% endblock %}
@@ -11,6 +10,8 @@
     <div class="form-group mr-2">
         <input type="text" name="search" class="form-control" placeholder="Поиск по названию или описанию" value="{{ request.GET.search }}">
     </div>
+    <!-- Кнопка для добавления теста -->
+    <a class="btn btn-success mr-2" href="{% url 'add_test' %}" role="button">Добавить тест</a>
     <button type="submit" class="btn btn-outline-primary">Поиск</button>
 </form>
 
@@ -82,6 +83,9 @@
 <div id="context-menu" class="context-menu">
     <ul>
         <li data-action="start">Начать тест</li>
+        {% if role == 'employee' or role == 'admin' %}
+            <li data-action="test_edit">Редактировать тест</li>
+        {% endif %}
         {% if role == 'employee' %}
             <li data-action="request_delete">Запросить удаление</li>
         {% endif %}
@@ -141,15 +145,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Добавьте новый case в обработчике событий
     contextMenu.addEventListener('click', function(e) {
         const action = e.target.getAttribute('data-action');
         if (action && selectedTestId) {
             if (action === 'start') {
                 window.location.href = '{% url "start_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'test_edit') {
+                window.location.href = '{% url "edit_test" 0 %}'.replace('0', selectedTestId);
             } else if (action === 'request_delete') {
                 window.location.href = '{% url "request_test_deletion" 0 %}'.replace('0', selectedTestId);
             }
+
             contextMenu.style.display = 'none';
         }
     });

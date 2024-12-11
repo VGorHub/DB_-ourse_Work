@@ -79,7 +79,7 @@ class Question(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')
     test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID')
     question_text = models.TextField(db_column='Question Text')
-    image = models.BinaryField(null=True, blank=True, db_column='Image for the Question')
+    image = models.ImageField(null=True, blank=True, upload_to='question_images/', db_column='Image for the Question')  # ImageField вместо BinaryField
 
     class Meta:
         db_table = 'Question'
@@ -91,12 +91,13 @@ class Answer(models.Model):
     question = models.ForeignKey('Question', on_delete=models.CASCADE, db_column='Question ID')
     answer_text = models.TextField(db_column='Answer Text')
     is_correct = models.BooleanField(db_column='Correct Answer')
-    image = models.BinaryField(null=True, blank=True, db_column='Image for the Answer')
+    image = models.ImageField(null=True, blank=True, upload_to='answer_images/', db_column='Image for the Answer')  # ImageField вместо BinaryField
 
     class Meta:
         db_table = 'Answer'
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
+
 
 class TestResult(models.Model):
     id = models.AutoField(primary_key=True, db_column='ID')

@@ -58,7 +58,7 @@ class EmployeeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.user:
+        if self.instance and self.instance.pk and self.instance.user_id:
             self.fields['full_name'].initial = self.instance.user.full_name
             self.fields['email'].initial = self.instance.user.email
             self.fields['age'].initial = self.instance.user.age
@@ -119,7 +119,8 @@ class EmployeeAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeAdminForm, self).__init__(*args, **kwargs)
-        if self.instance and self.instance.user:
+        # Проверяем, есть ли instance и user
+        if self.instance and self.instance.pk and self.instance.user_id:
             self.fields['full_name'].initial = self.instance.user.full_name
             self.fields['email'].initial = self.instance.user.email
             self.fields['age'].initial = self.instance.user.age

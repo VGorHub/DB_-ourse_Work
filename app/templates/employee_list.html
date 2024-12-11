@@ -1,4 +1,3 @@
-<!-- app/templates/employee_list.html -->
 {% extends 'base.html' %}
 
 {% block title %}Список сотрудников{% endblock %}
@@ -31,7 +30,7 @@
     </thead>
     <tbody>
         {% for employee in page_obj.object_list %}
-        <tr data-employee-id="{{ employee.id }}">
+        <tr data-employee-id="{{ employee.id }}" data-is-fired="{{ employee.is_fired|yesno:'true,false' }}">
             <td>{{ employee.id }}</td>
             <td>{{ employee.user.full_name }}</td>
             <td>{{ employee.user.email }}</td>
@@ -91,7 +90,10 @@
         <li data-action="view">Просмотреть</li>
         <li data-action="edit">Редактировать</li>
         {% if role == 'admin' %}
-            <li data-action="delete">Удалить</li>
+            <!-- Для неуволенного сотрудника -->
+            <li data-action="fire" class="context-action-fire">Уволить</li>
+            <!-- Для уволенного сотрудника -->
+            <li data-action="delete_db" class="context-action-delete-db">Удалить из БД</li>
         {% endif %}
     </ul>
 </div>
@@ -131,12 +133,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('employee-table');
     const contextMenu = document.getElementById('context-menu');
     let selectedEmployeeId = null;
+    let selectedEmployeeFired = false;
+
+    const fireItem = contextMenu.querySelector('.context-action-fire');
+    const deleteDbItem = contextMenu.querySelector('.context-action-delete-db');
 
     table.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         const targetRow = e.target.closest('tr[data-employee-id]');
         if (targetRow) {
             selectedEmployeeId = targetRow.getAttribute('data-employee-id');
+            selectedEmployeeFired = targetRow.getAttribute('data-is-fired') === 'true';
+            // Показываем/скрываем пункты меню в зависимости от статуса
+            if (selectedEmployeeFired) {
+                fireItem.style.display = 'none';
+                deleteDbItem.style.display = 'block';
+            } else {
+                fireItem.style.display = 'block';
+                deleteDbItem.style.display = 'none';
+            }
+
             contextMenu.style.top = e.pageY + 'px';
             contextMenu.style.left = e.pageX + 'px';
             contextMenu.style.display = 'block';
@@ -154,9 +170,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (action && selectedEmployeeId) {
             if (action === 'view' || action === 'edit') {
                 window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
-            } else if (action === 'delete') {
-                if (confirm('Вы уверены, что хотите удалить этого сотрудника?')) {
-                    window.location.href = '{% url "delete_employee" 0 %}'.replace('0', selectedEmployeeId);
+            } else if (action === 'fire') {
+                if (confirm('Вы уверены, что хотите уволить этого сотрудника?')) {
+                    window.location.href = '{% url "fire_employee" 0 %}'.replace('0', selectedEmployeeId);
+                }
+            } else if (action === 'delete_db') {
+                if (confirm('Вы уверены, что хотите полностью удалить уволенного сотрудника из БД?')) {
+                    window.location.href = '{% url "delete_fired_employee" 0 %}'.replace('0', selectedEmployeeId);
                 }
             }
             contextMenu.style.display = 'none';
