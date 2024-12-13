@@ -1,17 +1,16 @@
-<!-- app/templates/set_user.html -->
 {% extends 'base.html' %}
 
-{% block title %}Выбрать пользователя{% endblock %}
+{% block title %}Выбрать пользователя или сотрудника{% endblock %}
 
 {% block content %}
 <div class="card mx-auto" style="max-width: 500px;">
     <div class="card-body">
-        <h2 class="card-title">Выберите пользователя</h2>
+        <h2 class="card-title">Выберите пользователя или сотрудника</h2>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                {{ form.user.label_tag }}
-                {{ form.user }}
+                {{ form.user_or_employee.label_tag }}
+                {{ form.user_or_employee }}
             </div>
             <button type="submit" class="btn btn-primary">Войти</button>
         </form>
