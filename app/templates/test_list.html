@@ -82,7 +82,9 @@
 <!-- Контекстное меню -->
 <div id="context-menu" class="context-menu">
     <ul>
-        <li data-action="start">Начать тест</li>
+        {% if role == 'user' %}
+            <li data-action="start">Начать тест</li>
+        {% endif %}
         {% if role == 'employee' or role == 'admin' %}
             <li data-action="test_edit">Редактировать тест</li>
         {% endif %}

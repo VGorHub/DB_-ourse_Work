@@ -1,0 +1,2819 @@
+Directory: app
+
+Directory Structure:
+```
+.
+.
+├── ./__init__.py
+├── ./admin.py
+├── ./apps.py
+├── ./context_processors.py
+├── ./filters.py
+├── ./forms.py
+├── ./migrations
+│   ├── ./migrations/0001_initial.py
+│   ├── ./migrations/0002_alter_testdeletionrequest_requested_by.py
+│   └── ./migrations/__init__.py
+├── ./models.py
+├── ./serializers.py
+├── ./templates
+│   ├── ./templates/add_answer.html
+│   ├── ./templates/add_employee.html
+│   ├── ./templates/add_question.html
+│   ├── ./templates/add_test.html
+│   ├── ./templates/add_user.html
+│   ├── ./templates/admin_test_results.html
+│   ├── ./templates/approve_test_deletion.html
+│   ├── ./templates/approve_test_result.html
+│   ├── ./templates/base.html
+│   ├── ./templates/edit_answer.html
+│   ├── ./templates/edit_question.html
+│   ├── ./templates/edit_test.html
+│   ├── ./templates/employee_detail.html
+│   ├── ./templates/employee_list.html
+│   ├── ./templates/index.html
+│   ├── ./templates/messages.html
+│   ├── ./templates/navbar.html
+│   ├── ./templates/pending_test_results.html
+│   ├── ./templates/request_test_deletion.html
+│   ├── ./templates/set_user.html
+│   ├── ./templates/start_test.html
+│   ├── ./templates/test_deletion_requests.html
+│   ├── ./templates/test_list.html
+│   ├── ./templates/test_result_detail.html
+│   ├── ./templates/test_results.html
+│   ├── ./templates/user_detail.html
+│   └── ./templates/user_list.html
+├── ./templatetags
+│   ├── ./templatetags/__init__.py
+│   └── ./templatetags/app_extras.py
+├── ./tests.py
+├── ./urls.py
+└── ./views.py
+```
+
+Contents of models.py:
+```
+# app/models.py
+from django.db import models
+from django.core.exceptions import ValidationError
+
+# Общие константы для выбора ролей
+ROLE_CHOICES = [
+    ('admin', 'Admin'),
+    ('user', 'User'),
+    ('employee', 'Employee'),
+]
+
+# Общие константы для статуса теста
+TEST_STATUS_CHOICES = [
+    ('passed', 'Пройден'),
+    ('failed', 'Не пройден'),
+    ('in_progress', 'В процессе'),
+]
+
+
+class AppUser(models.Model):
+    """
+    Модель пользователя приложения без поля role.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    full_name = models.CharField(max_length=255, db_column='Full Name')
+    email = models.EmailField(max_length=254, unique=True, db_column='Email')
+    age = models.PositiveIntegerField(db_column='Age')
+
+    class Meta:
+        db_table = 'User'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+    def clean(self):
+        super().clean()
+        if self.age <= 0:
+            raise ValidationError({'age': 'Возраст должен быть положительным числом.'})
+
+    def __str__(self):
+        return f"{self.full_name} ({self.email})"
+
+
+class Employee(models.Model):
+    """
+    Модель сотрудника.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    full_name = models.CharField(max_length=255, db_column='Full Name')
+    email = models.EmailField(max_length=254, unique=True, db_column='Email')
+    age = models.PositiveIntegerField(db_column='Age')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='employee', db_column='Role')
+    years_of_experience = models.PositiveIntegerField(db_column='Years of Experience')
+    position = models.CharField(max_length=255, db_column='Position')
+    salary = models.DecimalField(max_digits=10, decimal_places=2, db_column='Salary')
+    photo = models.ImageField(null=True, blank=True, upload_to='employee_photos/', db_column='Photo')
+    is_fired = models.BooleanField(default=False, db_column='Is Fired')
+
+    class Meta:
+        db_table = 'Employee'
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.years_of_experience < 0:
+            errors['years_of_experience'] = 'Стаж работы не может быть отрицательным.'
+        if self.salary < 0:
+            errors['salary'] = 'Зарплата не может быть отрицательной.'
+        if self.years_of_experience > self.age:
+            errors['years_of_experience'] = 'Стаж работы не может превышать возраст.'
+        if errors:
+            raise ValidationError(errors)
+
+    def __str__(self):
+        return f"{self.full_name} ({self.position})"
+
+
+class Test(models.Model):
+    """
+    Модель теста.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    title = models.CharField(max_length=255, db_column='Title')
+    passing_score = models.PositiveIntegerField(db_column='Passing Score')
+    description = models.TextField(null=True, blank=True, db_column='Description')
+    time_to_complete = models.PositiveIntegerField(db_column='Time to Complete')
+
+    class Meta:
+        db_table = 'Test'
+        verbose_name = 'Тест'
+        verbose_name_plural = 'Тесты'
+
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.passing_score < 0:
+            errors['passing_score'] = 'Проходной балл не может быть отрицательным.'
+        if self.time_to_complete <= 0:
+            errors['time_to_complete'] = 'Время на прохождение должно быть положительным числом.'
+        if errors:
+            raise ValidationError(errors)
+
+    def __str__(self):
+        return self.title
+
+
+class Question(models.Model):
+    """
+    Модель вопроса к тесту.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID', related_name='questions')
+    question_text = models.TextField(db_column='Question Text')
+    image = models.ImageField(null=True, blank=True, upload_to='question_images/', db_column='Image for the Question')
+
+    class Meta:
+        db_table = 'Question'
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+
+    def __str__(self):
+        return self.question_text
+
+
+class Answer(models.Model):
+    """
+    Модель ответа на вопрос.
+    """
+    question = models.ForeignKey('Question', on_delete=models.CASCADE, db_column='Question ID', related_name='answers')
+    answer_text = models.TextField(db_column='Answer Text')
+    is_correct = models.BooleanField(db_column='Correct Answer', default=False)
+    image = models.ImageField(null=True, blank=True, upload_to='answer_images/', db_column='Image for the Answer')
+
+    class Meta:
+        db_table = 'Answer'
+        verbose_name = 'Ответ'
+        verbose_name_plural = 'Ответы'
+
+
+    def __str__(self):
+        prefix = "[Верный]" if self.is_correct else "[Неверный]"
+        return f"{prefix} {self.answer_text}"
+
+
+class TestResult(models.Model):
+    """
+    Модель результата прохождения теста пользователем.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    user = models.ForeignKey('AppUser', on_delete=models.CASCADE, db_column='User ID', related_name='test_results')
+    test = models.ForeignKey('Test', on_delete=models.SET_NULL, null=True, blank=True, db_column='Test ID', related_name='results')
+    employee = models.ForeignKey('Employee', null=True, blank=True, on_delete=models.CASCADE, db_column='Employee ID', related_name='test_results')
+    test_date = models.DateField(db_column='Test Date')
+    score_achieved = models.PositiveIntegerField(db_column='Score Achieved')
+    status = models.CharField(max_length=20, db_column='Status', choices=TEST_STATUS_CHOICES)
+    attempt_number = models.PositiveIntegerField(db_column='Attempt Number')
+    approved = models.BooleanField(null=True, db_column='Approved')
+
+    class Meta:
+        db_table = 'TestResult'
+        verbose_name = 'Результат Теста'
+        verbose_name_plural = 'Результаты Тестов'
+
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.status not in dict(TEST_STATUS_CHOICES):
+            errors['status'] = 'Недопустимое значение статуса.'
+        num_questions = self.test.questions.count() if self.test else 0
+        if self.score_achieved > num_questions:
+            errors['score_achieved'] = 'Набранный балл не может превышать количество вопросов в тесте.'
+        if self.attempt_number <= 0:
+            errors['attempt_number'] = 'Номер попытки должен быть положительным числом.'
+        if errors:
+            raise ValidationError(errors)
+
+    def __str__(self):
+        test_title = self.test.title if self.test else "Тест удален"
+        return f"Результат: {test_title} для {self.user.full_name}, статус: {self.status}"
+
+
+class TestDeletionRequest(models.Model):
+    """
+    Модель запроса на удаление теста.
+    """
+    id = models.AutoField(primary_key=True, db_column='ID')
+    test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID', related_name='deletion_requests')
+    requested_by = models.ForeignKey('Employee', on_delete=models.CASCADE, db_column='Requested By', related_name='test_deletion_requests')
+    requested_at = models.DateTimeField(auto_now_add=True, db_column='Requested At')
+    approved = models.BooleanField(null=True, db_column='Approved')
+
+    class Meta:
+        db_table = 'TestDeletionRequest'
+        verbose_name = 'Запрос на удаление теста'
+        verbose_name_plural = 'Запросы на удаление тестов'
+
+    def clean(self):
+        super().clean()
+        if not self.requested_by:
+            raise ValidationError("Запрос должен быть сделан сотрудником.")
+
+    def __str__(self):
+        return f"Запрос на удаление теста '{self.test.title}' от {self.requested_by.full_name}"
+
+```
+
+Contents of serializers.py:
+```
+# app/serializers.py
+from rest_framework import serializers
+from .models import AppUser, Employee
+
+class UserSerializer(serializers.Serializer):
+    ID = serializers.IntegerField(source='id')
+    Full_Name = serializers.CharField(source='full_name')
+    Email = serializers.EmailField(source='email')
+    Age = serializers.IntegerField(source='age')
+
+class EmployeeSerializer(serializers.Serializer):
+    ID = serializers.IntegerField(source='id')
+    Full_Name = serializers.CharField(source='full_name')
+    Email = serializers.EmailField(source='email')
+    Age = serializers.IntegerField(source='age')
+    Years_of_Experience = serializers.IntegerField(source='years_of_experience')
+    Position = serializers.CharField(source='position')
+    Salary = serializers.DecimalField(max_digits=10, decimal_places=2, source='salary')
+    Photo = serializers.CharField(source='photo', allow_null=True, required=False)
+
+```
+
+Contents of __init__.py:
+```
+
+```
+
+Contents of apps.py:
+```
+from django.apps import AppConfig
+
+
+class AppConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'app'
+
+```
+
+Contents of forms.py:
+```
+# app/forms.py
+from django import forms
+from django.core.exceptions import ValidationError
+from django.db.models import Value
+from django.db.models.functions import Concat
+
+from .models import AppUser, Employee, TestDeletionRequest, Test, Question, Answer
+
+
+class UserSelectionForm(forms.Form):
+    """
+    Форма выбора пользователя для входа (имитация логина).
+    """
+    user_or_employee = forms.ChoiceField(
+        label="Выберите пользователя или сотрудника",
+        choices=[],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Получаем пользователей и сотрудников с аннотированными лейблами
+        app_users = AppUser.objects.annotate(
+            label=Concat('full_name', Value(' (Пользователь)'))
+        ).values_list('id', 'label')
+
+        employees = Employee.objects.annotate(
+            label=Concat('full_name', Value(' (Сотрудник)'))
+        ).values_list('id', 'label')
+
+        # Формируем выборки с префиксом типа пользователя
+        app_user_choices = [(f"AppUser-{user_id}", label) for user_id, label in app_users]
+        employee_choices = [(f"Employee-{emp_id}", label) for emp_id, label in employees]
+
+        # Объединяем выборки
+        combined_choices = app_user_choices + employee_choices
+        self.fields['user_or_employee'].choices = combined_choices
+
+
+class AppUserForm(forms.ModelForm):
+    """
+    Форма редактирования данных обычного пользователя.
+    """
+    class Meta:
+        model = AppUser
+        fields = ['full_name', 'email', 'age']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if AppUser.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise ValidationError("Пользователь с таким email уже существует.")
+        return email
+
+
+class AppUserAdminForm(forms.ModelForm):
+    """
+    Форма редактирования данных пользователя с правами админа.
+    """
+    class Meta:
+        model = AppUser
+        fields = ['full_name', 'email', 'age']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if AppUser.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise ValidationError("Пользователь с таким email уже существует.")
+        return email
+
+
+class EmployeeForm(forms.ModelForm):
+    """
+    Форма редактирования данных сотрудника (для роли 'employee').
+    """
+    class Meta:
+        model = Employee
+        fields = ['full_name', 'email', 'age', 'photo']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Employee.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise ValidationError("Сотрудник с таким email уже существует.")
+        return email
+
+
+class EmployeeAdminForm(forms.ModelForm):
+    """
+    Форма редактирования данных сотрудника для админа, включая роль.
+    """
+    class Meta:
+        model = Employee
+        fields = ['full_name', 'email', 'age', 'role', 'years_of_experience', 'position', 'salary', 'photo']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+            'years_of_experience': forms.NumberInput(attrs={'class': 'form-control'}),
+            'position': forms.TextInput(attrs={'class': 'form-control'}),
+            'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Employee.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise ValidationError("Сотрудник с таким email уже существует.")
+        return email
+
+
+class TestDeletionRequestForm(forms.ModelForm):
+    """
+    Форма запроса на удаление теста.
+    """
+    class Meta:
+        model = TestDeletionRequest
+        fields = []
+
+
+class AddTestForm(forms.ModelForm):
+    """
+    Форма добавления/редактирования теста.
+    """
+    class Meta:
+        model = Test
+        fields = ['title', 'passing_score', 'description', 'time_to_complete']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'passing_score': forms.NumberInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'time_to_complete': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
+class QuestionForm(forms.ModelForm):
+    """
+    Форма добавления/редактирования вопроса.
+    """
+    class Meta:
+        model = Question
+        fields = ['question_text', 'image']
+        widgets = {
+            'question_text': forms.Textarea(attrs={'class': 'form-control'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+        }
+
+
+class AnswerForm(forms.ModelForm):
+    """
+    Форма добавления/редактирования ответа.
+    """
+    class Meta:
+        model = Answer
+        fields = ['answer_text', 'is_correct', 'image']
+        widgets = {
+            'answer_text': forms.Textarea(attrs={'class': 'form-control'}),
+            'is_correct': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+        }
+
+    def __init__(self, *args, **kwargs):
+        """
+        Переопределение инициализатора формы для принятия дополнительного параметра 'question'.
+        """
+        self.question = kwargs.pop('question', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        """
+        Метод для валидации данных формы.
+        Проверяет, что у вопроса уже не существует другого правильного ответа.
+        """
+        cleaned_data = super().clean()
+        is_correct = cleaned_data.get('is_correct', False)
+        if is_correct and self.question:
+            # Проверяем, есть ли уже правильный ответ у этого вопроса
+            other_correct = Answer.objects.filter(question=self.question, is_correct=True).exclude(pk=self.instance.pk)
+            if other_correct.exists():
+                raise ValidationError("У данного вопроса уже есть правильный ответ.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        """
+        Метод сохранения формы.
+        Устанавливает связь между ответом и вопросом перед сохранением.
+        """
+        answer = super().save(commit=False)
+        if self.question:
+            answer.question = self.question
+        if commit:
+            answer.save()
+        return answer
+
+```
+
+Contents of context_processors.py:
+```
+# app/context_processors.py
+from .views import get_current_user
+
+def add_role_and_user_id(request):
+    current_user, role_name = get_current_user(request)
+    context = {
+        'role': role_name,
+        'user_id': current_user.id if current_user else None,
+    }
+    if role_name in ['employee', 'admin'] and current_user:
+        context['employee_id'] = current_user.id
+    return context
+
+```
+
+Contents of admin.py:
+```
+from django.contrib import admin
+
+```
+
+Contents of tests.py:
+```
+from django.test import TestCase
+
+# Create your tests here.
+
+```
+
+Contents of urls.py:
+```
+# app/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('set_user/', views.set_user, name='set_user'),
+    path('users/', views.user_list, name='user_list'),
+    path('users/<int:user_id>/', views.user_detail, name='user_detail'),
+    path('users/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('employees/', views.employee_list, name='employee_list'),
+    path('employees/<int:employee_id>/', views.employee_detail, name='employee_detail'),
+    path('employees/delete/<int:employee_id>/', views.delete_employee, name='delete_employee'),
+    path('employees/fire/<int:employee_id>/', views.fire_employee, name='fire_employee'),
+    path('employees/delete_from_db/<int:employee_id>/', views.delete_fired_employee, name='delete_fired_employee'),
+
+    path('users/add/', views.add_user, name='add_user'),
+    path('employees/add/', views.add_employee, name='add_employee'),
+
+    path('tests/', views.test_list, name='test_list'),
+    path('tests/start/<int:test_id>/', views.start_test, name='start_test'),
+    path('tests/result/<int:result_id>/', views.test_result_detail, name='test_result_detail'),
+    path('tests/results/', views.test_results, name='test_results'),
+    path('tests/request_delete/<int:test_id>/', views.request_test_deletion, name='request_test_deletion'),
+    path('tests/add/', views.add_test, name='add_test'),
+    path('admin1/test_results/', views.admin_test_results, name='admin_test_results'),
+    path('admin1/test_deletion_requests/', views.test_deletion_requests, name='test_deletion_requests'),
+    path('admin1/approve_test_deletion/<int:request_id>/', views.approve_test_deletion, name='approve_test_deletion'),
+
+    path('employee/pending_test_results/', views.pending_test_results, name='pending_test_results'),
+    path('employee/approve_test_result/<int:result_id>/', views.approve_test_result, name='approve_test_result'),
+
+    # API
+    path('api/users/', views.UserListAPI.as_view(), name='api_user_list'),
+    path('api/users/<int:user_id>/', views.UserDetailAPI.as_view(), name='api_user_detail'),
+    path('api/employees/', views.EmployeeListAPI.as_view(), name='api_employee_list'),
+    path('api/employees/<int:employee_id>/', views.EmployeeDetailAPI.as_view(), name='api_employee_detail'),
+
+    # Редактирование тестов (для employee/admin)
+    path('tests/edit/<int:test_id>/', views.edit_test, name='edit_test'),
+    path('tests/<int:test_id>/add_question/', views.add_question, name='add_question'),
+    path('question/edit/<int:question_id>/', views.edit_question, name='edit_question'),
+    path('question/<int:question_id>/add_answer/', views.add_answer, name='add_answer'),
+    path('answer/edit/<int:answer_id>/', views.edit_answer, name='edit_answer'),
+]
+
+```
+
+Contents of filters.py:
+```
+# filters.py
+
+import django_filters
+
+```
+
+Contents of views.py:
+```
+# app/views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseForbidden
+from django.core.exceptions import ValidationError
+from django.db.models import Q
+from django.core.paginator import Paginator
+from django.utils import timezone
+from django.views.decorators.http import require_POST
+
+from .models import AppUser, Employee, Question, Test, Answer, TestResult, TestDeletionRequest
+from .forms import (
+    AppUserForm, EmployeeForm, UserSelectionForm, EmployeeAdminForm, AppUserAdminForm,
+    TestDeletionRequestForm, AddTestForm, AnswerForm, QuestionForm
+)
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import UserSerializer, EmployeeSerializer
+
+
+def get_current_user(request):
+    user_id = request.session.get('user_id')
+    user_type = request.session.get('user_type')
+    if not user_id or not user_type:
+        return None, None
+    if user_type == 'AppUser':
+        try:
+            app_user = AppUser.objects.get(id=user_id)
+            return app_user, request.session.get('user_role', None)
+        except AppUser.DoesNotExist:
+            return None, None
+    else:
+        try:
+            employee = Employee.objects.get(id=user_id)
+            return employee, request.session.get('user_role', None)
+        except Employee.DoesNotExist:
+            return None, None
+
+
+def login_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        app_user, role_name = get_current_user(request)
+        if not app_user:
+            return redirect('set_user')
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+
+def index(request):
+    app_user, role_name = get_current_user(request)
+    if not app_user:
+        return redirect('set_user')
+    if role_name == 'employee' or role_name == 'admin':
+        employee_id = app_user.id
+        return render(request, 'index.html', {'role': role_name, 'user_id': app_user.id, 'app_user': app_user, 'employee_id': employee_id})
+    return render(request, 'index.html', {'role': role_name, 'user_id': app_user.id, 'app_user': app_user})
+
+
+def set_user(request):
+    if request.method == 'POST':
+        form = UserSelectionForm(request.POST)
+        if form.is_valid():
+            selected = form.cleaned_data['user_or_employee']
+            try:
+                # Разделяем тип пользователя и его ID
+                user_type, user_id = selected.split('-')
+                user_id = int(user_id)
+
+                if user_type == 'AppUser':
+                    app_user = AppUser.objects.get(id=user_id)
+                    role = "user"
+                    request.session['user_id'] = app_user.id
+                    request.session['user_role'] = role
+                    request.session['user_type'] = 'AppUser'
+                    messages.success(request, f'Вы вошли как {app_user.full_name} ({role})')
+                    return redirect('index')
+                elif user_type == 'Employee':
+                    employee = Employee.objects.get(id=user_id)
+                    role = employee.role
+                    request.session['user_id'] = employee.id
+                    request.session['user_role'] = role
+                    request.session['user_type'] = 'Employee'
+                    messages.success(request, f'Вы вошли как {employee.full_name} ({role})')
+                    return redirect('index')
+                else:
+                    return HttpResponse('Некорректный тип пользователя.', status=400)
+            except (ValueError, AppUser.DoesNotExist, Employee.DoesNotExist):
+                return HttpResponse('Некорректный выбор пользователя или сотрудника.', status=400)
+    else:
+        form = UserSelectionForm()
+    return render(request, 'set_user.html', {'form': form})
+
+
+@login_required
+def user_list(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'id')
+    order = request.GET.get('order', 'asc')
+
+    user_list = AppUser.objects.filter(
+        Q(full_name__icontains=search_query) | Q(email__icontains=search_query)
+    )
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    user_list = user_list.order_by(sort_by)
+
+    paginator = Paginator(user_list, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'user_list.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+@login_required
+def user_detail(request, user_id):
+    app_user, role_name = get_current_user(request)
+    target_user = get_object_or_404(AppUser, id=user_id)
+
+    if role_name != 'admin' and app_user.id != target_user.id:
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    if request.method == 'POST':
+        form = AppUserAdminForm(request.POST, instance=target_user) if role_name == 'admin' else AppUserForm(request.POST, instance=target_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Данные пользователя обновлены')
+            return redirect('user_detail', user_id=user_id)
+    else:
+        form = AppUserAdminForm(instance=target_user) if role_name == 'admin' else AppUserForm(instance=target_user)
+
+    return render(request, 'user_detail.html', {
+        'form': form,
+        'app_user': target_user,
+        'role': role_name
+    })
+
+
+@login_required
+def employee_list(request):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['admin', 'employee']:
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'id')
+    order = request.GET.get('order', 'asc')
+
+    if role_name == 'admin':
+        employee_list = Employee.objects.filter(
+            Q(full_name__icontains=search_query) | Q(email__icontains=search_query)
+        )
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    employee_list = employee_list.order_by(sort_by)
+
+    paginator = Paginator(employee_list, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'employee_list.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+@login_required
+def employee_detail(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    employee = get_object_or_404(Employee, id=employee_id)
+
+    # Если employee входит как сотрудник, он может редактировать только свои данные
+    if role_name == 'employee' and (employee.email != app_user.email or employee.full_name != app_user.full_name):
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    if request.method == 'POST':
+        form = EmployeeAdminForm(request.POST, request.FILES, instance=employee) if role_name == 'admin' else EmployeeForm(request.POST, request.FILES, instance=employee)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Данные сотрудника обновлены')
+            return redirect('employee_detail', employee_id=employee_id)
+    else:
+        form = EmployeeAdminForm(instance=employee) if role_name == 'admin' else EmployeeForm(instance=employee)
+
+    return render(request, 'employee_detail.html', {
+        'form': form,
+        'employee': employee,
+        'role': role_name
+    })
+
+
+@login_required
+def add_user(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    if request.method == 'POST':
+        form = AppUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            # Роль удалена из модели AppUser, ничего не назначаем
+            new_user.save()
+            messages.success(request, 'Новый пользователь добавлен')
+            return redirect('user_list')
+    else:
+        form = AppUserForm()
+
+    return render(request, 'add_user.html', {'form': form, 'role': role_name})
+
+
+@login_required
+def add_employee(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    if request.method == 'POST':
+        form = EmployeeAdminForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Новый сотрудник добавлен')
+            return redirect('employee_list')
+    else:
+        form = EmployeeAdminForm()
+
+    return render(request, 'add_employee.html', {'form': form, 'role': role_name})
+
+
+@login_required
+def delete_user(request, user_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    target_user = get_object_or_404(AppUser, id=user_id)
+    target_user.delete()
+    messages.success(request, 'Пользователь удалён')
+    return redirect('user_list')
+
+
+@login_required
+def delete_employee(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    employee = get_object_or_404(Employee, id=employee_id)
+    employee.delete()
+    messages.success(request, 'Сотрудник удалён')
+    return redirect('employee_list')
+
+
+@login_required
+def fire_employee(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    employee = get_object_or_404(Employee, id=employee_id)
+    if not employee.is_fired:
+        employee.is_fired = True
+        employee.save()
+        messages.success(request, 'Сотрудник уволен. Теперь его можно полностью удалить из БД.')
+    else:
+        messages.warning(request, 'Сотрудник уже уволен.')
+    return redirect('employee_list')
+
+
+@login_required
+def delete_fired_employee(request, employee_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    employee = get_object_or_404(Employee, id=employee_id)
+    if employee.is_fired:
+        employee.delete()
+        messages.success(request, 'Сотрудник полностью удален из БД.')
+    else:
+        messages.warning(request, 'Невозможно удалить: сотрудник не помечен как уволенный.')
+    return redirect('employee_list')
+
+
+@login_required
+def test_list(request):
+    app_user, role_name = get_current_user(request)
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'title')
+    order = request.GET.get('order', 'asc')
+
+    test_list = Test.objects.filter(
+        Q(title__icontains=search_query) | Q(description__icontains=search_query)
+    )
+
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    test_list = test_list.order_by(sort_by)
+
+    paginator = Paginator(test_list, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'test_list.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+
+@login_required
+def start_test(request, test_id):
+    app_user, role_name = get_current_user(request)
+
+
+    test = get_object_or_404(Test, id=test_id)
+    questions = test.questions.all()
+    print(questions)
+    if request.method == 'POST':
+        selected_answers = request.POST.getlist('answers')
+        correct_answers = Answer.objects.filter(question__test=test, is_correct=True).values_list('id', flat=True)
+        score = sum(1 for ans_id in selected_answers if int(ans_id) in correct_answers)
+        status = 'passed' if score >= test.passing_score else 'failed'
+        attempt_number = app_user.test_results.filter(test=test).count() + 1
+
+        TestResult.objects.create(
+            user=app_user,
+            test=test,
+            test_date=timezone.now().date(),
+            score_achieved=score,
+            status=status,
+            attempt_number=attempt_number,
+            approved=False,
+        )
+
+        messages.success(request, 'Ваш результат отправлен на проверку.')
+        return redirect('test_results')
+
+    return render(request, 'start_test.html', {
+        'test': test,
+        'questions': questions,
+    })
+
+
+@login_required
+def test_result_detail(request, result_id):
+    app_user, role_name = get_current_user(request)
+    # Здесь предполагается, что user в TestResult - это AppUser
+    test_result = get_object_or_404(TestResult, id=result_id, user=app_user if isinstance(app_user, AppUser) else None)
+    return render(request, 'test_result_detail.html', {'test_result': test_result})
+
+
+@login_required
+def test_results(request):
+    app_user, role_name = get_current_user(request)
+
+    # Показываем результаты для AppUser. Если вошел Employee - у него нет test_results напрямую. Изначально код был для AppUser.
+    if not isinstance(app_user, AppUser):
+        return HttpResponse('У вас нет пользовательских результатов тестов', status=403)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'test_date')
+    order = request.GET.get('order', 'desc')
+
+    test_results = app_user.test_results.filter(approved=True).select_related('test').filter(
+        Q(test__title__icontains=search_query)
+    )
+
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    test_results = test_results.order_by(sort_by)
+
+    paginator = Paginator(test_results, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'test_results.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+@login_required
+def request_test_deletion(request, test_id):
+    app_user, role_name = get_current_user(request)
+
+    # Разрешаем доступ только сотрудникам
+    if role_name != 'employee':
+        return HttpResponseForbidden('У вас нет доступа к этой странице.')
+
+    # Получаем объект теста или возвращаем 404
+    test = get_object_or_404(Test, id=test_id)
+
+    if request.method == 'POST':
+        # Создаём запрос на удаление теста, устанавливая `requested_by` как текущего сотрудника
+        TestDeletionRequest.objects.create(test=test, requested_by=app_user)
+        messages.success(request, 'Запрос на удаление теста отправлен администратору.')
+        return redirect('test_list')
+    else:
+        form = TestDeletionRequestForm()
+
+    return render(request, 'request_test_deletion.html', {
+        'form': form,
+        'test': test,
+        'role': role_name
+    })
+
+@login_required
+def test_deletion_requests(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    deletion_requests = TestDeletionRequest.objects.filter(approved__isnull=True).select_related('test', 'requested_by')
+    return render(request, 'test_deletion_requests.html', {
+        'deletion_requests': deletion_requests,
+        'role': role_name
+    })
+
+
+@login_required
+def approve_test_deletion(request, request_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    deletion_request = get_object_or_404(TestDeletionRequest, id=request_id)
+    test = deletion_request.test
+
+    if request.method == 'POST':
+        if 'approve' in request.POST:
+            test.delete()
+            deletion_request.approved = True
+            messages.success(request, f'Тест "{test.title}" был удалён.')
+        elif 'decline' in request.POST:
+            deletion_request.approved = False
+            messages.info(request, f'Удаление теста "{test.title}" отклонено.')
+        deletion_request.delete()
+        return redirect('test_deletion_requests')
+
+    return render(request, 'approve_test_deletion.html', {
+        'deletion_request': deletion_request,
+        'test': test,
+        'role': role_name
+    })
+
+
+@login_required
+def pending_test_results(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'employee':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    test_results = TestResult.objects.filter(approved=False).select_related('test', 'user')
+    return render(request, 'pending_test_results.html', {
+        'test_results': test_results,
+        'role': role_name
+    })
+
+
+@login_required
+def approve_test_result(request, result_id):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'employee':
+        return HttpResponse('У вас нет доступа к этой странице', status=403)
+
+    test_result = get_object_or_404(TestResult, id=result_id)
+    if request.method == 'POST':
+        if 'approve' in request.POST:
+            test_result.approved = True
+            test_result.save()
+            messages.success(request, 'Результат теста одобрен.')
+        elif 'decline' in request.POST:
+            test_result.delete()
+            messages.info(request, 'Результат теста отклонён и удалён.')
+        return redirect('pending_test_results')
+
+    return render(request, 'approve_test_result.html', {
+        'test_result': test_result,
+        'role': role_name
+    })
+
+
+@login_required
+def add_test(request):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('У вас нет доступа', status=403)
+
+    if request.method == 'POST':
+        form = AddTestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Тест успешно добавлен')
+            return redirect('test_list')
+    else:
+        form = AddTestForm()
+
+    return render(request, 'add_test.html', {'form': form, 'role': role_name})
+
+
+@login_required
+def admin_test_results(request):
+    app_user, role_name = get_current_user(request)
+    if role_name != 'admin':
+        return HttpResponse('У вас нет доступа', status=403)
+
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', 'test_date')
+    order = request.GET.get('order', 'desc')
+
+    test_results = TestResult.objects.select_related('test', 'user').filter(
+        Q(test__title__icontains=search_query) | Q(user__full_name__icontains=search_query)
+    )
+    if order == 'desc':
+        sort_by = '-' + sort_by
+    test_results = test_results.order_by(sort_by)
+
+    paginator = Paginator(test_results, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'admin_test_results.html', {
+        'page_obj': page_obj,
+        'role': role_name
+    })
+
+
+@login_required
+def edit_test(request, test_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+
+    test = get_object_or_404(Test, id=test_id)
+
+    if request.method == 'POST':
+        form = AddTestForm(request.POST, instance=test)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Тест обновлен')
+            return redirect('edit_test', test_id=test_id)
+    else:
+        form = AddTestForm(instance=test)
+
+    questions = test.questions.all()
+    return render(request, 'edit_test.html', {'form': form, 'test': test, 'questions': questions})
+
+
+@login_required
+def add_question(request, test_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+
+    test = get_object_or_404(Test, id=test_id)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, request.FILES)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.test = test
+            question.save()
+            messages.success(request, 'Вопрос добавлен')
+            return redirect('edit_test', test_id=test_id)
+    else:
+        form = QuestionForm()
+
+    return render(request, 'add_question.html', {'form': form, 'test': test})
+
+
+@login_required
+def edit_question(request, question_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, request.FILES, instance=question)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вопрос обновлен')
+            return redirect('edit_test', test_id=question.test.id)
+    else:
+        form = QuestionForm(instance=question)
+
+    answers = question.answers.all()
+    return render(request, 'edit_question.html', {'form': form, 'question': question, 'answers': answers})
+
+
+@login_required
+def add_answer(request, question_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES, question=question)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ответ добавлен')
+            return redirect('edit_question', question_id=question_id)
+    else:
+        form = AnswerForm(question=question)
+
+    return render(request, 'add_answer.html', {'form': form, 'question': question})
+
+
+@login_required
+def edit_answer(request, answer_id):
+    app_user, role_name = get_current_user(request)
+    if role_name not in ['employee', 'admin']:
+        return HttpResponse('Нет доступа', status=403)
+
+    answer = get_object_or_404(Answer, id=answer_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES, instance=answer, question=answer.question)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ответ обновлен')
+            return redirect('edit_question', question_id=answer.question.id)
+    else:
+        form = AnswerForm(instance=answer, question=answer.question)
+
+    return render(request, 'edit_answer.html', {'form': form, 'answer': answer})
+
+
+# API Views
+class UserListAPI(APIView):
+    def get(self, request):
+        app_users = AppUser.objects.all()
+        serializer = UserSerializer(app_users, many=True)
+        return Response(serializer.data)
+
+
+class UserDetailAPI(APIView):
+    def get(self, request, user_id):
+        try:
+            app_user = AppUser.objects.get(id=user_id)
+            serializer = UserSerializer(app_user)
+            return Response(serializer.data)
+        except AppUser.DoesNotExist:
+            return Response({'error': 'Пользователь не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class EmployeeListAPI(APIView):
+    def get(self, request):
+        employees = Employee.objects.all()
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)
+
+
+class EmployeeDetailAPI(APIView):
+    def get(self, request, employee_id):
+        try:
+            employee = Employee.objects.get(id=employee_id)
+            serializer = EmployeeSerializer(employee)
+            return Response(serializer.data)
+        except Employee.DoesNotExist:
+            return Response({'error': 'Сотрудник не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+```
+
+Contents of templatetags/__init__.py:
+```
+
+```
+
+Contents of templatetags/app_extras.py:
+```
+# app/templatetags/app_extras.py
+from django import template
+import base64
+
+register = template.Library()
+
+@register.filter
+def b64encode(value):
+    return base64.b64encode(value).decode('utf-8')
+
+@register.filter
+def to(value, arg):
+    return range(value, arg+1)
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
+```
+
+Contents of migrations/0002_alter_testdeletionrequest_requested_by.py:
+```
+# Generated by Django 4.2.16 on 2024-12-16 02:02
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('app', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.AlterField(
+            model_name='testdeletionrequest',
+            name='requested_by',
+            field=models.ForeignKey(db_column='Requested By', on_delete=django.db.models.deletion.CASCADE, related_name='test_deletion_requests', to='app.employee'),
+        ),
+    ]
+
+```
+
+Contents of migrations/__init__.py:
+```
+
+```
+
+Contents of migrations/0001_initial.py:
+```
+# Generated by Django 4.2.16 on 2024-12-11 05:11
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='AppUser',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('full_name', models.CharField(db_column='Full Name', max_length=255)),
+                ('email', models.EmailField(db_column='Email', max_length=254, unique=True)),
+                ('age', models.PositiveIntegerField(db_column='Age')),
+            ],
+            options={
+                'verbose_name': 'Пользователь',
+                'verbose_name_plural': 'Пользователи',
+                'db_table': 'User',
+            },
+        ),
+        migrations.CreateModel(
+            name='Employee',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('full_name', models.CharField(db_column='Full Name', max_length=255)),
+                ('email', models.EmailField(db_column='Email', max_length=254, unique=True)),
+                ('age', models.PositiveIntegerField(db_column='Age')),
+                ('role', models.CharField(choices=[('admin', 'Admin'), ('user', 'User'), ('employee', 'Employee')], db_column='Role', default='employee', max_length=10)),
+                ('years_of_experience', models.PositiveIntegerField(db_column='Years of Experience')),
+                ('position', models.CharField(db_column='Position', max_length=255)),
+                ('salary', models.DecimalField(db_column='Salary', decimal_places=2, max_digits=10)),
+                ('photo', models.ImageField(blank=True, db_column='Photo', null=True, upload_to='employee_photos/')),
+                ('is_fired', models.BooleanField(db_column='Is Fired', default=False)),
+            ],
+            options={
+                'verbose_name': 'Сотрудник',
+                'verbose_name_plural': 'Сотрудники',
+                'db_table': 'Employee',
+            },
+        ),
+        migrations.CreateModel(
+            name='Test',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('title', models.CharField(db_column='Title', max_length=255)),
+                ('passing_score', models.PositiveIntegerField(db_column='Passing Score')),
+                ('description', models.TextField(blank=True, db_column='Description', null=True)),
+                ('time_to_complete', models.PositiveIntegerField(db_column='Time to Complete')),
+            ],
+            options={
+                'verbose_name': 'Тест',
+                'verbose_name_plural': 'Тесты',
+                'db_table': 'Test',
+            },
+        ),
+        migrations.CreateModel(
+            name='TestResult',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('test_date', models.DateField(db_column='Test Date')),
+                ('score_achieved', models.PositiveIntegerField(db_column='Score Achieved')),
+                ('status', models.CharField(choices=[('passed', 'Пройден'), ('failed', 'Не пройден'), ('in_progress', 'В процессе')], db_column='Status', max_length=20)),
+                ('attempt_number', models.PositiveIntegerField(db_column='Attempt Number')),
+                ('approved', models.BooleanField(db_column='Approved', null=True)),
+                ('employee', models.ForeignKey(blank=True, db_column='Employee ID', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='test_results', to='app.employee')),
+                ('test', models.ForeignKey(blank=True, db_column='Test ID', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='results', to='app.test')),
+                ('user', models.ForeignKey(db_column='User ID', on_delete=django.db.models.deletion.CASCADE, related_name='test_results', to='app.appuser')),
+            ],
+            options={
+                'verbose_name': 'Результат Теста',
+                'verbose_name_plural': 'Результаты Тестов',
+                'db_table': 'TestResult',
+            },
+        ),
+        migrations.CreateModel(
+            name='TestDeletionRequest',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('requested_at', models.DateTimeField(auto_now_add=True, db_column='Requested At')),
+                ('approved', models.BooleanField(db_column='Approved', null=True)),
+                ('requested_by', models.ForeignKey(db_column='Requested By', on_delete=django.db.models.deletion.CASCADE, related_name='test_deletion_requests', to='app.appuser')),
+                ('test', models.ForeignKey(db_column='Test ID', on_delete=django.db.models.deletion.CASCADE, related_name='deletion_requests', to='app.test')),
+            ],
+            options={
+                'verbose_name': 'Запрос на удаление теста',
+                'verbose_name_plural': 'Запросы на удаление тестов',
+                'db_table': 'TestDeletionRequest',
+            },
+        ),
+        migrations.CreateModel(
+            name='Question',
+            fields=[
+                ('id', models.AutoField(db_column='ID', primary_key=True, serialize=False)),
+                ('question_text', models.TextField(db_column='Question Text')),
+                ('image', models.ImageField(blank=True, db_column='Image for the Question', null=True, upload_to='question_images/')),
+                ('test', models.ForeignKey(db_column='Test ID', on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='app.test')),
+            ],
+            options={
+                'verbose_name': 'Вопрос',
+                'verbose_name_plural': 'Вопросы',
+                'db_table': 'Question',
+            },
+        ),
+        migrations.CreateModel(
+            name='Answer',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('answer_text', models.TextField(db_column='Answer Text')),
+                ('is_correct', models.BooleanField(db_column='Correct Answer', default=False)),
+                ('image', models.ImageField(blank=True, db_column='Image for the Answer', null=True, upload_to='answer_images/')),
+                ('question', models.ForeignKey(db_column='Question ID', on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='app.question')),
+            ],
+            options={
+                'verbose_name': 'Ответ',
+                'verbose_name_plural': 'Ответы',
+                'db_table': 'Answer',
+            },
+        ),
+    ]
+
+```
+
+Contents of templates/test_result_detail.html:
+```
+<!-- app/templates/test_result_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Результат теста{% endblock %}
+
+{% block content %}
+<h1>Результат теста: {{ test_result.test.title }}</h1>
+<p>Дата прохождения: {{ test_result.test_date }}</p>
+<p>Результат: {{ test_result.score_achieved }} из {{ test_result.test.question_set.count }} вопросов</p>
+<p>Статус: {{ test_result.status }}</p>
+<p>Попытка номер: {{ test_result.attempt_number }}</p>
+
+<a href="{% url 'test_list' %}" class="btn btn-secondary">Назад к списку тестов</a>
+<a href="{% url 'test_results' %}" class="btn btn-primary">Мои результаты</a>
+{% endblock %}
+
+```
+
+Contents of templates/test_results.html:
+```
+<!-- app/templates/test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Мои результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Мои результаты тестов</h1>
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию теста" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="test-results-table">
+    <thead class="thead-light">
+        <tr>
+            <th>Тест</th>
+            <th>Дата прохождения</th>
+            <th>Результат</th>
+            <th>Статус</th>
+            <th>Попытка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in page_obj.object_list %}
+        <tr>
+            <td>{{ result.test.title }}</td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }} / {{ result.test.passing_score }}</td>
+            <td>{{ result.status }}</td>
+            <td>{{ result.attempt_number }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">У вас нет результатов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}
+
+```
+
+Contents of templates/add_employee.html:
+```
+<!-- app/templates/add_employee.html -->
+{% extends 'base.html' %}
+
+{% block title %}Добавить сотрудника{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h1 class="card-title">Добавить сотрудника</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Добавить сотрудника</button>
+            <!-- Условное отображение кнопки "Назад к списку сотрудников" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/admin_test_results.html:
+```
+<!-- app/templates/admin_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Все результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Все результаты тестов</h1>
+
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по тесту или ФИО пользователя" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата прохождения</th>
+            <th>Результат</th>
+            <th>Статус</th>
+            <th>Попытка</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in page_obj.object_list %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>
+            {% if result.test %}
+                {{ result.test.title }}
+            {% else %}
+                Тест удален
+            {% endif %}
+            </td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}{% if result.test %} / {{ result.test.passing_score }}{% endif %}</td>
+            <td>{{ result.status }}</td>
+            <td>{{ result.attempt_number }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Нет результатов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
+
+```
+
+Contents of templates/navbar.html:
+```
+<!-- app/templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'index' %}">Мое приложение</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"     aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'index' %}">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_list' %}">Тесты</a>
+            </li>
+            {% if role == 'user'%}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'test_results' %}">Мои результаты</a>
+            </li>
+            {% endif %}
+            {% if user_id %}
+                <li class="nav-item">
+                    {% if role == 'employee' or role == 'admin' %}
+                        {% if employee_id %}
+                            <a class="nav-link" href="{% url 'employee_detail' employee_id %}">Мой профиль</a>
+                        {% else %}
+                            <a class="nav-link disabled" href="#">Профиль недоступен</a>
+                        {% endif %}
+                    {% elif role == 'user' %}
+                        <a class="nav-link" href="{% url 'user_detail' user_id %}">Мой профиль</a>
+                    {% endif %}
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item {% if request.resolver_match.url_name == 'user_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'user_list' %}">Пользователи</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'employee_list' %}">Сотрудники</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_test_results' %}">Все результаты</a>
+                </li>
+            {% endif %}
+            {% if role == 'employee' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'pending_test_results' %}">Одобрение результатов</a>
+                </li>
+            {% endif %}
+            {% if role == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'test_deletion_requests' %}">Одобрение удаления тестов</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'set_user' %}">Сменить пользователя</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+```
+
+Contents of templates/employee_list.html:
+```
+{% extends 'base.html' %}
+
+{% block title %}Список сотрудников{% endblock %}
+
+{% block content %}
+<h1>Список сотрудников</h1>
+{% if role == 'admin' %}
+    <a href="{% url 'add_employee' %}" class="btn btn-success mb-3">Добавить сотрудника</a>
+{% endif %}
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по имени или email" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="employee-table">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Должность</th>
+            {% if role == 'admin' %}
+                <th>Зарплата</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in page_obj.object_list %}
+        <tr data-employee-id="{{ employee.id }}" data-is-fired="{{ employee.is_fired|yesno:'true,false' }}">
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.user.full_name }}</td>
+            <td>{{ employee.user.email }}</td>
+            <td>{{ employee.position }}</td>
+            {% if role == 'admin' %}
+                <td>{{ employee.salary }}</td>
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет сотрудников</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- Контекстное меню -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="view">Просмотреть</li>
+        <li data-action="edit">Редактировать</li>
+        {% if role == 'admin' %}
+            <!-- Для неуволенного сотрудника -->
+            <li data-action="fire" class="context-action-fire">Уволить</li>
+            <!-- Для уволенного сотрудника -->
+            <li data-action="delete_db" class="context-action-delete-db">Удалить из БД</li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.context-menu ul {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.context-menu ul li {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #eee;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.getElementById('employee-table');
+    const contextMenu = document.getElementById('context-menu');
+    let selectedEmployeeId = null;
+    let selectedEmployeeFired = false;
+
+    const fireItem = contextMenu.querySelector('.context-action-fire');
+    const deleteDbItem = contextMenu.querySelector('.context-action-delete-db');
+
+    table.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr[data-employee-id]');
+        if (targetRow) {
+            selectedEmployeeId = targetRow.getAttribute('data-employee-id');
+            selectedEmployeeFired = targetRow.getAttribute('data-is-fired') === 'true';
+            // Показываем/скрываем пункты меню в зависимости от статуса
+            if (selectedEmployeeFired) {
+                fireItem.style.display = 'none';
+                deleteDbItem.style.display = 'block';
+            } else {
+                fireItem.style.display = 'block';
+                deleteDbItem.style.display = 'none';
+            }
+
+            contextMenu.style.top = e.pageY + 'px';
+            contextMenu.style.left = e.pageX + 'px';
+            contextMenu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#context-menu')) {
+            contextMenu.style.display = 'none';
+        }
+    });
+
+    contextMenu.addEventListener('click', function(e) {
+        const action = e.target.getAttribute('data-action');
+        if (action && selectedEmployeeId) {
+            if (action === 'view' || action === 'edit') {
+                window.location.href = '{% url "employee_detail" 0 %}'.replace('0', selectedEmployeeId);
+            } else if (action === 'fire') {
+                if (confirm('Вы уверены, что хотите уволить этого сотрудника?')) {
+                    window.location.href = '{% url "fire_employee" 0 %}'.replace('0', selectedEmployeeId);
+                }
+            } else if (action === 'delete_db') {
+                if (confirm('Вы уверены, что хотите полностью удалить уволенного сотрудника из БД?')) {
+                    window.location.href = '{% url "delete_fired_employee" 0 %}'.replace('0', selectedEmployeeId);
+                }
+            }
+            contextMenu.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}
+
+```
+
+Contents of templates/pending_test_results.html:
+```
+<!-- app/templates/pending_test_results.html -->
+{% extends 'base.html' %}
+
+{% block title %}Ожидающие результаты тестов{% endblock %}
+
+{% block content %}
+<h1>Ожидающие результаты тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата</th>
+            <th>Результат</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in test_results %}
+        <tr>
+            <td>{{ result.user.full_name }}</td>
+            <td>{{ result.test.title }}</td>
+            <td>{{ result.test_date }}</td>
+            <td>{{ result.score_achieved }}</td>
+            <td>
+                <a href="{% url 'approve_test_result' result.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет результатов для одобрения.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+```
+
+Contents of templates/add_answer.html:
+```
+<!-- app/templates/add_answer.html -->
+{% extends 'base.html' %}
+{% block title %}Добавить ответ{% endblock %}
+{% block content %}
+<h1>Добавить ответ к вопросу: {{ question.question_text }}</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'edit_question' question.id %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/index.html:
+```
+<!-- app/templates/index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Добро пожаловать, {{ app_user.full_name }}</h1>
+    <p class="lead">Вы вошли как {{ app_user.full_name }}.</p>
+    <hr class="my-4">
+    {% if role == 'admin' %}
+        <p>Используйте меню навигации для управления пользователями и сотрудниками.</p>
+    {% else %}
+        <p>Вы можете просмотреть и изменить свой профиль.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/base.html:
+```
+<!-- app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Мое приложение{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Дополнительные стили -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Навигационная панель -->
+    {% include 'navbar.html' %}
+
+    <!-- Основное содержимое -->
+    <div class="container mt-4">
+        {% include 'messages.html' %}
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Футер -->
+    <footer class="bg-light text-center text-lg-start mt-auto">
+        <div class="container p-4">
+            <p class="text-muted">&copy; 2024 Мое приложение</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS и зависимости (jQuery и Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+
+```
+
+Contents of templates/test_deletion_requests.html:
+```
+<!-- app/templates/test_deletion_requests.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запросы на удаление тестов{% endblock %}
+
+{% block content %}
+<h1>Запросы на удаление тестов</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Тест</th>
+            <th>Запрошен пользователем</th>
+            <th>Дата запроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in deletion_requests %}
+        <tr>
+            <td>{{ req.test.title }}</td>
+            <td>{{ req.requested_by.full_name }}</td>
+            <td>{{ req.requested_at }}</td>
+            <td>
+                <a href="{% url 'approve_test_deletion' req.id %}" class="btn btn-primary">Просмотреть</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет запросов на удаление.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+```
+
+Contents of templates/set_user.html:
+```
+{% extends 'base.html' %}
+
+{% block title %}Выбрать пользователя или сотрудника{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+        <h2 class="card-title">Выберите пользователя или сотрудника</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.user_or_employee.label_tag }}
+                {{ form.user_or_employee }}
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/approve_test_result.html:
+```
+<!-- app/templates/approve_test_result.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение результата теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение результата теста</h1>
+
+<p><strong>Пользователь:</strong> {{ test_result.user.full_name }}</p>
+<p><strong>Тест:</strong> {{ test_result.test.title }}</p>
+<p><strong>Дата:</strong> {{ test_result.test_date }}</p>
+<p><strong>Результат:</strong> {{ test_result.score_achieved }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-success">Одобрить</button>
+    <button type="submit" name="decline" class="btn btn-danger">Отклонить и удалить</button>
+    <a href="{% url 'pending_test_results' %}" class="btn btn-link">Назад к списку</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/add_test.html:
+```
+<!-- app/templates/add_test.html -->
+{% extends 'base.html' %}
+
+{% block title %}Добавить тест{% endblock %}
+
+{% block content %}
+<h1>Добавить тест</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/add_question.html:
+```
+{% extends 'base.html' %}
+{% block title %}Добавить вопрос{% endblock %}
+{% block content %}
+<h1>Добавить вопрос к тесту: {{ test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="{% url 'edit_test' test.id %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/user_detail.html:
+```
+<!-- app/templates/user_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Детали пользователя{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h1 class="card-title">Детали пользователя</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/start_test.html:
+```
+<!-- app/templates/start_test.html -->
+{% extends 'base.html' %}
+
+{% block title %}Прохождение теста{% endblock %}
+
+{% block content %}
+<h1>{{ test.title }}</h1>
+<p>{{ test.description }}</p>
+<form method="post">
+    {% csrf_token %}
+    {% for question in questions %}
+        <div class="card mb-3">
+            <div class="card-header">
+                Вопрос {{ forloop.counter }}: {{ question.question_text }}
+            </div>
+            <div class="card-body">
+                {% if question.image %}
+                    <img src="{{ question.image.url }}" alt="Изображение к вопросу {{ forloop.counter }}" class="img-fluid mb-3">
+                {% endif %}
+                {% for answer in question.answers.all %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="answers" value="{{ answer.id }}" id="answer{{ answer.id }}">
+                        <label class="form-check-label" for="answer{{ answer.id }}">
+                            {{ answer.answer_text }}
+                            {% if answer.image %}
+                                <br>
+                                <img src="{{ answer.image.url }}" alt="Изображение к ответу" class="img-fluid mt-2">
+                            {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Завершить тест</button>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/edit_question.html:
+```
+<!-- app/templates/edit_question.html -->
+{% extends 'base.html' %}
+{% block title %}Редактирование вопроса{% endblock %}
+{% block content %}
+<h1>Редактирование вопроса теста: {{ question.test.title }}</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'edit_test' question.test.id %}" class="btn btn-secondary">Назад</a>
+</form>
+
+<h2>Ответы на вопрос</h2>
+<a href="{% url 'add_answer' question.id %}" class="btn btn-success mb-3">Добавить ответ</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Текст ответа</th>
+            <th>Правильный?</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ans in answers %}
+        <tr>
+            <td>{{ ans.answer_text }}</td>
+            <td>{{ ans.is_correct|yesno:"Да,Нет" }}</td>
+            <td>
+                <a href="{% url 'edit_answer' ans.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">Нет ответов</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+```
+
+Contents of templates/edit_test.html:
+```
+<!-- app/templates/edit_test.html -->
+{% extends 'base.html' %}
+{% block title %}Редактирование теста{% endblock %}
+{% block content %}
+<h1>Редактирование теста: {{ test.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+<h2>Вопросы</h2>
+<a href="{% url 'add_question' test.id %}" class="btn btn-success mb-3">Добавить вопрос</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Текст вопроса</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for q in questions %}
+        <tr>
+            <td>{{ q.question_text }}</td>
+            <td>
+                <a href="{% url 'edit_question' q.id %}" class="btn btn-sm btn-primary">Редактировать</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">Нет вопросов</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+```
+
+Contents of templates/approve_test_deletion.html:
+```
+<!-- app/templates/approve_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Одобрение удаления теста{% endblock %}
+
+{% block content %}
+<h1>Одобрение удаления теста</h1>
+
+<p><strong>Тест:</strong> {{ test.title }}</p>
+<p><strong>Запрошен пользователем:</strong> {{ deletion_request.requested_by.full_name }}</p>
+<p><strong>Дата запроса:</strong> {{ deletion_request.requested_at }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="approve" class="btn btn-danger">Одобрить и удалить тест</button>
+    <button type="submit" name="decline" class="btn btn-secondary">Отклонить запрос</button>
+    <a href="{% url 'test_deletion_requests' %}" class="btn btn-link">Назад к списку запросов</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/add_user.html:
+```
+<!-- app/templates/add_user.html -->
+{% extends 'base.html' %}
+
+{% block title %}Добавить пользователя{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h1 class="card-title">Добавить пользователя</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/messages.html:
+```
+<!-- app/templates/messages.html -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+```
+
+Contents of templates/employee_detail.html:
+```
+<!-- app/templates/employee_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Детали сотрудника{% endblock %}
+
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h1 class="card-title">Детали сотрудника</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if employee.photo %}
+                <div class="mb-3">
+                    <img src="{{ employee.photo.url }}" alt="Фотография сотрудника" class="img-thumbnail" style="max-width: 200px;">
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <!-- Условное отображение кнопки "Назад к списку сотрудников" только для администраторов -->
+            {% if role == 'admin' %}
+                <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+```
+
+Contents of templates/test_list.html:
+```
+{% extends 'base.html' %}
+
+{% block title %}Список тестов{% endblock %}
+
+{% block content %}
+<h1>Список тестов</h1>
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по названию или описанию" value="{{ request.GET.search }}">
+    </div>
+    <!-- Кнопка для добавления теста -->
+    <a class="btn btn-success mr-2" href="{% url 'add_test' %}" role="button">Добавить тест</a>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="test-table">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Проходной балл</th>
+            <th>Время на прохождение (мин)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for test in page_obj.object_list %}
+        <tr data-test-id="{{ test.id }}">
+            <td>{{ test.id }}</td>
+            <td>{{ test.title }}</td>
+            <td>{{ test.description }}</td>
+            <td>{{ test.passing_score }}</td>
+            <td>{{ test.time_to_complete }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Нет тестов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- Контекстное меню -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        {% if role == 'user' %}
+            <li data-action="start">Начать тест</li>
+        {% endif %}
+        {% if role == 'employee' or role == 'admin' %}
+            <li data-action="test_edit">Редактировать тест</li>
+        {% endif %}
+        {% if role == 'employee' %}
+            <li data-action="request_delete">Запросить удаление</li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.context-menu ul {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.context-menu ul li {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #eee;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.getElementById('test-table');
+    const contextMenu = document.getElementById('context-menu');
+    let selectedTestId = null;
+
+    table.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr[data-test-id]');
+        if (targetRow) {
+            selectedTestId = targetRow.getAttribute('data-test-id');
+            contextMenu.style.top = e.pageY + 'px';
+            contextMenu.style.left = e.pageX + 'px';
+            contextMenu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#context-menu')) {
+            contextMenu.style.display = 'none';
+        }
+    });
+
+    contextMenu.addEventListener('click', function(e) {
+        const action = e.target.getAttribute('data-action');
+        if (action && selectedTestId) {
+            if (action === 'start') {
+                window.location.href = '{% url "start_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'test_edit') {
+                window.location.href = '{% url "edit_test" 0 %}'.replace('0', selectedTestId);
+            } else if (action === 'request_delete') {
+                window.location.href = '{% url "request_test_deletion" 0 %}'.replace('0', selectedTestId);
+            }
+
+            contextMenu.style.display = 'none';
+        }
+    });
+
+});
+</script>
+{% endblock %}
+
+```
+
+Contents of templates/edit_answer.html:
+```
+<!-- app/templates/edit_answer.html -->
+{% extends 'base.html' %}
+{% block title %}Редактирование ответа{% endblock %}
+{% block content %}
+<h1>Редактирование ответа к вопросу: {{ answer.question.question_text }}</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a href="{% url 'edit_question' answer.question.id %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/request_test_deletion.html:
+```
+<!-- app/templates/request_test_deletion.html -->
+{% extends 'base.html' %}
+
+{% block title %}Запрос на удаление теста{% endblock %}
+
+{% block content %}
+<h1>Запрос на удаление теста: {{ test.title }}</h1>
+<p>Вы уверены, что хотите отправить запрос на удаление этого теста?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Отправить запрос</button>
+    <a href="{% url 'test_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
+
+```
+
+Contents of templates/user_list.html:
+```
+<!-- app/templates/user_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
+<h1>Список пользователей</h1>
+{% if role == 'admin' %}
+    <a href="{% url 'add_user' %}" class="btn btn-success mb-3">Добавить пользователя</a>
+{% endif %}
+
+<!-- Форма фильтрации -->
+<form method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по имени или email" value="{{ request.GET.search }}">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Поиск</button>
+</form>
+
+<table class="table table-hover" id="user-table">
+    <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Возраст</th>
+            <!-- Роль удалена из AppUser, убираем столбец Роль -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in page_obj.object_list %}
+        <tr data-user-id="{{ user.id }}">
+            <td>{{ user.id }}</td>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.age }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет пользователей</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<nav aria-label="Навигация по страницам">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Предыдущая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Предыдущая</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Следующая</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Следующая</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<!-- Контекстное меню -->
+<div id="context-menu" class="context-menu">
+    <ul>
+        <li data-action="view">Просмотреть</li>
+        <li data-action="edit">Редактировать</li>
+        <li data-action="delete">Удалить</li>
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.context-menu ul {
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+}
+
+.context-menu ul li {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover {
+    background-color: #eee;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.getElementById('user-table');
+    const contextMenu = document.getElementById('context-menu');
+    let selectedUserId = null;
+
+    table.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr[data-user-id]');
+        if (targetRow) {
+            selectedUserId = targetRow.getAttribute('data-user-id');
+            contextMenu.style.top = e.pageY + 'px';
+            contextMenu.style.left = e.pageX + 'px';
+            contextMenu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#context-menu')) {
+            contextMenu.style.display = 'none';
+        }
+    });
+
+    contextMenu.addEventListener('click', function(e) {
+        const action = e.target.getAttribute('data-action');
+        if (action && selectedUserId) {
+            if (action === 'view' || action === 'edit') {
+                window.location.href = '{% url "user_detail" 0 %}'.replace('0', selectedUserId);
+            } else if (action === 'delete') {
+                if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
+                    window.location.href = '{% url "delete_user" 0 %}'.replace('0', selectedUserId);
+                }
+            }
+            contextMenu.style.display = 'none';
+        }
+    });
+});
+</script>
+{% endblock %}
+
+```
+

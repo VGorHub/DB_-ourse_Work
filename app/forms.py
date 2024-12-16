@@ -6,6 +6,7 @@ from django.db.models.functions import Concat
 
 from .models import AppUser, Employee, TestDeletionRequest, Test, Question, Answer
 
+
 class UserSelectionForm(forms.Form):
     """
     Форма выбора пользователя для входа (имитация логина).
@@ -18,7 +19,7 @@ class UserSelectionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Объединяем пользователей и сотрудников
+        # Получаем пользователей и сотрудников с аннотированными лейблами
         app_users = AppUser.objects.annotate(
             label=Concat('full_name', Value(' (Пользователь)'))
         ).values_list('id', 'label')
@@ -27,7 +28,12 @@ class UserSelectionForm(forms.Form):
             label=Concat('full_name', Value(' (Сотрудник)'))
         ).values_list('id', 'label')
 
-        combined_choices = list(app_users) + list(employees)
+        # Формируем выборки с префиксом типа пользователя
+        app_user_choices = [(f"AppUser-{user_id}", label) for user_id, label in app_users]
+        employee_choices = [(f"Employee-{emp_id}", label) for emp_id, label in employees]
+
+        # Объединяем выборки
+        combined_choices = app_user_choices + employee_choices
         self.fields['user_or_employee'].choices = combined_choices
 
 
@@ -77,14 +83,11 @@ class EmployeeForm(forms.ModelForm):
     """
     class Meta:
         model = Employee
-        fields = ['full_name', 'email', 'age', 'years_of_experience', 'position', 'salary', 'photo']
+        fields = ['full_name', 'email', 'age', 'photo']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'years_of_experience': forms.NumberInput(attrs={'class': 'form-control'}),
-            'position': forms.TextInput(attrs={'class': 'form-control'}),
-            'salary': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
 
@@ -170,16 +173,35 @@ class AnswerForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
         }
 
+    def __init__(self, *args, **kwargs):
+        """
+        Переопределение инициализатора формы для принятия дополнительного параметра 'question'.
+        """
+        self.question = kwargs.pop('question', None)
+        super().__init__(*args, **kwargs)
+
     def clean(self):
+        """
+        Метод для валидации данных формы.
+        Проверяет, что у вопроса уже не существует другого правильного ответа.
+        """
         cleaned_data = super().clean()
         is_correct = cleaned_data.get('is_correct', False)
-        question = self.instance.question if self.instance.pk else None
-
-        # Если новый ответ или редактирование ответа
-        # Если is_correct = True, проверяем, что нет другого правильного ответа
-        if is_correct and question:
-            # Ищем другие правильные ответы
-            other_correct = question.answers.filter(is_correct=True).exclude(pk=self.instance.pk)
+        if is_correct and self.question:
+            # Проверяем, есть ли уже правильный ответ у этого вопроса
+            other_correct = Answer.objects.filter(question=self.question, is_correct=True).exclude(pk=self.instance.pk)
             if other_correct.exists():
                 raise ValidationError("У данного вопроса уже есть правильный ответ.")
         return cleaned_data
+
+    def save(self, commit=True):
+        """
+        Метод сохранения формы.
+        Устанавливает связь между ответом и вопросом перед сохранением.
+        """
+        answer = super().save(commit=False)
+        if self.question:
+            answer.question = self.question
+        if commit:
+            answer.save()
+        return answer

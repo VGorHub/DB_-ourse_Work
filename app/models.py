@@ -137,13 +137,6 @@ class Answer(models.Model):
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
 
-    def clean(self):
-        super().clean()
-        if self.is_correct and self.question:
-            # Проверяем, есть ли уже правильный ответ у этого вопроса
-            other_correct = Answer.objects.filter(question=self.question, is_correct=True).exclude(pk=self.pk)
-            if other_correct.exists():
-                raise ValidationError("У данного вопроса уже есть правильный ответ.")
 
     def __str__(self):
         prefix = "[Верный]" if self.is_correct else "[Неверный]"
@@ -193,7 +186,7 @@ class TestDeletionRequest(models.Model):
     """
     id = models.AutoField(primary_key=True, db_column='ID')
     test = models.ForeignKey('Test', on_delete=models.CASCADE, db_column='Test ID', related_name='deletion_requests')
-    requested_by = models.ForeignKey('AppUser', on_delete=models.CASCADE, db_column='Requested By', related_name='test_deletion_requests')
+    requested_by = models.ForeignKey('Employee', on_delete=models.CASCADE, db_column='Requested By', related_name='test_deletion_requests')
     requested_at = models.DateTimeField(auto_now_add=True, db_column='Requested At')
     approved = models.BooleanField(null=True, db_column='Approved')
 
@@ -201,6 +194,11 @@ class TestDeletionRequest(models.Model):
         db_table = 'TestDeletionRequest'
         verbose_name = 'Запрос на удаление теста'
         verbose_name_plural = 'Запросы на удаление тестов'
+
+    def clean(self):
+        super().clean()
+        if not self.requested_by:
+            raise ValidationError("Запрос должен быть сделан сотрудником.")
 
     def __str__(self):
         return f"Запрос на удаление теста '{self.test.title}' от {self.requested_by.full_name}"

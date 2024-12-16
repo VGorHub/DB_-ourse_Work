@@ -22,7 +22,6 @@
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary">Сохранить</button>
-            <!-- Условное отображение кнопки "Назад к списку пользователей" только для администраторов -->
             {% if role == 'admin' %}
                 <a href="{% url 'user_list' %}" class="btn btn-secondary">Назад к списку пользователей</a>
             {% endif %}

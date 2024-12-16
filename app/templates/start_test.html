@@ -14,11 +14,18 @@
                 Вопрос {{ forloop.counter }}: {{ question.question_text }}
             </div>
             <div class="card-body">
-                {% for answer in question.answer_set.all %}
+                {% if question.image %}
+                    <img src="{{ question.image.url }}" alt="Изображение к вопросу {{ forloop.counter }}" class="img-fluid mb-3">
+                {% endif %}
+                {% for answer in question.answers.all %}
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="answers" value="{{ answer.id }}" id="answer{{ answer.id }}">
                         <label class="form-check-label" for="answer{{ answer.id }}">
                             {{ answer.answer_text }}
+                            {% if answer.image %}
+                                <br>
+                                <img src="{{ answer.image.url }}" alt="Изображение к ответу" class="img-fluid mt-2">
+                            {% endif %}
                         </label>
                     </div>
                 {% endfor %}

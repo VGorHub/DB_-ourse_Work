@@ -1,8 +1,9 @@
+<!-- app/templates/add_answer.html -->
 {% extends 'base.html' %}
 {% block title %}Добавить ответ{% endblock %}
 {% block content %}
 <h1>Добавить ответ к вопросу: {{ question.question_text }}</h1>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary">Добавить</button>

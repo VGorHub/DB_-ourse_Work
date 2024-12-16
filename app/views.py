@@ -1,7 +1,7 @@
 # app/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -52,6 +52,9 @@ def index(request):
     app_user, role_name = get_current_user(request)
     if not app_user:
         return redirect('set_user')
+    if role_name == 'employee' or role_name == 'admin':
+        employee_id = app_user.id
+        return render(request, 'index.html', {'role': role_name, 'user_id': app_user.id, 'app_user': app_user, 'employee_id': employee_id})
     return render(request, 'index.html', {'role': role_name, 'user_id': app_user.id, 'app_user': app_user})
 
 
@@ -59,25 +62,32 @@ def set_user(request):
     if request.method == 'POST':
         form = UserSelectionForm(request.POST)
         if form.is_valid():
-            selected_id = form.cleaned_data['user_or_employee']
-            # Проверяем, это пользователь или сотрудник
+            selected = form.cleaned_data['user_or_employee']
             try:
-                app_user = AppUser.objects.get(id=selected_id)
-                role = "Пользователь"
-                request.session['user_id'] = app_user.id
-                request.session['user_role'] = role
-                request.session['user_type'] = 'AppUser'
-                messages.success(request, f'Вы вошли как {app_user.full_name} ({role})')
-                return redirect('index')
-            except AppUser.DoesNotExist:
-                employee = Employee.objects.get(id=selected_id)
-                # Роль берём из employee.role
-                role = employee.role
-                request.session['user_id'] = employee.id
-                request.session['user_role'] = role
-                request.session['user_type'] = 'Employee'
-                messages.success(request, f'Вы вошли как {employee.full_name} ({role})')
-                return redirect('index')
+                # Разделяем тип пользователя и его ID
+                user_type, user_id = selected.split('-')
+                user_id = int(user_id)
+
+                if user_type == 'AppUser':
+                    app_user = AppUser.objects.get(id=user_id)
+                    role = "user"
+                    request.session['user_id'] = app_user.id
+                    request.session['user_role'] = role
+                    request.session['user_type'] = 'AppUser'
+                    messages.success(request, f'Вы вошли как {app_user.full_name} ({role})')
+                    return redirect('index')
+                elif user_type == 'Employee':
+                    employee = Employee.objects.get(id=user_id)
+                    role = employee.role
+                    request.session['user_id'] = employee.id
+                    request.session['user_role'] = role
+                    request.session['user_type'] = 'Employee'
+                    messages.success(request, f'Вы вошли как {employee.full_name} ({role})')
+                    return redirect('index')
+                else:
+                    return HttpResponse('Некорректный тип пользователя.', status=400)
+            except (ValueError, AppUser.DoesNotExist, Employee.DoesNotExist):
+                return HttpResponse('Некорректный выбор пользователя или сотрудника.', status=400)
     else:
         form = UserSelectionForm()
     return render(request, 'set_user.html', {'form': form})
@@ -147,13 +157,6 @@ def employee_list(request):
         employee_list = Employee.objects.filter(
             Q(full_name__icontains=search_query) | Q(email__icontains=search_query)
         )
-    else:  # employee
-        # Для сотрудника показываем только его самого
-        if hasattr(app_user, 'email') and hasattr(app_user, 'full_name'):
-            employee_list = Employee.objects.filter(email=app_user.email, full_name=app_user.full_name)
-        else:
-            employee_list = Employee.objects.none()
-
     if order == 'desc':
         sort_by = '-' + sort_by
     employee_list = employee_list.order_by(sort_by)
@@ -309,12 +312,15 @@ def test_list(request):
     })
 
 
+
 @login_required
 def start_test(request, test_id):
     app_user, role_name = get_current_user(request)
+
+
     test = get_object_or_404(Test, id=test_id)
     questions = test.questions.all()
-
+    print(questions)
     if request.method == 'POST':
         selected_answers = request.POST.getlist('answers')
         correct_answers = Answer.objects.filter(question__test=test, is_correct=True).values_list('id', flat=True)
@@ -322,27 +328,9 @@ def start_test(request, test_id):
         status = 'passed' if score >= test.passing_score else 'failed'
         attempt_number = app_user.test_results.filter(test=test).count() + 1
 
-        # Проверяем, если выбранный юзер - AppUser, пытаться связать с Employee, если совпадает email
-        linked_employee = None
-        if isinstance(app_user, AppUser):
-            linked_employee = Employee.objects.filter(email=app_user.email, full_name=app_user.full_name).first()
-        else:
-            # Если текущий user - это Employee
-            linked_employee = app_user
-
         TestResult.objects.create(
-            user=app_user if isinstance(app_user, AppUser) else app_user.user,  # Если Employee, нет поля user, но тут app_user - employee?
-            # Однако employee не имеет поля user. Тут исходно app_user - так названо, но это может быть Employee.
-            # Проверим: функция start_test вызывается для авторизованного, app_user - это либо AppUser либо Employee.
-            # TestResult.user - ForeignKey на AppUser. Значит нам нужен именно AppUser. Если текущий - Employee, возьмем связанного AppUser? По ТЗ у нас независимы, пусть будет app_user, если Employee - ошибка?
-            # В исходном коде было user=app_user. app_user по логике всегда AppUser. Но теперь может быть Employee.
-            # Предположим, что тесты проходят только AppUser. Если Employee выбран, он тоже может быть как user?
-            # С учетом ТЗ оставим как было: user=app_user (который AppUser). Если Employee - не очень логично.
-            # Но в исходном коде на employee тоже была логика. Предположим, что employee вошел, но TestResult требует AppUser.
-            # Можно сохранить как было:
-            # user=app_user if isinstance(app_user, AppUser) else None,  # Если employee вошел, для теста нужен user(AppUser). В исходном коде это не было уточнено.
+            user=app_user,
             test=test,
-            employee=linked_employee,
             test_date=timezone.now().date(),
             score_achieved=score,
             status=status,
@@ -399,15 +387,17 @@ def test_results(request):
 @login_required
 def request_test_deletion(request, test_id):
     app_user, role_name = get_current_user(request)
-    # Только employee мог запросить удаление, но раньше это проверялось по role_name
-    # Оставим логику: если employee, может запросить
-    if role_name != 'employee':
-        return HttpResponse('У вас нет доступа к этой странице', status=403)
 
+    # Разрешаем доступ только сотрудникам
+    if role_name != 'employee':
+        return HttpResponseForbidden('У вас нет доступа к этой странице.')
+
+    # Получаем объект теста или возвращаем 404
     test = get_object_or_404(Test, id=test_id)
 
     if request.method == 'POST':
-        TestDeletionRequest.objects.create(test=test, requested_by=app_user if isinstance(app_user, AppUser) else None)
+        # Создаём запрос на удаление теста, устанавливая `requested_by` как текущего сотрудника
+        TestDeletionRequest.objects.create(test=test, requested_by=app_user)
         messages.success(request, 'Запрос на удаление теста отправлен администратору.')
         return redirect('test_list')
     else:
@@ -418,7 +408,6 @@ def request_test_deletion(request, test_id):
         'test': test,
         'role': role_name
     })
-
 
 @login_required
 def test_deletion_requests(request):
@@ -450,7 +439,7 @@ def approve_test_deletion(request, request_id):
         elif 'decline' in request.POST:
             deletion_request.approved = False
             messages.info(request, f'Удаление теста "{test.title}" отклонено.')
-        deletion_request.save()
+        deletion_request.delete()
         return redirect('test_deletion_requests')
 
     return render(request, 'approve_test_deletion.html', {
@@ -610,15 +599,13 @@ def add_answer(request, question_id):
 
     question = get_object_or_404(Question, id=question_id)
     if request.method == 'POST':
-        form = AnswerForm(request.POST, request.FILES)
+        form = AnswerForm(request.POST, request.FILES, question=question)
         if form.is_valid():
-            answer = form.save(commit=False)
-            answer.question = question
-            answer.save()
+            form.save()
             messages.success(request, 'Ответ добавлен')
             return redirect('edit_question', question_id=question_id)
     else:
-        form = AnswerForm()
+        form = AnswerForm(question=question)
 
     return render(request, 'add_answer.html', {'form': form, 'question': question})
 
@@ -631,13 +618,13 @@ def edit_answer(request, answer_id):
 
     answer = get_object_or_404(Answer, id=answer_id)
     if request.method == 'POST':
-        form = AnswerForm(request.POST, request.FILES, instance=answer)
+        form = AnswerForm(request.POST, request.FILES, instance=answer, question=answer.question)
         if form.is_valid():
             form.save()
             messages.success(request, 'Ответ обновлен')
             return redirect('edit_question', question_id=answer.question.id)
     else:
-        form = AnswerForm(instance=answer)
+        form = AnswerForm(instance=answer, question=answer.question)
 
     return render(request, 'edit_answer.html', {'form': form, 'answer': answer})
 

@@ -12,7 +12,6 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Добавить сотрудника</button>
-            <!-- Условное отображение кнопки "Назад к списку сотрудников" только для администраторов -->
             {% if role == 'admin' %}
                 <a href="{% url 'employee_list' %}" class="btn btn-secondary">Назад к списку сотрудников</a>
             {% endif %}
